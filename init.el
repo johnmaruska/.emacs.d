@@ -94,18 +94,6 @@
 (require 'ido)
 (ido-mode t)
 
-;; Flycheck
-(add-hook 'after-init-hook #'global-flycheck-mode)
-
-;; Rainbow delimiters (colored parens)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-
-;; shell script mode
-(defun my-shell-script-mode-hook ()
-  "Handles all configuration for Clojure mode."
-  (sh-basic-offset 2))
-(add-hook 'shell-script-mode-hook #'my-shell-script-mode-hook)
-
 ;; neotree
 (require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
@@ -118,33 +106,6 @@
 (define-key ac-completing-map "\r" nil) ; no enter (2.)
 (define-key ac-completing-map "\t" 'ac-complete) ; use tab to complete
 (put 'upcase-region 'disabled nil)
-
-;;; Whitespace mode
-(require 'whitespace)
-(setq whitespace-style '(face empty tabs trailing))
-(global-whitespace-mode 0)
-(mapc (lambda (mode-hook)
-        (add-hook mode-hook 'whitespace-mode))
-      '(c-mode-hook
-        c++-mode-hook
-        clojure-mode-hook
-        emacs-lisp-mode-hook
-        html-mode-hook
-        lisp-mode-hook
-        python-mode-hook
-        ruby-mode-hook
-        rust-mode-hook
-        shell-script-mode-hook))
-
-;;; Paredit
-(mapc #'(lambda (mode-hook)
-          (add-hook mode-hook 'paredit-mode))
-      '(clojure-mode-hook
-        emacs-lisp-mode-hook
-        eval-expression-minibuffer-setup-hook
-        json-mode-hook
-        lisp-mode-hook
-        lisp-interaction-mode-hook))
 
 ;; Miscellaneous settings
 (setq-default indent-tabs-mode nil)  ; don't mix tabs and spaces
@@ -228,52 +189,7 @@ Greatly increase the size of the font and change to a light scheme to present."
        (mac-default-font-and-theme)))
 (set-face-attribute 'default nil :font "Ubuntu Mono")
 
-;;; Clojure
-(require 'clojure-mode)
-(require 'cider)
-(require 'clj-refactor)
-(defun my-clojure-mode-hook ()
-  "Handles all configuration for Clojure mode."
-  (clj-refactor-mode 1)
-  (yas-minor-mode 1) ; for adding require/use/import statements
-  (paredit-mode 1)
-  (whitespace-mode 1))
-(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
-
-;;; Org
-;; if you don't use font-lock globally
-(add-hook 'org-mode-hook 'turn-on-font-lock)
-
-;;; JavaScript
-(require 'rjsx-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-
-
-;;; JSON
-(defun json-format ()
-  "Format block to adhere to readable JSON format."
-  (interactive)
-  (save-excursion
-    (shell-command-on-region (mark) (point) "python -m json.tool" (buffer-name) t)))
-
-;;; Markdown
-(require 'markdown-mode)
-(add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-
-;;; Magit
-(global-set-key (kbd "C-x g") 'magit-status)
-(require 'magit-gitflow)
-(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-
-;;; Rust
-(require 'rust-mode)
-(add-hook 'rust-mode-hook 'flycheck-rust-setup)
-
-;;; YAML
-(require 'yaml-mode)
-(add-hook 'yaml-mode-hook 'linum-mode)
-
+(load "~/.emacs.d/mode-hooks.el")
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -289,5 +205,5 @@ Greatly increase the size of the font and change to a light scheme to present."
 
 ;;; Commentary:
 
-(provide '.init)
+(provide 'init)
 ;;; init.el ends here
