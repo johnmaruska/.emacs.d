@@ -10,6 +10,7 @@
 - multiple-cursors
 - rest-client
 - look into helm-cider
+- code folding please
 
 ### Tweaks
 - separate path-list values for different machines

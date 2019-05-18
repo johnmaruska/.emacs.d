@@ -6,86 +6,8 @@
 
 ;;; Code:
 
-;; $PATH settings for subsystem processes and for eshell
-(defvar path-list)
-(setq path-list (list "/usr/local/opt/bin/go/libexec/bin"
-                        (expand-file-name "~/bin")
-                        "/usr/local/bin"
-                        "/usr/local/sbin"
-                        (expand-file-name "~/.rvm/bin")
-                        (expand-file-name "~/.rvm/sbin")
-                        "/usr/texbin"
-                        "/Library/TeX/texbin"
-                        "/usr/bin"
-                        "/usr/sbin"
-                        "/bin"
-                        "/sbin"
-                        "/opt/pixie"
-                        "/opt/sbin"
-                        "/usr/local/bin/exercism-mac-64bit"
-                        "/usr/local/opt/postgresql@9.6/bin"
-                        (expand-file-name "~/climate/bin")
-                        (expand-file-name "~/.cargo/bin") ; Rust
-                        (expand-file-name "~/gatling/bin")    ; Gatling
-                        (expand-file-name "~/Documents/apache-maven-3.5.4")
-                        (getenv "PATH")))
-
-(when window-system
-  ;; this matters for sub-shell process (e.g. launch bash)
-  (setenv "PATH" (mapconcat 'identity path-list ":")))
-
-(setenv "JAVA_HOME"
-        "/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home")
-
-;; this matters for eshell
-(setq exec-path (append exec-path path-list))
-
-
-;;; Package handling
-(require 'package)
-(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")
-                         ("melpa-stable" . "http://stable.melpa.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")))
-(package-initialize)
-
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-(setq url-http-attempt-keepalives nil)
-(unless package-archive-contents
-  (package-refresh-contents))
-
-(defvar package-list)
-(setq package-list '(ack-and-a-half
-                     auto-complete
-                     cider
-                     clj-refactor
-                     clojure-mode
-                     color-theme-sanityinc-tomorrow
-                     ensime
-                     flycheck
-                     flycheck-clojure
-                     flycheck-pos-tip
-                     flycheck-rust
-                     geiser
-                     markdown-mode
-                     magit-gitflow
-                     multiple-cursors
-                     neotree
-                     paredit
-                     rainbow-delimiters
-                     rjsx-mode
-                     rust-mode
-                     scala-mode
-                     whitespace-cleanup-mode
-                     w3m
-                     yaml-mode))
-
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+(load "~/.emacs.d/env-vars.el")
+(load "~/.emacs.d/packages.el")
 
 ;; EMBIGGEN
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
