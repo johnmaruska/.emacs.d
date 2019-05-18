@@ -1,31 +1,8 @@
-My Drive
-
 ;;; package -- Summary:
 
 ;; Custom Emacs environment for John Maruska. Based initially off of Chris Gore's
 ;; Emacs configuration. Stripped out minimal useful configuration and built own
 ;; on top of this.
-;;
-;; Things left to do:
-;;   flycheck - want to work with `eastwood` and `yagni`.
-;;     Currently it exists but gives a weird response "error in process filter:
-;;       Wrong number of arguments: (4 . 4), 0
-;;
-;; Language Handling Needed:
-;;   Ruby
-;;   Python
-;;   JavaScript / React
-;;   (?) Scala
-;;
-;; Things for much later:
-;;   autocomplete  https://github.com/auto-complete/auto-complete/blob/master/doc/manual.md
-;;   magit
-;;   projectile
-;;   multiple-cursors
-;;   rest-client
-;;
-;; Look into:
-;;   helm-cider
 
 ;;; Code:
 
@@ -56,12 +33,12 @@ My Drive
 (when window-system
   ;; this matters for sub-shell process (e.g. launch bash)
   (setenv "PATH" (mapconcat 'identity path-list ":")))
-;; TODO: Find a better way to do this
-(setenv "JAVA_HOME" "/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home")
+
+(setenv "JAVA_HOME"
+        "/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home")
 
 ;; this matters for eshell
 (setq exec-path (append exec-path path-list))
-
 
 
 ;;; Package handling
@@ -173,17 +150,18 @@ My Drive
 (setq-default indent-tabs-mode nil)  ; don't mix tabs and spaces
 (tool-bar-mode -1)  ; hide tool bar
 (scroll-bar-mode -1)  ; hide scroll bar
-(menu-bar-mode -1)  ; Hide menu-bar. Doesn't affect Mac OS
+(menu-bar-mode 1)  ; show menu-bar. Doesn't affect Mac OS
 (display-time-mode 1)  ; show clock in status bar
 (column-number-mode 1)  ; show column numbers in addition to line numbers
-(blink-cursor-mode 0)  ; cursor shouldn't blink
+(blink-cursor-mode 1)  ; cursor should blink
 (global-linum-mode 1)
 (show-paren-mode 1)  ; highlight matching paren
 (setq inhibit-startup-screen t)  ; Don't display welcome screen
 (setq default-directory "~/")
 (setq scroll-step 1)  ; keyboard scroll one line at a time
 (setq require-final-newline t)  ; files must end with a newline
-(define-key key-translation-map (kbd "C-p") (kbd "M-x"))
+;; TODO: did i need this for mac?
+;; (define-key key-translation-map (kbd "C-p") (kbd "M-x"))
 
 ;;; Background Appearance
 (defun dark-background ()
@@ -201,25 +179,54 @@ My Drive
   ;; (reset-term-colors)
   )
 
-(defun default-font-and-theme ()
-  "Change the appearance and font of Emacs to the default setting."
+(defun mac-default-font-and-theme ()
+  "Change the appearance and font of Emacs to the default setting for Mac."
   (interactive)
   (custom-set-faces
-   '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil
-                           :over-line nil :underline nil :slant normal :weight normal
-                           :height 135 :width normal :family "Fira Code")))))
+   '(default ((t (:inherit nil
+                  :stipple nil
+                  :inverse-video nil
+                  :box nil
+                  :strike-through nil
+                  :over-line nil
+                  :underline nil
+                  :slant normal
+                  :weight normal
+                  :height 135
+                  :width normal
+                  :family "Fira Code")))))
+  (dark-background))
+
+(defun ubuntu-default-font-and-theme ()
+  "Change the appearance and font of Emacs to use the default setting for Ubuntu."
+  (interactive)
+  (set-face-attribute 'default nil :font "Ubuntu Mono")
   (dark-background))
 
 (defun google-hangouts-sucks ()
-  "Greatly increase the size of the font and change to a light scheme to present on Google Hangouts."
+  "Make screen viewable when presenting to a meeting.
+Greatly increase the size of the font and change to a light scheme to present."
   (interactive)
   (custom-set-faces
-   '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :overline nil
-                           :underline nil :slant normal :weight normal
-                           :height 220 :width normal :family "Fira Code")))))
+   '(default ((t (:inherit nil
+                  :stipple nil
+                  :inverse-video nil
+                  :box nil
+                  :strike-through nil
+                  :overline nil
+                  :underline nil
+                  :slant normal
+                  :weight normal
+                  :height 220
+                  :width normal
+                  :family "Fira Code")))))
   (light-background))
 
-(default-font-and-theme)
+(cond ((eq system-type 'gnu/linux)
+       (ubuntu-default-font-and-theme))
+      ((eq system-type 'darwin)
+       (mac-default-font-and-theme)))
+(set-face-attribute 'default nil :font "Ubuntu Mono")
 
 ;;; Clojure
 (require 'clojure-mode)
@@ -279,12 +286,6 @@ My Drive
  '(package-selected-packages
    (quote
     (multiple-cursors-mode w3m minesweeper magit-gitflow magit-flow multiple-cursors magit racket-mode geiser rjsx-mode ensime scala-mode command-log-mode neotree clojure-mode-extra-font-locking yaml-mode whitespace-cleanup-mode rust-mode rainbow-delimiters paredit markdown-mode flycheck-rust flycheck-pos-tip flycheck-clojure color-theme-sanityinc-tomorrow auto-complete ack-and-a-half))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :over-line nil :underline nil :slant normal :weight normal :height 135 :width normal :family "Fira Code")))))
 
 ;;; Commentary:
 
