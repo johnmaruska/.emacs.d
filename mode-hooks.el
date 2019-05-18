@@ -2,6 +2,12 @@
 
 ;; management for major and minor mode hooks and settings
 
+;;; Commentary:
+
+;; mostly these are pretty straightforward.  Every new language is gonna need
+;; to get a new entry when I start using it, and any commonly shared modes
+;; will need that new language added.
+
 ;;; Code:
 
 ;;; Clojure
@@ -89,6 +95,5 @@
         rust-mode-hook
         shell-script-mode-hook))
 
-;;; Commentary:
 (provide 'mode-hooks)
 ;;; mode-hooks.el ends here
