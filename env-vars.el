@@ -55,8 +55,9 @@
 
 ;;; other ENVVARS
 
-(setenv "JAVA_HOME"
-        "/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home")
+(when (eq system-type 'darwin)
+  (setenv "JAVA_HOME"
+          "/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home"))
 
 
 (provide 'env-vars)

@@ -73,10 +73,13 @@
   (sh-basic-offset 2))
 (add-hook 'shell-script-mode-hook 'my-shell-script-mode-hook)
 
+;; yafolding
+(require 'yafolding)
+(add-hook 'prog-mode-hook 'yafolding-mode)
+
 ;;; YAML
 (require 'yaml-mode)
 (add-hook 'yaml-mode-hook 'linum-mode)
-
 
 ;;; Whitespace mode
 (require 'whitespace)

@@ -40,6 +40,7 @@
                      scala-mode
                      whitespace-cleanup-mode
                      w3m
+                     yafolding
                      yaml-mode))
 
 (package-initialize)

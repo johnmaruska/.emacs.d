@@ -21,3 +21,4 @@
 
 - fix warning 'the function sh-basic-offset is not known to be defined' in mode-hooks
 - fix warning 'assignment to free variable url-http-attempt-keepalives' in init
+- determine what exact machine for setting vars
