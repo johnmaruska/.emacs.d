@@ -52,7 +52,10 @@
 (setq default-directory "~/")
 (setq scroll-step 1)  ; keyboard scroll one line at a time
 (setq require-final-newline t)  ; files must end with a newline
-(define-key key-translation-map (kbd "C-p") (kbd "M-x"))
+
+;; work Mac + windows keyboard to use the menu->M-x shortcut
+(when (eq system-type 'darwin)
+  (define-key key-translation-map (kbd "C-p") (kbd "M-x")))
 
 (load "~/.emacs.d/appearance.el")
 (load "~/.emacs.d/mode-hooks.el")
