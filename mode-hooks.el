@@ -19,7 +19,20 @@
   (clj-refactor-mode 1)
   (yas-minor-mode 1) ; for adding require/use/import statements
   (paredit-mode 1)
-  (whitespace-mode 1))
+  (whitespace-mode 1)
+  (define-clojure-indent
+    (defroutes 'defun)
+    (GET 2)
+    (POST 2)
+    (PUT 2)
+    (DELETE 2)
+    (HEAD 2)
+    (ANY 2)
+    (OPTIONS 2)
+    (PATCH 2)
+    (rfn 2)
+    (let-routes 1)
+    (context 2)))
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 ;; Flycheck
@@ -93,9 +106,11 @@
         emacs-lisp-mode-hook
         html-mode-hook
         lisp-mode-hook
+        prog-mode-hook
         python-mode-hook
         ruby-mode-hook
         rust-mode-hook
+        scala-mode-hook
         shell-script-mode-hook))
 
 (provide 'mode-hooks)

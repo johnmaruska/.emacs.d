@@ -29,6 +29,7 @@
                      flycheck-pos-tip
                      flycheck-rust
                      geiser
+                     groovy-mode
                      markdown-mode
                      magit-gitflow
                      multiple-cursors
