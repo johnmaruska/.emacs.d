@@ -70,7 +70,7 @@
     ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" default)))
  '(package-selected-packages
    (quote
-    (discover yafolding bicycle fold-this multiple-cursors-mode w3m minesweeper magit-gitflow magit-flow multiple-cursors magit racket-mode geiser rjsx-mode ensime scala-mode command-log-mode neotree clojure-mode-extra-font-locking yaml-mode whitespace-cleanup-mode rust-mode rainbow-delimiters paredit markdown-mode flycheck-rust flycheck-pos-tip flycheck-clojure color-theme-sanityinc-tomorrow auto-complete ack-and-a-half))))
+    (aggressive-indent discover yafolding bicycle fold-this multiple-cursors-mode w3m minesweeper magit-gitflow magit-flow multiple-cursors magit racket-mode geiser rjsx-mode ensime scala-mode command-log-mode neotree clojure-mode-extra-font-locking yaml-mode whitespace-cleanup-mode rust-mode rainbow-delimiters paredit markdown-mode flycheck-rust flycheck-pos-tip flycheck-clojure color-theme-sanityinc-tomorrow auto-complete ack-and-a-half))))
 
 ;;; Commentary:
 

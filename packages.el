@@ -18,6 +18,7 @@
 
 (defvar package-list)
 (setq package-list '(ack-and-a-half
+                     aggressive-indent
                      auto-complete
                      cider
                      clj-refactor

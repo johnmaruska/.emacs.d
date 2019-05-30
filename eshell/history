@@ -1,0 +1,13 @@
+ls
+ls src/
+ls
+cd src/inventory/
+ls
+rm core.clj 
+cd ..
+cd migrations-notifications/
+./run.sh -b; ./run.sh -e local update
+cd ../notifications-listener/
+./sbt coverage test coverageReport
+cd ~/dev/work/notifications-listener/
+./sbt ~jetty:start

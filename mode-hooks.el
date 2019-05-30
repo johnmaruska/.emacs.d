@@ -16,6 +16,7 @@
 (require 'clj-refactor)
 (defun my-clojure-mode-hook ()
   "Handles all configuration for Clojure mode."
+  (aggressive-indent-mode 1)
   (clj-refactor-mode 1)
   (yas-minor-mode 1) ; for adding require/use/import statements
   (paredit-mode 1)
