@@ -10,31 +10,42 @@
 
 ;;; Code:
 
+;;; aggressive indent
+(add-hook 'prog-mode-hook 'aggressive-indent-mode)
+
 ;;; Clojure
 (require 'clojure-mode)
 (require 'cider)
-(require 'clj-refactor)
 (defun my-clojure-mode-hook ()
   "Handles all configuration for Clojure mode."
-  (aggressive-indent-mode 1)
-  (clj-refactor-mode 1)
-  (yas-minor-mode 1) ; for adding require/use/import statements
   (paredit-mode 1)
-  (whitespace-mode 1)
-  (define-clojure-indent
-    (defroutes 'defun)
-    (GET 2)
-    (POST 2)
-    (PUT 2)
-    (DELETE 2)
-    (HEAD 2)
-    (ANY 2)
-    (OPTIONS 2)
-    (PATCH 2)
-    (rfn 2)
-    (let-routes 1)
-    (context 2)))
+  (whitespace-mode 1))
+(define-clojure-indent
+  (defroutes 'defun)
+  (GET 2)
+  (POST 2)
+  (PUT 2)
+  (DELETE 2)
+  (HEAD 2)
+  (ANY 2)
+  (OPTIONS 2)
+  (PATCH 2)
+  (rfn 2)
+  (let-routes 1)
+  (context 2))
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+(add-hook 'clojure-mode-hook 'cider-mode)
+(eval-after-load 'cider
+  '(progn
+     (add-hook 'cider-repl-mode-hook 'paredit-mode)
+     (local-set-key (kbd "M-<return>") 'newline)))
+
+(defun clj-refactor-mode-hook ()
+  "Handles configuration for clojure's refactor mode."
+  (clj-refactor-mode 1)
+  ;; for adding require/use/import statements
+  (yas-minor-mode 1))
+(add-hook 'clojure-mode-hook #'clj-refactor-mode-hook)
 
 ;; Flycheck
 (add-hook 'after-init-hook #'global-flycheck-mode)

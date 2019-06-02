@@ -21,7 +21,6 @@
                      aggressive-indent
                      auto-complete
                      cider
-                     clj-refactor
                      clojure-mode
                      color-theme-sanityinc-tomorrow
                      ensime

@@ -72,13 +72,15 @@
    (quote
     (aggressive-indent discover yafolding bicycle fold-this multiple-cursors-mode w3m minesweeper magit-gitflow magit-flow multiple-cursors magit racket-mode geiser rjsx-mode ensime scala-mode command-log-mode neotree clojure-mode-extra-font-locking yaml-mode whitespace-cleanup-mode rust-mode rainbow-delimiters paredit markdown-mode flycheck-rust flycheck-pos-tip flycheck-clojure color-theme-sanityinc-tomorrow auto-complete ack-and-a-half))))
 
-;;; Commentary:
-
-(provide 'init)
-;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :inverse-video nil :box nil :strike-through nil :over-line nil :underline nil :slant normal :weight normal :height 135 :width normal :family "Fira Code")))))
+ )
+
+
+;;; Commentary:
+
+(provide 'init)
+;;; init.el ends here
