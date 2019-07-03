@@ -5,5 +5,7 @@ network-security.data
 transient/*
 session.*
 
+eshell/*
+
 *~
 *#*
