@@ -45,19 +45,16 @@
                      yafolding
                      yaml-mode))
 
-(package-initialize)
-
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
 (require 'url-http)
-(setq url-http-attempt-keepalives nil)
-(unless package-archive-contents
-  (package-refresh-contents))
-
-(dolist (package package-list)
-  (unless (package-installed-p package)
-    (package-install package)))
+(defun install-all-packages ()
+  "Attempts to `package-install` each package in `package-list`."
+  (package-initialize)
+  ;; (setq url-http-attempt-keepalives nil)
+  (unless package-archive-contents
+    (package-refresh-contents))
+  (dolist (package package-list)
+    (unless (package-installed-p package)
+      (package-install package))))
 
 
 (provide 'packages)

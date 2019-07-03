@@ -26,28 +26,26 @@
   ;; (reset-term-colors)
   )
 
-(defun mac-default-font-and-theme ()
-  "Change the appearance and font of Emacs to the default setting for Mac."
-  (interactive)
-  (custom-set-faces
-   '(default ((t (:inherit nil
-                  :stipple nil
-                  :inverse-video nil
-                  :box nil
-                  :strike-through nil
-                  :over-line nil
-                  :underline nil
-                  :slant normal
-                  :weight normal
-                  :height 135
-                  :width normal
-                  :family "Fira Code")))))
-  (dark-background))
+(defun mac-default-font ()
+  "Change the font of Emacs to the default for Mac."
+  (set-face-attribute 'default
+                      nil
+                      :font "Fira Code"
+                      :height 135))
 
-(defun ubuntu-default-font-and-theme ()
-  "Change the appearance and font of Emacs to use the default setting for Ubuntu."
+(defun ubuntu-default-font ()
+  "Change the appearance of Emacs to default for Ubuntu."
+  (set-face-attribute 'default nil :font "Ubuntu Mono"))
+
+(defun default-font ()
+  "Change the font of Emacs to the default setting."
+  (cond ((eq system-type 'gnu/linux) (ubuntu-default-font))
+        ((eq system-type 'darwin) (mac-default-font))))
+
+(defun default-appearance ()
+  "Change the appearance of Emacs to preferred default settings."
   (interactive)
-  (set-face-attribute 'default nil :font "Ubuntu Mono")
+  (default-font)
   (dark-background))
 
 (defun google-hangouts-sucks ()
@@ -69,11 +67,5 @@ Greatly increase the size of the font and change to a light scheme to present."
                   :family "Fira Code")))))
   (light-background))
 
-(cond ((eq system-type 'gnu/linux)
-       (ubuntu-default-font-and-theme))
-      ((eq system-type 'darwin)
-       (mac-default-font-and-theme)))
-
-
-(provide 'appearace)
+(provide 'appearance)
 ;;; appearance.el ends here
