@@ -10,11 +10,11 @@
 
 ;;; Code:
 
+(require 'yafolding)
 (defun configure-prog-mode ()
   "Configures `prog-mode` major mode which informs most programming modes."
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  (require 'yafolding)
   (setq yafolding-mode-map
         (let ((map (make-sparse-keymap)))
           (define-key map (kbd "<C-S-return>") #'yafolding-hide-parent-element)
