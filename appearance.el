@@ -28,16 +28,13 @@
 
 (defun mac-default-font ()
   "Change the font of Emacs to the default for Mac."
-  (set-face-attribute 'default
-                      nil
-                      :font "Fira Code"
-                      :height 135))
+  (set-face-attribute 'default nil :font "Fira Code"))
 
 (defun ubuntu-default-font ()
   "Change the appearance of Emacs to default for Ubuntu."
   (set-face-attribute 'default nil :font "Ubuntu Mono"))
 
-(defun default-font ()
+(defun default-face-font ()
   "Change the font of Emacs to the default setting."
   (cond ((eq system-type 'gnu/linux) (ubuntu-default-font))
         ((eq system-type 'darwin) (mac-default-font))))
@@ -45,7 +42,23 @@
 (defun default-appearance ()
   "Change the appearance of Emacs to preferred default settings."
   (interactive)
-  (default-font)
+  (default-face-font)
+  (set-face-attribute 'default nil :height 135)
+  (dark-background))
+
+;; TODO: similar functions for Inspiron and Vingtor
+(defun home-office-appearance ()
+  "Change the appearance of Emacs to preferred settings for docked home office."
+  (interactive)
+  (default-face-font)
+  (set-face-attribute 'default nil :height 110)
+  (dark-background))
+
+(defun macbook-appearance ()
+  "Change the appearance of Emacs to preferred settings for floating Macbook."
+  (interactive)
+  (default-face-font)
+  (set-face-attribute 'default nil :height 120)
   (dark-background))
 
 (defun google-hangouts-sucks ()

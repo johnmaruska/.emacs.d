@@ -4,8 +4,6 @@
 
 ;;; Commentary:
 
-;; Package install code is lengthy and gross, ship it off over here.
-
 ;;; Code:
 
 ;;; Package handling
@@ -24,12 +22,14 @@
                      clojure-mode
                      color-theme-sanityinc-tomorrow
                      ensime
+                     emacs-xkcd
                      flycheck
                      flycheck-clojure
                      flycheck-pos-tip
                      flycheck-rust
                      geiser
                      groovy-mode
+                     json
                      markdown-mode
                      magit-gitflow
                      multiple-cursors
