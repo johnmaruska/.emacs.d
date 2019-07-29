@@ -20,6 +20,7 @@
                      auto-complete
                      cider
                      clojure-mode
+		     clj-refactor
                      color-theme-sanityinc-tomorrow
                      ensime
                      emacs-xkcd

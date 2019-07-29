@@ -36,7 +36,8 @@
 (defun allow-menu-key-on-mac ()
   "Allow use of the menu button on Mac for \\[execute-extended-command]."
   (when (eq system-type 'darwin)
-    (define-key key-translation-map (kbd "C-p") (kbd "M-x"))))
+    ;; MacBook Pro 15-inch 2019 on macOS Mojave did this to me
+    (global-set-key (kbd "≈") 'execute-extended-command)))
 
 (defun default-displays ()
   "Configuration settings for what tools to display."
