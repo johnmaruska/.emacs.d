@@ -33,7 +33,7 @@
   "Change the appearance of Emacs to preferred settings for floating Macbook."
   (interactive)
   (set-face-attribute 'default nil
-                      :height 130
+                      :height 135
                       :weight 'medium
                       :font "Andale Mono")
   (dark-background))

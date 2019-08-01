@@ -48,8 +48,11 @@
     (context 2)))
 (defun configure-clojure ()
   "Configures hooks for interacting with Clojure."
+  (global-set-key (kbd "C-c M-c") 'cider-connect)
   (add-hook 'clojure-mode-hook #'paredit-mode)
-  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook))
+  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+  (add-hook 'cider-mode-hook #'eldoc-mode))
+
 
 (defun configure-org-mode ()
   "Configures necessary for interacting with `org-mode`."

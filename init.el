@@ -24,6 +24,8 @@
 (require 'global "~/.emacs.d/global.el")
 (default-ui-configuration)
 
+(load "~/.emacs.d/secrets/gr.el")
+(load "~/.emacs.d/multi-term.el")
 ;;; Commentary:
 
 (provide 'init)

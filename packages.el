@@ -20,7 +20,7 @@
                      auto-complete
                      cider
                      clojure-mode
-		     clj-refactor
+                     clj-refactor
                      color-theme-sanityinc-tomorrow
                      ensime
                      emacs-xkcd
@@ -33,6 +33,7 @@
                      json
                      markdown-mode
                      magit-gitflow
+                     multi-term
                      multiple-cursors
                      neotree
                      paredit

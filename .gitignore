@@ -6,6 +6,8 @@ transient/*
 session.*
 
 eshell/*
+eshell/.*
+secrets/*
 
 *~
 *#*
