@@ -13,7 +13,7 @@
 (require 'yafolding)
 (defun configure-prog-mode ()
   "Configures `prog-mode` major mode which informs most programming modes."
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  (aggressive-indent-mode 1)
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (setq yafolding-mode-map
         (let ((map (make-sparse-keymap)))
@@ -24,15 +24,14 @@
   (add-hook 'prog-mode-hook 'yafolding-mode))
 
 (require 'clj-refactor)
+(require 'flycheck-clj-kondo)
 (defun my-clojure-mode-hook ()
   "Handles all configuration for Clojure mode."
   (require 'clojure-mode)
-  (require 'cider)
-  (aggressive-indent-mode 1)
   (clj-refactor-mode 1)
   (yas-minor-mode 1) ; for adding require/use/import statements
-  (paredit-mode 1)
-  (whitespace-mode 1)
+  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+  (cljr-add-keybindings-with-prefix "C-c C-m")
   (define-clojure-indent
     (defroutes 'defun)
     (GET 2)
@@ -46,13 +45,33 @@
     (rfn 2)
     (let-routes 1)
     (context 2)))
+
+(defun configure-cider ()
+  "Configure settings for CIDER Clojure REPL."
+  (setq cider-repl-display-help-banner nil)
+  (setq cider-repl-result-prefix ";; ⇒ ")
+  (setq cider-interactive-eval-result-prefix ";; ⟶ ")
+  (setq cider-repl-history-size 10000)
+  (setq cider-repl-history-file (expand-file-name "~/.emacs.d/cider-repl.history")))
+
 (defun configure-clojure ()
   "Configures hooks for interacting with Clojure."
-  (global-set-key (kbd "C-c M-c") 'cider-connect)
-  (add-hook 'clojure-mode-hook #'paredit-mode)
   (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
-  (add-hook 'cider-mode-hook #'eldoc-mode))
+  (add-hook 'clojure-mode-hook #'flycheck-clojure-setup)
+  (add-hook 'clojure-mode-hook #'cider-mode)
+  (add-hook 'clojurescript-mode-hook #'flycheck-clojure-setup)
+  (add-hook 'cider-mode-hook #'eldoc-mode)
+  (configure-cider)
+  (dolist (checker '(clj-kondo-clj clj-kondo-cljs clj-kondo-cljc clj-kondo-edn))
+    (setq flycheck-checkers (cons checker (delq checker flycheck-checkers)))))
 
+(require 'flycheck)
+(require 'flycheck-pos-tip)
+(defun configure-flycheck ()
+  "Configures general flycheck settings - not language specific setup."
+  (global-flycheck-mode 1)
+  (eval-after-load 'flycheck
+    '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
 
 (defun configure-org-mode ()
   "Configures necessary for interacting with `org-mode`."
@@ -97,7 +116,9 @@
   "Attaches minor mode Paredit to all major modes which use it."
   (mapc #'(lambda (mode-hook)
             (add-hook mode-hook #'paredit-mode))
-        '(clojure-mode-hook
+        '(cider-repl-mode-hook
+          clojure-mode-hook
+          clojurescript-mode-hook
           emacs-lisp-mode-hook
           eval-expression-minibuffer-setup-hook
           json-mode-hook
@@ -118,7 +139,8 @@
 
 (defun configure-minor-modes ()
   "Configures all custom modified minor modes."
-  (attach-paredit-minor-mode))
+  (attach-paredit-minor-mode)
+  (configure-flycheck))
 
 (defun configure-all-modes ()
   "Configures all custom modified modes."

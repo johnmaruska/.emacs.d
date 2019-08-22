@@ -37,7 +37,8 @@
   "Allow use of the menu button on Mac for \\[execute-extended-command]."
   (when (eq system-type 'darwin)
     ;; MacBook Pro 15-inch 2019 on macOS Mojave did this to me
-    (global-set-key (kbd "≈") 'execute-extended-command)))
+    (global-set-key (kbd "≈") 'execute-extended-command)
+    (global-set-key (kbd "C-p") 'execute-extended-command)))
 
 (defun default-displays ()
   "Configuration settings for what tools to display."

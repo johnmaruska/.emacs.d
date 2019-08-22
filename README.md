@@ -4,7 +4,6 @@
 
 ### New Things
 - flycheck working with eastwood and yagni
-- flycheck clj-kondo https://github.com/borkdude/flycheck-clj-kondo
 - projectile
 - multiple-cursors
 - rest-client
