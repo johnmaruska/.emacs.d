@@ -8,6 +8,7 @@ session.*
 eshell/*
 eshell/.*
 secrets/*
+server/*
 .mc-lists.el
 
 *~

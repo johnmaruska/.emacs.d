@@ -23,15 +23,10 @@
           map))
   (add-hook 'prog-mode-hook 'yafolding-mode))
 
-(require 'clj-refactor)
-(require 'flycheck-clj-kondo)
 (defun my-clojure-mode-hook ()
   "Handles all configuration for Clojure mode."
   (require 'clojure-mode)
-  (clj-refactor-mode 1)
-  (yas-minor-mode 1) ; for adding require/use/import statements
-  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
-  (cljr-add-keybindings-with-prefix "C-c C-m")
+  (aggressive-indent-mode 1)
   (define-clojure-indent
     (defroutes 'defun)
     (GET 2)
@@ -46,24 +41,10 @@
     (let-routes 1)
     (context 2)))
 
-(defun configure-cider ()
-  "Configure settings for CIDER Clojure REPL."
-  (setq cider-repl-display-help-banner nil)
-  (setq cider-repl-result-prefix ";; ⇒ ")
-  (setq cider-interactive-eval-result-prefix ";; ⟶ ")
-  (setq cider-repl-history-size 10000)
-  (setq cider-repl-history-file (expand-file-name "~/.emacs.d/cider-repl.history")))
-
 (defun configure-clojure ()
   "Configures hooks for interacting with Clojure."
   (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
-  (add-hook 'clojure-mode-hook #'flycheck-clojure-setup)
-  (add-hook 'clojure-mode-hook #'cider-mode)
-  (add-hook 'clojurescript-mode-hook #'flycheck-clojure-setup)
-  (add-hook 'cider-mode-hook #'eldoc-mode)
-  (configure-cider)
-  (dolist (checker '(clj-kondo-clj clj-kondo-cljs clj-kondo-cljc clj-kondo-edn))
-    (setq flycheck-checkers (cons checker (delq checker flycheck-checkers)))))
+  (add-hook 'cider-mode-hook #'eldoc-mode))
 
 (require 'flycheck)
 (require 'flycheck-pos-tip)

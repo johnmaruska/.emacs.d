@@ -24,7 +24,8 @@
 (require 'global "~/.emacs.d/global.el")
 (default-ui-configuration)
 
-(load "~/.emacs.d/secrets/gr.el")
+(when (eq system-type 'darwin)
+  (load "~/.emacs.d/secrets/gr.el"))
 (load "~/.emacs.d/multi-term.el")
 ;;; Commentary:
 

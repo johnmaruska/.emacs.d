@@ -29,6 +29,14 @@
   (set-face-attribute 'default nil :height 110 :font "Ubuntu Mono")
   (dark-background))
 
+(defun vingtor-windows-appearance ()
+  "Change the appearance of Emacs to preferred settings for Desktop Windows."
+  (interactive)
+  (set-face-attribute 'default nil
+                      :height 131
+                      :font "Consolas")
+  (dark-background))
+
 (defun macbook-appearance ()
   "Change the appearance of Emacs to preferred settings for floating Macbook."
   (interactive)
@@ -42,9 +50,11 @@
   "Change the appearance of Emacs to preferred default settings."
   (interactive)
   ;; TODO: go by machine not OS
-  (cond ((eq system-type 'gnu/linux) (vingtor-ubuntu-appearance))
-        ((eq system-type 'darwin) (macbook-appearance))
-        (t (dark-background))))
+  (cond
+   ((eq system-type 'gnu/linux) (vingtor-ubuntu-appearance))
+   ((eq system-type 'darwin) (macbook-appearance))
+   ((eq system-type 'windows-nt) (vingtor-windows-appearance))
+   (t (dark-background))))
 
 (provide 'appearance)
 ;;; appearance.el ends here
