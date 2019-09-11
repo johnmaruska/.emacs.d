@@ -23,6 +23,7 @@
           map))
   (add-hook 'prog-mode-hook 'yafolding-mode))
 
+(require 'clj-refactor)
 (defun my-clojure-mode-hook ()
   "Handles all configuration for Clojure mode."
   (require 'clojure-mode)
@@ -45,6 +46,10 @@
   "Configures hooks for interacting with Clojure."
   (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
   (add-hook 'cider-mode-hook #'eldoc-mode))
+
+(defun my-clojurescript-hook ()
+  "Handles all configuration for ClojureScript mode."
+  (aggressive-indent-mode 1))
 
 (require 'flycheck)
 (require 'flycheck-pos-tip)

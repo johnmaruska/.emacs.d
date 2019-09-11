@@ -43,6 +43,7 @@
     rjsx-mode
     rust-mode
     scala-mode
+    uuidgen
     whitespace-cleanup-mode
     w3m
     yafolding
