@@ -37,6 +37,14 @@
                       :font "Consolas")
   (dark-background))
 
+(defun convertible-windows-appearance ()
+  "Change the appearance of Emacs to preferred settings for Desktop Windows."
+  (interactive)
+  (set-face-attribute 'default nil
+                      :height 110
+                      :font "Consolas")
+  (dark-background))
+
 (defun macbook-appearance ()
   "Change the appearance of Emacs to preferred settings for floating Macbook."
   (interactive)
@@ -46,14 +54,16 @@
                       :font "Andale Mono")
   (dark-background))
 
+(require 'computers "~/.emacs.d/computers.el")
 (defun default-appearance ()
   "Change the appearance of Emacs to preferred default settings."
   (interactive)
   ;; TODO: go by machine not OS
   (cond
-   ((eq system-type 'gnu/linux) (vingtor-ubuntu-appearance))
-   ((eq system-type 'darwin) (macbook-appearance))
-   ((eq system-type 'windows-nt) (vingtor-windows-appearance))
+   ((vingtor-ubuntu?)      (vingtor-ubuntu-appearance))
+   ((gr-macbook?)          (macbook-appearance))
+   ((vingtor-windows?)     (vingtor-windows-appearance))
+   ((convertible-windows?) (convertible-windows-appearance))
    (t (dark-background))))
 
 (provide 'appearance)

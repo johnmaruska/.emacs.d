@@ -4,6 +4,8 @@ ido.last
 network-security.data
 transient/*
 session.*
+xkcd/*
+cider-repl.history
 
 eshell/*
 eshell/.*
@@ -13,3 +15,4 @@ server/*
 
 *~
 *#*
+
