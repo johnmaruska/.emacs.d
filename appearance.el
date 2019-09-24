@@ -37,6 +37,14 @@
                       :font "Consolas")
   (dark-background))
 
+(defun convertible-windows-appearance ()
+  "Change the appearance of Emacs to preferred settings for convertible Windows."
+  (interactive)
+  (set-face-attribute 'default nil
+                      :height 110
+                      :font "Consolas")
+  (dark-background))
+
 (defun macbook-appearance ()
   "Change the appearance of Emacs to preferred settings for floating Macbook."
   (interactive)
