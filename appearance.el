@@ -60,11 +60,11 @@
   (interactive)
   ;; TODO: go by machine not OS
   (cond
-   ((vingtor-ubuntu?)      (vingtor-ubuntu-appearance))
    ((gr-macbook?)          (macbook-appearance))
+   ((vingtor-ubuntu?)      (vingtor-ubuntu-appearance))
    ((vingtor-windows?)     (vingtor-windows-appearance))
    ((convertible-windows?) (convertible-windows-appearance))
-   (t (dark-background))))
+   (t                      (dark-background))))
 
 (provide 'appearance)
 ;;; appearance.el ends here
