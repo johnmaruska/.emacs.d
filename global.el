@@ -33,13 +33,14 @@
   (define-key ac-completing-map "\t" 'ac-complete) ; use tab to complete
   (put 'upcase-region 'disabled nil))
 
-(defun allow-menu-key-on-mac ()
+(require 'computers "~/.emacs.d/computers.el")
+(defun allow-menu-key ()
   "Allow use of the menu button on Mac for \\[execute-extended-command]."
-  (when (eq system-type 'darwin)
-    ;; MacBook Pro 15-inch 2019 on macOS Mojave did this to me
-    (global-set-key (kbd "≈") 'execute-extended-command)
+  (when (darwin?)
     (global-set-key (kbd "C-p") 'execute-extended-command))
-  (when (eq system-type 'windows-nt)
+  (when (gr-macbook?)
+    (global-set-key (kbd "≈") 'execute-extended-command))
+  (when (windows?)
     (global-set-key (kbd "<apps>") 'execute-extended-command)))
 
 (defun default-displays ()
@@ -60,7 +61,7 @@
   (setq scroll-step 1)  ; keyboard scroll one line at a time
   (setq require-final-newline t) ; files must end with a newline
   (setq default-directory "~/")
-  (allow-menu-key-on-mac)
+  (allow-menu-key)
   (configure-autocomplete)
   (configure-ido)
   (configure-whitespace-mode))

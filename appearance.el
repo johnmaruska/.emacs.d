@@ -54,15 +54,17 @@
                       :font "Andale Mono")
   (dark-background))
 
+(require 'computers "~/.emacs.d/computers.el")
 (defun default-appearance ()
   "Change the appearance of Emacs to preferred default settings."
   (interactive)
   ;; TODO: go by machine not OS
   (cond
-   ((eq system-type 'gnu/linux) (vingtor-ubuntu-appearance))
-   ((eq system-type 'darwin) (macbook-appearance))
-   ((eq system-type 'windows-nt) (vingtor-windows-appearance))
-   (t (dark-background))))
+   ((gr-macbook?)          (macbook-appearance))
+   ((vingtor-ubuntu?)      (vingtor-ubuntu-appearance))
+   ((vingtor-windows?)     (vingtor-windows-appearance))
+   ((convertible-windows?) (convertible-windows-appearance))
+   (t                      (dark-background))))
 
 (provide 'appearance)
 ;;; appearance.el ends here

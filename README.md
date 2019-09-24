@@ -11,9 +11,8 @@
 - look into Spotify modes
 
 ### Tweaks
-- get flycheck in clojure back, was dragging down from eval issues
-- Windows ack-and-a-half has bad flags
 - refactor new things from Chris to match my code
 - find a better way to set JAVA_HOME
-- determine what exact machine for setting vars
-- colors in eshell console
+- find system-name for non GR computers
+- get eshell to color git diff without breaking magit
+  (`git config --global color.ui always` breaks it)

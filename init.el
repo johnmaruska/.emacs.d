@@ -24,9 +24,13 @@
 (require 'global "~/.emacs.d/global.el")
 (default-ui-configuration)
 
-(when (eq system-type 'darwin)
+(require 'computers "~/.emacs.d/computers.el")
+(when (gr-macbook?)
   (load "~/.emacs.d/secrets/gr.el"))
+
+;; TODO: why do I have this?
 (load "~/.emacs.d/multi-term.el")
+
 ;;; Commentary:
 
 (provide 'init)

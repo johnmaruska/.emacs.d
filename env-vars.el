@@ -7,42 +7,19 @@
 
 ;;; Code:
 
-;;; $PATH settings for subsystem processes and for eshell
-
-(defvar default-path (getenv "PATH"))
-(defvar climate-path-list
-  (list "/usr/local/opt/bin/go/libexec/bin"
-        (expand-file-name "~/bin")
-        "/usr/local/bin"
-        "/usr/local/sbin"
-        (expand-file-name "~/.rvm/bin")
-        (expand-file-name "~/.rvm/sbin")
-        "/usr/texbin"
-        "/Library/TeX/texbin"
-        "/usr/bin"
-        "/usr/sbin"
-        "/bin"
-        "/sbin"
-        "/opt/pixie"
-        "/opt/sbin"
-        "/usr/local/bin/exercism-mac-64bit"
-        "/usr/local/opt/postgresql@9.6/bin"
-        (expand-file-name "~/climate/bin")
-        (expand-file-name "~/.cargo/bin")   ; Rust
-        (expand-file-name "~/gatling/bin")  ; load test
-        (expand-file-name "~/Documents/apache-maven-3.5.4")
-        default-path))
-(defvar ubuntu-path-list (list default-path))
+(defvar default-path-list (getenv "PATH"))
+(defvar gr-path-list (list "/usr/local/bin"
+                           default-path-list))
 (defvar path-list)
 
+(require 'computers "~/.emacs.d/computers.el")
 (defun set-default-envvars ()
   "Set envvars to include default settings."
   (interactive)
-  ;; set emacs path-list
+  (setenv "PAGER" "cat")
   (setq path-list
-        (cond ((eq system-type 'gnu/linux) ubuntu-path-list)
-              ((eq system-type 'darwin) climate-path-list)
-              (t (list default-path))))
+        (cond ((gr-macbook?) gr-path-list)
+              (t             (list default-path-list))))
   (when window-system
     ;; this matters for sub-shell process (e.g. launch bash)
     (setenv "PATH" (mapconcat 'identity path-list ":")))
