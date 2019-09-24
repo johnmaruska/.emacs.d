@@ -7,12 +7,19 @@
 
 ;;; Code:
 
-(defvar path-list (list (getenv "PATH")))
+(defvar default-path-list (getenv "PATH"))
+(defvar gr-path-list (list "/usr/local/bin"
+                           default-path-list))
+(defvar path-list)
 
+(require 'computers "~/.emacs.d/computers.el")
 (defun set-default-envvars ()
   "Set envvars to include default settings."
   (interactive)
   (setenv "PAGER" "cat")
+  (setq path-list
+        (cond ((gr-macbook?) gr-path-list)
+              (t             (list default-path-list))))
   (when window-system
     ;; this matters for sub-shell process (e.g. launch bash)
     (setenv "PATH" (mapconcat 'identity path-list ":")))
