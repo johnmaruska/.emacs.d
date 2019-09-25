@@ -38,7 +38,7 @@
   (dark-background))
 
 (defun convertible-windows-appearance ()
-  "Change the appearance of Emacs to preferred settings for Desktop Windows."
+  "Change the appearance of Emacs to preferred settings for convertible Windows."
   (interactive)
   (set-face-attribute 'default nil
                       :height 110
