@@ -26,7 +26,8 @@
 
 (defun gr-macbook? ()
   "Is current machine Guaranteed Rate Macbook Pro 15\" 2019?"
-  (string= (system-name) "GR-YR2TSLVCHmbp.local"))
+  (or (string= (system-name) "GR-YR2TSLVCHmbp.local")
+      (string= (system-name) "GR-YR2TSLVCHmbp.attlocal.net")))
 
 ;; TODO: implement
 (defun convertible-windows? ()
