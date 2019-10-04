@@ -11,8 +11,8 @@
 (setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("melpa-stable" . "http://stable.melpa.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+			 ("melpa" . "http://melpa.org/packages/")))
 
 (defvar package-list
   '(ack-and-a-half
@@ -44,6 +44,7 @@
     rust-mode
     scala-mode
     uuidgen
+    which-key
     whitespace-cleanup-mode
     w3m
     yafolding

@@ -6,6 +6,14 @@
 
 ;;; Code:
 
+(require 'auto-complete)
+(defun configure-autocomplete ()
+  "Configuration settings for `autocomplete` package."
+  (define-key ac-completing-map [return] nil) ; no enter (1.)
+  (define-key ac-completing-map "\r" nil) ; no enter (2.)
+  (define-key ac-completing-map "\t" 'ac-complete) ; use tab to complete
+  (put 'upcase-region 'disabled nil))
+
 ;; InteractivelyDoThings
 (require 'ido)
 (defun configure-ido ()
@@ -19,19 +27,19 @@
   (neotree-dir "~/dev/")
   (neotree-hide))
 
+(require 'which-key)
+(defun configure-which-key ()
+  "Configure which-key for help with available hotkey completion."
+  (which-key-mode)
+  (which-key-setup-side-window-bottom)
+  (setq which-key-show-early-on-C-h t)  ; pop up early if help is called
+  (setq which-key-popup-type 'side-window))
+
 (require 'whitespace)
 (defun configure-whitespace-mode ()
   "Configuration settings for global `whitespace-mode`."
   (setq whitespace-style '(face empty tabs trailing))
   (global-whitespace-mode 1))
-
-(require 'auto-complete)
-(defun configure-autocomplete ()
-  "Configuration settings for `autocomplete` package."
-  (define-key ac-completing-map [return] nil) ; no enter (1.)
-  (define-key ac-completing-map "\r" nil) ; no enter (2.)
-  (define-key ac-completing-map "\t" 'ac-complete) ; use tab to complete
-  (put 'upcase-region 'disabled nil))
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun allow-menu-key ()
@@ -64,6 +72,7 @@
   (allow-menu-key)
   (configure-autocomplete)
   (configure-ido)
+  (configure-which-key)
   (configure-whitespace-mode))
 
 (defun default-ui-configuration ()
