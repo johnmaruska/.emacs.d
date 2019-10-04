@@ -25,10 +25,8 @@
     ensime
     emacs-xkcd
     flycheck
-    flycheck-clj-kondo
     flycheck-clojure
     flycheck-pos-tip
-    flycheck-rust
     geiser
     groovy-mode
     json

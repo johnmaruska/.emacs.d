@@ -55,7 +55,10 @@
 (require 'flycheck-pos-tip)
 (defun configure-flycheck ()
   "Configures general flycheck settings - not language specific setup."
-  (global-flycheck-mode 1)
+  (eval-after-load 'flycheck '(flycheck-clojure-setup))
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; flycheck-pos-tip prevents linting and type errors from clashing with
+  ;; cider's eldoc information
   (eval-after-load 'flycheck
     '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
 

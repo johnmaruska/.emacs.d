@@ -31,6 +31,18 @@
 ;; TODO: why do I have this?
 (load "~/.emacs.d/multi-term.el")
 
+
+(require 'eshell)
+(declare-function eshell/pwd "ext:eshell/pwd")
+(defvar eshell-prompt-function
+  (lambda ()
+    (concat
+     (propertize (format-time-string "%-m/%d/%Y %a %-I:%M:%S %p " (current-time))
+                 'face `(:foreground "#aaaaff"))
+     (propertize (abbreviate-file-name (eshell/pwd))
+                 'face `(:foreground "#aaaa44"))
+     (if (= (user-uid) 0) " # " " $ "))))
+
 ;;; Commentary:
 
 (provide 'init)
