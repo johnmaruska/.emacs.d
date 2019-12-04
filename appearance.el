@@ -22,7 +22,6 @@
   ;; TODO: Look up a theme with a more beige background
   (load-theme 'sanityinc-tomorrow-day t))
 
-;; TODO: similar functions for Inspiron and Vingtor
 (defun vingtor-ubuntu-appearance ()
   "Change the appearance of Emacs to preferred settings for docked home office."
   (interactive)
@@ -58,7 +57,6 @@
 (defun default-appearance ()
   "Change the appearance of Emacs to preferred default settings."
   (interactive)
-  ;; TODO: go by machine not OS
   (cond
    ((gr-macbook?)          (macbook-appearance))
    ((vingtor-ubuntu?)      (vingtor-ubuntu-appearance))
