@@ -29,10 +29,9 @@
   (or (string= (system-name) "GR-YR2TSLVCHmbp.local")
       (string= (system-name) "GR-YR2TSLVCHmbp.attlocal.net")))
 
-;; TODO: implement
 (defun convertible-windows? ()
   "Is current machine Dell 2-in-1 Windows machine?"
-  (string= (system-name) "TODO-implement"))
+  (string= (system-name) "WINDOWS-EONKBPI"))
 
 (defun vingtor-windows? ()
   "Is current machine Vingtor desktop running Windows?"

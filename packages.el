@@ -40,7 +40,6 @@
     restclient
     rjsx-mode
     rust-mode
-    scala-mode
     uuidgen
     which-key
     whitespace-cleanup-mode
