@@ -28,10 +28,6 @@
 (when (gr-macbook?)
   (load "~/.emacs.d/secrets/gr.el"))
 
-;; TODO: why do I have this?
-(load "~/.emacs.d/multi-term.el")
-
-
 (require 'eshell)
 (declare-function eshell/pwd "ext:eshell/pwd")
 (defvar eshell-prompt-function
