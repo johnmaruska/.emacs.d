@@ -86,7 +86,7 @@
 
 
 (defun json-format ()
-  "Format block to adhere to readable JSON format."
+  "Format JSON block to adhere to readable format."
   (interactive)
   (save-excursion
     (shell-command-on-region (mark)
@@ -94,6 +94,15 @@
                              "python -m json.tool"
                              (buffer-name)
                              t)))
+
+(defun xml-format ()
+  "Format XML block to a readable format."
+  (interactive)
+  (save-excursion
+    (shell-command-on-region
+     (mark) (point)
+     "xmllint --format --encode utf-8 -"
+     (buffer-name) t)))
 
 ;;; Commentary:
 

@@ -9,6 +9,8 @@
 
 (defvar default-path-list (getenv "PATH"))
 (defvar gr-path-list (list "/usr/local/bin"
+                           (expand-file-name "~/bin")
+                           (expand-file-name "~/dev/work/kubeclj")
                            default-path-list))
 (defvar path-list)
 

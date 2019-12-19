@@ -41,6 +41,8 @@
     rjsx-mode
     rust-mode
     scala-mode
+    terraform-doc
+    terraform-mode
     uuidgen
     which-key
     whitespace-cleanup-mode

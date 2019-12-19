@@ -16,6 +16,11 @@
   (interactive)
   (load-theme 'sanityinc-tomorrow-eighties t))
 
+(defun dark-background-bright ()
+  "Change the appearance of Emacs to use a dark higher-contrast background."
+  (interactive)
+  (load-theme 'sanityinc-tomorrow-bright t))
+
 (defun light-background ()
   "Change the appearance of Emacs to use a light background."
   (interactive)
