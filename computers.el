@@ -35,7 +35,7 @@
 
 (defun vingtor-windows? ()
   "Is current machine Vingtor desktop running Windows?"
-  (string= (system-name) "TODO-implement"))
+  (string= (system-name) "DESKTOP-OSSHNUC"))
 
 (defun vingtor-ubuntu? ()
   "Is current machine Vingtor desktop running Ubuntu?"
