@@ -10,47 +10,28 @@
 
 ;;; Code:
 
-(require 'yafolding)
-(defun configure-prog-mode ()
-  "Configures `prog-mode` major mode which informs most programming modes."
-  (aggressive-indent-mode 1)
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  (setq yafolding-mode-map
-        (let ((map (make-sparse-keymap)))
-          (define-key map (kbd "<C-S-return>") #'yafolding-hide-parent-element)
-          (define-key map (kbd "<C-M-return>") #'yafolding-toggle-all)
-          (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
-          map))
-  (add-hook 'prog-mode-hook 'yafolding-mode))
-
+(require 'clojure-mode)
 (require 'clj-refactor)
-(defun my-clojure-mode-hook ()
-  "Handles all configuration for Clojure mode."
-  (require 'clojure-mode)
-  (aggressive-indent-mode 1)
-  (define-clojure-indent
-    (defroutes 'defun)
-    (GET 2)
-    (POST 2)
-    (PUT 2)
-    (DELETE 2)
-    (HEAD 2)
-    (ANY 2)
-    (OPTIONS 2)
-    (PATCH 2)
-    (rfn 2)
-    (let-routes 1)
-    (context 2)))
-
 (defun configure-clojure ()
   "Configures hooks for interacting with Clojure."
-  (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+  (define-key cider-repl-mode-map (kbd "C-c M-i") #'cider-inspect)
   (add-hook 'cider-mode-hook #'eldoc-mode)
-  (define-key cider-repl-mode-map (kbd "C-c M-i") #'cider-inspect))
-
-(defun my-clojurescript-hook ()
-  "Handles all configuration for ClojureScript mode."
-  (aggressive-indent-mode 1))
+  (add-hook 'clojure-mode-hook
+            (lambda ()
+              (aggressive-indent-mode 1)
+              (define-clojure-indent
+                (defroutes 'defun)
+                (GET 2)
+                (POST 2)
+                (PUT 2)
+                (DELETE 2)
+                (HEAD 2)
+                (ANY 2)
+                (OPTIONS 2)
+                (PATCH 2)
+                (rfn 2)
+                (let-routes 1)
+                (context 2)))))
 
 (defun configure-dired ()
   "Configures dired settings."
@@ -69,7 +50,10 @@
 
 (defun configure-org-mode ()
   "Configures necessary for interacting with `org-mode`."
-  (add-hook 'org-mode-hook #'turn-on-font-lock))
+  (add-hook 'org-mode-hook #'turn-on-font-lock)
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c c") 'org-capture))
 
 (defun configure-javascript ()
   "Configures necessary for interacting with JavaScript."
@@ -103,18 +87,37 @@ Google Chrome has support issues with flymd. This is the recommended solution.
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
   (setq flymd-browser-open-function 'my-flymd-browser-function))
 
+(require 'yafolding)
+(defun configure-prog-mode ()
+  "Configures `prog-mode` major mode which informs most programming modes."
+  (aggressive-indent-mode 1)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (setq yafolding-mode-map
+        (let ((map (make-sparse-keymap)))
+          (define-key map (kbd "<C-S-return>") #'yafolding-hide-parent-element)
+          (define-key map (kbd "<C-M-return>") #'yafolding-toggle-all)
+          (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
+          map))
+  (add-hook 'prog-mode-hook 'yafolding-mode))
+
 (defun configure-rust ()
   "Configures necessary for interacting with Rust."
   (require 'rust-mode)
   (add-hook 'rust-mode-hook 'flycheck-rust-setup))
 
-(defun my-shell-script-mode-hook ()
-  "Handles all configuration for Clojure mode."
-  (defvar sh-basic-offset 2)
-  (defvar sh-indentation 2))
 (defun configure-shell-script ()
   "Configures necessary for interacting with Shell scripts."
-  (add-hook 'sh-mode-hook 'my-shell-script-mode-hook))
+  (add-hook 'sh-mode-hook
+            (lambda ()
+              (defvar sh-basic-offset 2)
+              (defvar sh-indentation 2))))
+
+(require 'whitespace)
+(defun configure-whitespace-mode ()
+  "Configuration settings for global `whitespace-mode`."
+  (setq whitespace-style '(face empty tabs trailing))
+  (global-whitespace-mode 1))
+
 
 (defun configure-yaml ()
   "Configures necessary for interacting with YAML files."
@@ -150,7 +153,8 @@ Google Chrome has support issues with flymd. This is the recommended solution.
 (defun configure-minor-modes ()
   "Configures all custom modified minor modes."
   (attach-paredit-minor-mode)
-  (configure-flycheck))
+  (configure-flycheck)
+  (configure-whitespace-mode))
 
 (defun configure-all-modes ()
   "Configures all custom modified modes."

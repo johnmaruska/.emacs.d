@@ -27,13 +27,7 @@
   ;; TODO: Look up a theme with a more beige background
   (load-theme 'sanityinc-tomorrow-day t))
 
-(defun vingtor-ubuntu-appearance ()
-  "Change the appearance of Emacs to preferred settings for docked home office."
-  (interactive)
-  (set-face-attribute 'default nil :height 110 :font "Ubuntu Mono")
-  (dark-background))
-
-(defun vingtor-windows-appearance ()
+(defun vingtor-appearance ()
   "Change the appearance of Emacs to preferred settings for Desktop Windows."
   (interactive)
   (set-face-attribute 'default nil
@@ -41,7 +35,7 @@
                       :font "Consolas")
   (dark-background))
 
-(defun convertible-windows-appearance ()
+(defun convertible-appearance ()
   "Change the appearance of Emacs to preferred settings for convertible Windows."
   (interactive)
   (set-face-attribute 'default nil
@@ -63,11 +57,10 @@
   "Change the appearance of Emacs to preferred default settings."
   (interactive)
   (cond
-   ((gr-macbook?)          (macbook-appearance))
-   ((vingtor-ubuntu?)      (vingtor-ubuntu-appearance))
-   ((vingtor-windows?)     (vingtor-windows-appearance))
-   ((convertible-windows?) (convertible-windows-appearance))
-   (t                      (dark-background))))
+   ((gr-macbook?)  (macbook-appearance))
+   ((vingtor?)     (vingtor-appearance))
+   ((convertible?) (convertible-appearance))
+   (t              (dark-background))))
 
 (defun antman-uses-emacs ()
   "Make font tiny."

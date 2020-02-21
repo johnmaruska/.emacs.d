@@ -36,12 +36,6 @@
   (setq which-key-show-early-on-C-h t)  ; pop up early if help is called
   (setq which-key-popup-type 'side-window))
 
-(require 'whitespace)
-(defun configure-whitespace-mode ()
-  "Configuration settings for global `whitespace-mode`."
-  (setq whitespace-style '(face empty tabs trailing))
-  (global-whitespace-mode 1))
-
 (require 'computers "~/.emacs.d/computers.el")
 (defun allow-menu-key ()
   "Allow use of the menu button on Mac for \\[execute-extended-command]."
@@ -51,14 +45,6 @@
     (global-set-key (kbd "≈") 'execute-extended-command))
   (when (windows?)
     (global-set-key (kbd "<apps>") 'execute-extended-command)))
-
-(defun global-set-org-keys ()
-  "Globally set useful org keys from the Compact orgmode guide intro section.
-
-https://orgmode.org/guide/Introduction.html#Activation"
-  (global-set-key (kbd "C-c l") 'org-store-link)
-  (global-set-key (kbd "C-c a") 'org-agenda)
-  (global-set-key (kbd "C-c c") 'org-capture))
 
 (require 'dashboard)
 (defun configure-dashboard ()
@@ -75,26 +61,25 @@ https://orgmode.org/guide/Introduction.html#Activation"
 (defun default-displays ()
   "Configuration settings for what tools to display."
   (setq inhibit-startup-screen t)  ; Don't display welcome screen
-  (tool-bar-mode -1)  ; hide tool bar
-  (scroll-bar-mode -1)  ; hide scroll bar
-  (menu-bar-mode 1)  ; show menu-bar. Doesn't affect Mac OS
-  (display-time-mode 1)  ; show clock in status bar
+  (tool-bar-mode -1)      ; hide tool bar
+  (scroll-bar-mode -1)    ; hide scroll bar
+  (menu-bar-mode 1)       ; show menu-bar. Doesn't affect Mac OS
+  (display-time-mode 1)   ; show clock in status bar
   (column-number-mode 1)  ; show column numbers in addition to line numbers
-  (blink-cursor-mode 1)  ; cursor should blink
-  (show-paren-mode 1)  ; highlight matching paren
+  (blink-cursor-mode 1)   ; cursor should blink
+  (show-paren-mode 1)     ; highlight matching paren
   (global-linum-mode 1))
 
 (defun default-behaviors ()
   "Configuration settings for what behavior to assert."
   (setq-default indent-tabs-mode nil)  ; don't mix tabs and spaces
-  (setq scroll-step 1)  ; keyboard scroll one line at a time
-  (setq require-final-newline t) ; files must end with a newline
+  (setq scroll-step 1)                 ; keyboard scroll one line at a time
+  (setq require-final-newline t)       ; files must end with a newline
   (setq default-directory "~/")
   (allow-menu-key)
   (configure-autocomplete)
   (configure-ido)
-  (configure-which-key)
-  (configure-whitespace-mode))
+  (configure-which-key))
 
 (defun default-ui-configuration ()
   "Set values for various Emacs UI configuration settings."
@@ -104,30 +89,6 @@ https://orgmode.org/guide/Introduction.html#Activation"
   (configure-neotree)
   ;; EMBIGGEN
   (add-to-list 'default-frame-alist '(fullscreen . maximized)))
-
-
-(defun json-format ()
-  "Format JSON block to adhere to readable format."
-  (interactive)
-  (save-excursion
-    (shell-command-on-region (mark)
-                             (point)
-                             "python -m json.tool"
-                             (buffer-name)
-                             t)))
-
-(defun json-parse ()
-  (interactive)
-  (json-read-from-string (buffer-substring (mark) (point))))
-
-(defun xml-format ()
-  "Format XML block to a readable format."
-  (interactive)
-  (save-excursion
-    (shell-command-on-region
-     (mark) (point)
-     "xmllint --format --encode utf-8 -"
-     (buffer-name) t)))
 
 ;;; Commentary:
 

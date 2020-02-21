@@ -29,24 +29,19 @@
   (or (string= (system-name) "GR-YR2TSLVCHmbp.local")
       (string= (system-name) "GR-YR2TSLVCHmbp.attlocal.net")))
 
-(defun convertible-windows? ()
+(defun convertible? ()
   "Is current machine Dell 2-in-1 Windows machine?"
   (string= (system-name) "WINDOWS-EONKBPI"))
 
-(defun vingtor-windows? ()
+(defun vingtor? ()
   "Is current machine Vingtor desktop running Windows?"
-  (string= (system-name) "TODO-implement"))
-
-(defun vingtor-ubuntu? ()
-  "Is current machine Vingtor desktop running Ubuntu?"
-  (string= (system-name) "TODO-implement"))
+  (string= (system-name) "DESKTOP-OSSHNUC"))
 
 (defun current-machine ()
   "Return English name for machine instead of `system-name`."
-  (cond ((gr-macbook?)          "GR-MacBook")
-        ((convertible-windows?) "Convertible-Windows")
-        ((vingtor-windows?)     "Vingtor-Windows")
-        ((vingtor-ubuntu?)      "Vingtor-Ubuntu")))
+  (cond ((gr-macbook?)  "GR-MacBook")
+        ((convertible?) "Convertible-Windows")
+        ((vingtor?)     "Vingtor")))
 
 
 (provide 'computers)
