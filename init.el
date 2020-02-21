@@ -39,6 +39,8 @@
                  'face `(:foreground "#aaaa44"))
      (if (= (user-uid) 0) " # " " $ "))))
 
+(require 'json)
+
 ;;; Commentary:
 
 (provide 'init)

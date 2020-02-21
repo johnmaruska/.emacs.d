@@ -17,25 +17,30 @@
 (defvar package-list
   '(ack-and-a-half
     aggressive-indent
+    all-the-icons
+    all-the-icons-dired
     auto-complete
     cider
     clojure-mode
     clj-refactor
     color-theme-sanityinc-tomorrow
     ensime
+    dashboard  ; emacs-dashboard
     emacs-xkcd
     flycheck
     flycheck-clojure
     flycheck-pos-tip
+    flymd
     geiser
     groovy-mode
-    json
     markdown-mode
     magit-gitflow
     multi-term
     multiple-cursors
     neotree
+    page-break-lines
     paredit
+    projectile
     rainbow-delimiters
     restclient
     rjsx-mode
@@ -45,6 +50,7 @@
     uuidgen
     which-key
     whitespace-cleanup-mode
+    wsd-mode
     w3m
     yafolding
     yaml-mode))

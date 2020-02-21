@@ -45,18 +45,23 @@
 (defun configure-clojure ()
   "Configures hooks for interacting with Clojure."
   (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
-  (add-hook 'cider-mode-hook #'eldoc-mode))
+  (add-hook 'cider-mode-hook #'eldoc-mode)
+  (define-key cider-repl-mode-map (kbd "C-c M-i") #'cider-inspect))
 
 (defun my-clojurescript-hook ()
   "Handles all configuration for ClojureScript mode."
   (aggressive-indent-mode 1))
 
+(defun configure-dired ()
+  "Configures dired settings."
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
 (require 'flycheck)
 (require 'flycheck-pos-tip)
 (defun configure-flycheck ()
   "Configures general flycheck settings - not language specific setup."
-  (eval-after-load 'flycheck '(flycheck-clojure-setup))
-  (add-hook 'after-init-hook #'global-flycheck-mode)
+  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
+
   ;; flycheck-pos-tip prevents linting and type errors from clashing with
   ;; cider's eldoc information
   (eval-after-load 'flycheck
@@ -69,7 +74,8 @@
 (defun configure-javascript ()
   "Configures necessary for interacting with JavaScript."
   (require 'rjsx-mode)
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
+  (setq js-indent-level 2))
 
 (defun configure-magit ()
   "Configures magit."
@@ -77,11 +83,25 @@
   (global-set-key (kbd "C-x g") 'magit-status)
   (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
 
+(defun my-flymd-browser-function (url)
+  "Use Mozilla Firefox for flymd instead of Google Chrome.
+
+Google Chrome has support issues with flymd. This is the recommended solution.
+<https://github.com/mola-T/flymd/blob/master/browser.md#user-content-chrome-macos>"
+  (let ((process-environment (browse-url-process-environment)))
+    (apply 'start-process
+           (concat "firefox " url)
+             nil
+             "/usr/bin/open"
+             (list "-a" "firefox" url))))
+
 (defun configure-markdown ()
   "Configures necessary for interacting with Markdown."
   (require 'markdown-mode)
+  (require 'flymd)
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
+  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+  (setq flymd-browser-open-function 'my-flymd-browser-function))
 
 (defun configure-rust ()
   "Configures necessary for interacting with Rust."
@@ -99,7 +119,8 @@
 (defun configure-yaml ()
   "Configures necessary for interacting with YAML files."
   (require 'yaml-mode)
-  (add-hook 'yaml-mode-hook 'linum-mode))
+  (add-hook 'yaml-mode-hook 'linum-mode)
+  (add-hook 'yaml-mode-hook 'yafolding-mode))
 
 (defun attach-paredit-minor-mode ()
   "Attaches minor mode Paredit to all major modes which use it."

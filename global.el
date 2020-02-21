@@ -24,6 +24,7 @@
 (defun configure-neotree ()
   "Configuration settings for `neotree` package."
   (global-set-key [f8] 'neotree-toggle)
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (neotree-dir "~/dev/")
   (neotree-hide))
 
@@ -50,6 +51,26 @@
     (global-set-key (kbd "≈") 'execute-extended-command))
   (when (windows?)
     (global-set-key (kbd "<apps>") 'execute-extended-command)))
+
+(defun global-set-org-keys ()
+  "Globally set useful org keys from the Compact orgmode guide intro section.
+
+https://orgmode.org/guide/Introduction.html#Activation"
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c c") 'org-capture))
+
+(require 'dashboard)
+(defun configure-dashboard ()
+  "Configure the start-up dashboard package."
+  (dashboard-setup-startup-hook)
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-items '((recents . 30)
+                          ;; more options for org-mode
+                          (projects . 5)))
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-set-navigator t))
 
 (defun default-displays ()
   "Configuration settings for what tools to display."
@@ -94,6 +115,10 @@
                              "python -m json.tool"
                              (buffer-name)
                              t)))
+
+(defun json-parse ()
+  (interactive)
+  (json-read-from-string (buffer-substring (mark) (point))))
 
 (defun xml-format ()
   "Format XML block to a readable format."

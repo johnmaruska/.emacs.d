@@ -56,7 +56,7 @@
                       :height 135
                       :weight 'medium
                       :font "Andale Mono")
-  (dark-background))
+  (dark-background-bright))
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun default-appearance ()
@@ -68,6 +68,16 @@
    ((vingtor-windows?)     (vingtor-windows-appearance))
    ((convertible-windows?) (convertible-windows-appearance))
    (t                      (dark-background))))
+
+(defun antman-uses-emacs ()
+  "Make font tiny."
+  (interactive)
+  (set-face-attribute 'default nil :height 90))
+
+(defun bigger-font ()
+  "Make font larger."
+  (interactive)
+  (set-face-attribute 'default nil :height 160))
 
 (provide 'appearance)
 ;;; appearance.el ends here
