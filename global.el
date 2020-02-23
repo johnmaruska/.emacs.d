@@ -21,11 +21,15 @@
   (ido-mode t))
 
 (require 'neotree)
+(require 'computers "~/.emacs.d/computers.el")
 (defun configure-neotree ()
   "Configuration settings for `neotree` package."
   (global-set-key [f8] 'neotree-toggle)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (neotree-dir "~/dev/")
+  (if (vingtor-windows?)
+      (neotree-dir "~/Documents/dev/")
+      (neotree-dir "~/dev/"))
   (neotree-hide))
 
 (require 'which-key)

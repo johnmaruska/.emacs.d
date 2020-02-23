@@ -33,7 +33,7 @@
   (set-face-attribute 'default nil
                       :height 131
                       :font "Consolas")
-  (dark-background))
+  (dark-background-bright))
 
 (defun convertible-appearance ()
   "Change the appearance of Emacs to preferred settings for convertible Windows."

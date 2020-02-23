@@ -35,14 +35,13 @@
 
 (defun vingtor? ()
   "Is current machine Vingtor desktop running Windows?"
-  (string= (system-name) "DESKTOP-OSSHNUC"))
+  (string= (system-name) "VINGTOR"))
 
 (defun current-machine ()
   "Return English name for machine instead of `system-name`."
-  (cond ((gr-macbook?)  "GR-MacBook")
+  (cond ((gr-macbook?)          "GR-MacBook")
         ((convertible?) "Convertible-Windows")
-        ((vingtor?)     "Vingtor")))
-
+        ((vingtor?)     (system-name))))
 
 (provide 'computers)
 ;;; computers.el ends here

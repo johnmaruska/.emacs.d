@@ -24,7 +24,6 @@
     clojure-mode
     clj-refactor
     color-theme-sanityinc-tomorrow
-    ensime
     dashboard  ; emacs-dashboard
     emacs-xkcd
     flycheck
