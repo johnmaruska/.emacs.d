@@ -27,7 +27,7 @@
   (global-set-key [f8] 'neotree-toggle)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   (neotree-dir "~/dev/")
-  (if (vingtor-windows?)
+  (if (vingtor?)
       (neotree-dir "~/Documents/dev/")
       (neotree-dir "~/dev/"))
   (neotree-hide))
@@ -71,8 +71,15 @@
   (display-time-mode 1)   ; show clock in status bar
   (column-number-mode 1)  ; show column numbers in addition to line numbers
   (blink-cursor-mode 1)   ; cursor should blink
+  (beacon-mode 1)         ; cursor lights beacon on windows change/scroll
   (show-paren-mode 1)     ; highlight matching paren
   (global-linum-mode 1))
+
+(defun configured-auto-dim-other-buffers ()
+  (add-hook 'after-init-hook
+            (lambda ()
+              (when (fboundp 'auto-dim-other-buffers-mode)
+                (auto-dim-other-buffers-mode t)))))
 
 (defun default-behaviors ()
   "Configuration settings for what behavior to assert."
@@ -83,7 +90,9 @@
   (allow-menu-key)
   (configure-autocomplete)
   (configure-ido)
-  (configure-which-key))
+  (configure-dashboard)
+  (configure-which-key)
+  (configure-auto-dim-other-buffers))
 
 (defun default-ui-configuration ()
   "Set values for various Emacs UI configuration settings."

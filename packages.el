@@ -20,6 +20,8 @@
     all-the-icons
     all-the-icons-dired
     auto-complete
+    auto-dim-other-buffers
+    beacon
     cider
     clojure-mode
     clj-refactor
