@@ -34,6 +34,7 @@
     flymd
     geiser
     groovy-mode
+    json-mode
     markdown-mode
     magit-gitflow
     multi-term

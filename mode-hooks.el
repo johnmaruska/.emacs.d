@@ -15,6 +15,8 @@
 (defun configure-clojure ()
   "Configures hooks for interacting with Clojure."
   (define-key cider-repl-mode-map (kbd "C-c M-i") #'cider-inspect)
+  (define-key clojurescript-mode-map (kbd "C-c M-i") #'cider-inspect)
+  (define-key clojure-mode-map (kbd "C-c M-i") #'cider-inspect)
   (add-hook 'cider-mode-hook #'eldoc-mode)
   (add-hook 'clojure-mode-hook
             (lambda ()
@@ -134,7 +136,6 @@ Google Chrome has support issues with flymd. This is the recommended solution.
           clojurescript-mode-hook
           emacs-lisp-mode-hook
           eval-expression-minibuffer-setup-hook
-          json-mode-hook
           lisp-mode-hook
           lisp-interaction-mode-hook)))
 
