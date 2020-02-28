@@ -13,6 +13,10 @@ secrets/*
 server/*
 .mc-lists.el
 
+# emacs-dashboard
+recentf
+projectile-bookmarks.eld
+
 *~
 *#*
 
