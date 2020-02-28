@@ -75,7 +75,13 @@
   (show-paren-mode 1)     ; highlight matching paren
   (global-linum-mode 1))
 
-(defun configured-auto-dim-other-buffers ()
+(defun configure-sbcl ()
+  ;; look into installing slime/quicklisp-slime-helper
+  (load (expand-file-name "~/quicklisp/slime-helper.el"))
+  ;; Replace "sbcl" with the path to your implementation
+  (setq inferior-lisp-program "sbcl"))
+
+(defun configure-auto-dim-other-buffers ()
   (add-hook 'after-init-hook
             (lambda ()
               (when (fboundp 'auto-dim-other-buffers-mode)
