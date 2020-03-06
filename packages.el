@@ -34,12 +34,14 @@
     flymd
     geiser
     groovy-mode
+    ht
     json-mode
     markdown-mode
     magit-gitflow
     multi-term
     multiple-cursors
     neotree
+    nodejs-repl
     page-break-lines
     paredit
     projectile

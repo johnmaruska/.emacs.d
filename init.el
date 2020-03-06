@@ -40,6 +40,7 @@
      (if (= (user-uid) 0) " # " " $ "))))
 
 (require 'json)
+(require 'utils "~/.emacs.d/utils.el")
 
 ;; TODO: find better spot
 (defun configure-sbcl ()
@@ -48,7 +49,9 @@
   ;; Replace "sbcl" with the path to your implementation
   (setq inferior-lisp-program "sbcl"))
 
-(configure-sbcl)
+(require 'computers "~/.emacs.d/computers.el")
+(when (convertible?)
+  (configure-sbcl))
 
 ;;; Commentary:
 

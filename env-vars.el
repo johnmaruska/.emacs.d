@@ -11,6 +11,7 @@
 (defvar gr-path-list (list "/usr/local/bin"
                            (expand-file-name "~/bin")
                            (expand-file-name "~/dev/work/kubeclj")
+                           "/usr/local/opt/mongodb-community@3.6/bin"
                            default-path-list))
 (defvar path-list)
 
