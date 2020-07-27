@@ -26,6 +26,7 @@
     clojure-mode
     clj-refactor
     color-theme-sanityinc-tomorrow
+    csharp-mode
     dashboard  ; emacs-dashboard
     emacs-xkcd
     flycheck
@@ -69,7 +70,6 @@
   (dolist (package package-list)
     (unless (package-installed-p package)
       (package-install package))))
-
 
 (provide 'packages)
 ;;; packages.el ends here

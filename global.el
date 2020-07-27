@@ -58,6 +58,10 @@
   (setq dashboard-items '((recents . 30)
                           ;; more options for org-mode
                           (projects . 5)))
+  (setq dashboard-banner-logo-title "Welcome! Everything is fine.")
+  (setq dashboard-footer-messages '("Don't check the internet. Just start working."
+                                    "Thank you for keeping trying."
+                                    "Slow progress is still progress."))
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-set-navigator t))

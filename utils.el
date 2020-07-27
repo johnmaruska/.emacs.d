@@ -22,10 +22,11 @@
   "Format XML block to a readable format."
   (interactive)
   (save-excursion
-    (shell-command-on-region
-     (mark) (point)
-     "xmllint --format --encode utf-8 -"
-     (buffer-name) t)))
+    (shell-command-on-region (mark)
+                             (point)
+                             "xmllint --format --encode utf-8 -"
+                             (buffer-name)
+                             t)))
 
 ;;; Commentary:
 

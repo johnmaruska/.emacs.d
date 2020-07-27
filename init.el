@@ -12,21 +12,8 @@
 (require 'env-vars "~/.emacs.d/env-vars.el")
 (set-default-envvars)
 
-(require 'appearance "~/.emacs.d/appearance.el")
-(default-appearance)
-
 (require 'mode-hooks "~/.emacs.d/mode-hooks.el")
 (configure-all-modes)
-
-(require 'neotree) ; hides a warning
-;; the following functions might not be defined at runtime:
-;;   neo-buffer--unlock-width, neo-buffer--lock-width
-(require 'global "~/.emacs.d/global.el")
-(default-ui-configuration)
-
-(require 'computers "~/.emacs.d/computers.el")
-(when (gr-macbook?)
-  (load "~/.emacs.d/secrets/gr.el"))
 
 (require 'eshell)
 (declare-function eshell/pwd "ext:eshell/pwd")
@@ -42,6 +29,15 @@
 (require 'json)
 (require 'utils "~/.emacs.d/utils.el")
 
+(require 'neotree) ; hides a warning
+;; the following functions might not be defined at runtime:
+;;   neo-buffer--unlock-width, neo-buffer--lock-width
+(require 'global "~/.emacs.d/global.el")
+(default-ui-configuration)
+
+(require 'appearance "~/.emacs.d/appearance.el")
+(default-appearance)
+
 ;; TODO: find better spot
 (defun configure-sbcl ()
   ;; look into installing slime/quicklisp-slime-helper
@@ -52,6 +48,10 @@
 (require 'computers "~/.emacs.d/computers.el")
 (when (convertible?)
   (configure-sbcl))
+
+(require 'computers "~/.emacs.d/computers.el")
+(when (gr-macbook?)
+  (load "~/.emacs.d/secrets/gr.el"))
 
 ;;; Commentary:
 

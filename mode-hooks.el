@@ -20,6 +20,11 @@
   (add-hook 'cider-mode-hook #'eldoc-mode)
   (add-hook 'clojure-mode-hook
             (lambda ()
+              ;; clojure refactor
+              (clj-refactor-mode 1)
+              (yas-minor-mode 1)
+              (cljr-add-keybindings-with-prefix "C-c C-m")
+              ;; auto indenting
               (aggressive-indent-mode 1)
               (define-clojure-indent
                 (defroutes 'defun)
