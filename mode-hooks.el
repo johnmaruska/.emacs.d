@@ -55,13 +55,6 @@
   (eval-after-load 'flycheck
     '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
 
-(defun configure-org-mode ()
-  "Configures necessary for interacting with `org-mode`."
-  (add-hook 'org-mode-hook #'turn-on-font-lock)
-  (global-set-key (kbd "C-c l") 'org-store-link)
-  (global-set-key (kbd "C-c a") 'org-agenda)
-  (global-set-key (kbd "C-c c") 'org-capture))
-
 (defun configure-javascript ()
   "Configures necessary for interacting with JavaScript."
   (require 'rjsx-mode)
@@ -99,11 +92,22 @@ Google Chrome has support issues with flymd. This is the recommended solution.
   (require 'flymd)
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+  (add-hook 'markdown-mode #'auto-fill-mode)
   (setq flymd-browser-open-function 'my-flymd-browser-function))
 
-(require 'yafolding)
+(defun configure-org-mode ()
+  "Configures necessary for interacting with `org-mode`."
+  (add-hook 'org-mode-hook #'turn-on-font-lock)
+  (global-set-key (kbd "C-c l") 'org-store-link)
+  (global-set-key (kbd "C-c a") 'org-agenda)
+  (global-set-key (kbd "C-c c") 'org-capture)
+  (setq org-indent-indentation-per-level 2)
+  (setq org-adapt-indentation nil)
+  (setq org-hide-leading-stars 't))
+
 (defun configure-prog-mode ()
   "Configures `prog-mode` major mode which informs most programming modes."
+  (require 'yafolding)
   (aggressive-indent-mode 1)
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   (setq yafolding-mode-map
@@ -125,6 +129,10 @@ Google Chrome has support issues with flymd. This is the recommended solution.
             (lambda ()
               (defvar sh-basic-offset 2)
               (defvar sh-indentation 2))))
+
+(defun configure-text ()
+  "Configures necessary for interacting with text."
+  (add-hook 'text-mode-hook #'auto-fill-mode))
 
 (require 'whitespace)
 (defun configure-whitespace-mode ()
@@ -167,6 +175,7 @@ Google Chrome has support issues with flymd. This is the recommended solution.
   "Configures all custom modified minor modes."
   (attach-paredit-minor-mode)
   (configure-flycheck)
+  (configure-text)
   (configure-whitespace-mode))
 
 (defun configure-all-modes ()

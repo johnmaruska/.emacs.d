@@ -104,8 +104,7 @@
   (default-displays)
   (default-behaviors)
   (configure-neotree)
-  ;; EMBIGGEN
-  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
+  (toggle-frame-maximized))
 
 ;;; Commentary:
 

@@ -2,6 +2,9 @@
 
 ## TODO
 
+Next: Setup dual-frames, one on laptop with journal, todo, eshell. The
+other with dashboard
+
 ### New Things
 - flycheck working with eastwood and yagni
 - projectile

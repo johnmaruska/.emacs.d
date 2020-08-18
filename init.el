@@ -9,6 +9,15 @@
 (require 'packages "~/.emacs.d/packages.el")
 (install-all-packages)
 
+(require 'neotree) ; hides a warning
+;; the following functions might not be defined at runtime:
+;;   neo-buffer--unlock-width, neo-buffer--lock-width
+(require 'global "~/.emacs.d/global.el")
+(default-ui-configuration)
+
+(require 'appearance "~/.emacs.d/appearance.el")
+(default-appearance)
+
 (require 'env-vars "~/.emacs.d/env-vars.el")
 (set-default-envvars)
 
@@ -28,15 +37,6 @@
 
 (require 'json)
 (require 'utils "~/.emacs.d/utils.el")
-
-(require 'neotree) ; hides a warning
-;; the following functions might not be defined at runtime:
-;;   neo-buffer--unlock-width, neo-buffer--lock-width
-(require 'global "~/.emacs.d/global.el")
-(default-ui-configuration)
-
-(require 'appearance "~/.emacs.d/appearance.el")
-(default-appearance)
 
 ;; TODO: find better spot
 (defun configure-sbcl ()

@@ -36,6 +36,7 @@
     geiser
     groovy-mode
     ht
+    inf-clojure
     json-mode
     markdown-mode
     magit-gitflow
