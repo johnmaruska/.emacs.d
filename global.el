@@ -42,11 +42,7 @@
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun allow-menu-key ()
-  "Allow use of the menu button on Mac for \\[execute-extended-command]."
-  (when (darwin?)
-    (global-set-key (kbd "C-p") 'execute-extended-command))
-  (when (gr-macbook?)
-    (global-set-key (kbd "≈") 'execute-extended-command))
+  "Allow use of the menu button for \\[execute-extended-command]."
   (when (windows?)
     (global-set-key (kbd "<apps>") 'execute-extended-command)))
 

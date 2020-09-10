@@ -17,6 +17,16 @@
   (define-key cider-repl-mode-map (kbd "C-c M-i") #'cider-inspect)
   (define-key clojurescript-mode-map (kbd "C-c M-i") #'cider-inspect)
   (define-key clojure-mode-map (kbd "C-c M-i") #'cider-inspect)
+  (setq cider-repl-use-pretty-printing t)
+  (setq cljr-magic-require-namespaces
+      '(("io"   . "clojure.java.io")
+        ("set"  . "clojure.set")
+        ("str"  . "clojure.string")
+        ("walk" . "clojure.walk")
+        ("zip"  . "clojure.zip")
+        ("time" . "clj-time.core")
+        ("log"  . "clojure.tools.logging")
+        ("json" . "cheshire.core")))
   (add-hook 'cider-mode-hook #'eldoc-mode)
   (add-hook 'clojure-mode-hook
             (lambda ()
@@ -28,6 +38,7 @@
               (aggressive-indent-mode 1)
               (define-clojure-indent
                 (defroutes 'defun)
+                (alet 1)
                 (GET 2)
                 (POST 2)
                 (PUT 2)

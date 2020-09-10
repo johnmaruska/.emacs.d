@@ -49,6 +49,7 @@
   (set-face-attribute 'default nil
                       :height 135
                       :weight 'medium
+                      :width 'ultra-expanded
                       :font "Andale Mono")
   (dark-background-bright))
 

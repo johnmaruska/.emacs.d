@@ -43,5 +43,37 @@
         ((convertible?) "Convertible-Windows")
         ((vingtor?)     (system-name))))
 
+;;;;;;;; Mac-only UI
+
+(defun add-todo-window ()
+  (split-window-right -75)
+  (other-window 1)
+  (find-file "~/dev/work/troubleshooting/TODO.org"))
+
+(defun add-journal-window ()
+  (split-window-below 25)
+  (other-window 1)
+  (find-file "~/dev/work/troubleshooting/journal.md"))
+
+(defun setup-laptop-display ()
+  (eshell)
+  (add-todo-window)
+  (add-journal-window)
+  (other-window 1)
+  (toggle-frame-fullscreen))
+
+(defun setup-monitor-display ()
+  (let ((f (make-frame)))
+    (set-frame-height   f 1080 nil 't)
+    (set-frame-width    f 1920 nil 't)
+    (set-frame-position f 2880 0))
+  (toggle-frame-fullscreen)
+  (switch-to-buffer "*dashboard*"))
+
+(defun setup-mac-displays ()
+  (setup-laptop-display)
+  (setup-monitor-display))
+
+
 (provide 'computers)
 ;;; computers.el ends here

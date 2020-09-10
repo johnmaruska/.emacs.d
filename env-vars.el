@@ -28,6 +28,7 @@
     ;; this matters for sub-shell process (e.g. launch bash)
     (setenv "PATH" (mapconcat 'identity path-list ":")))
   (when (eq system-type 'darwin)
+    (setenv "PYTHON" "/usr/bin/python")
     (setenv "JAVA_HOME"
             "/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home"))
   ;; this matters for eshell

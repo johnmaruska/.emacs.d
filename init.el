@@ -51,7 +51,8 @@
 
 (require 'computers "~/.emacs.d/computers.el")
 (when (gr-macbook?)
-  (load "~/.emacs.d/secrets/gr.el"))
+  (load "~/.emacs.d/secrets/gr.el")
+  (setup-mac-displays))
 
 ;;; Commentary:
 
