@@ -13,8 +13,8 @@
                          ("melpa-stable" . "http://stable.melpa.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.org/packages/")))
-
-(defvar package-list
+(defvar package-list)
+(setq package-list
   '(ack-and-a-half
     aggressive-indent
     all-the-icons

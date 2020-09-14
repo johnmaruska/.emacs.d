@@ -26,10 +26,7 @@
   "Configuration settings for `neotree` package."
   (global-set-key [f8] 'neotree-toggle)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
-  (neotree-dir "~/dev/")
-  (if (vingtor?)
-      (neotree-dir "~/Documents/dev/")
-      (neotree-dir "~/dev/"))
+  (neotree-dir (expand-file-name "~/dev/"))
   (neotree-hide))
 
 (require 'which-key)
@@ -87,6 +84,7 @@
   (setq scroll-step 1)                 ; keyboard scroll one line at a time
   (setq require-final-newline t)       ; files must end with a newline
   (setq default-directory "~/")
+  (setq-default tab-width 4)
   (allow-menu-key)
   (configure-autocomplete)
   (configure-ido)
