@@ -28,7 +28,7 @@
     color-theme-sanityinc-tomorrow
     csharp-mode
     dashboard  ; emacs-dashboard
-    emacs-xkcd
+    editorconfig
     flycheck
     flycheck-clojure
     flycheck-pos-tip

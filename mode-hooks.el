@@ -160,8 +160,7 @@ Google Chrome has support issues with flymd. This is the recommended solution.
 
 (defun attach-paredit-minor-mode ()
   "Attaches minor mode Paredit to all major modes which use it."
-  (mapc #'(lambda (mode-hook)
-            (add-hook mode-hook #'paredit-mode))
+  (mapc #'(lambda (mode-hook) (add-hook mode-hook #'paredit-mode))
         '(cider-repl-mode-hook
           clojure-mode-hook
           clojurescript-mode-hook

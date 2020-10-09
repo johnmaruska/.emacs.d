@@ -66,11 +66,16 @@
   (scroll-bar-mode -1)    ; hide scroll bar
   (menu-bar-mode 1)       ; show menu-bar. Doesn't affect Mac OS
   (display-time-mode 1)   ; show clock in status bar
-  (column-number-mode 1)  ; show column numbers in addition to line numbers
+  (line-number-mode 1)    ; show line numbers
+  (column-number-mode 1)  ; show column numbers
   (blink-cursor-mode 1)   ; cursor should blink
   (beacon-mode 1)         ; cursor lights beacon on windows change/scroll
   (show-paren-mode 1)     ; highlight matching paren
-  (global-linum-mode 1))
+  (global-linum-mode 1)
+  (global-hl-line-mode 1)  ; highlight line with cursor
+  (minibuffer-electric-default-mode 1)  ; [DEFAULT-ARG] instead of (default DEFAULT-ARG)
+  ;; TODO: resize-mini-windows
+  )
 
 (defun configure-auto-dim-other-buffers ()
   (add-hook 'after-init-hook
@@ -78,13 +83,23 @@
               (when (fboundp 'auto-dim-other-buffers-mode)
                 (auto-dim-other-buffers-mode t)))))
 
+(require 'editorconfig)
 (defun default-behaviors ()
   "Configuration settings for what behavior to assert."
-  (setq-default indent-tabs-mode nil)  ; don't mix tabs and spaces
-  (setq scroll-step 1)                 ; keyboard scroll one line at a time
-  (setq require-final-newline t)       ; files must end with a newline
   (setq default-directory "~/")
   (setq-default tab-width 4)
+  ;; don't mix tabs and spaces
+  (setq-default indent-tabs-mode nil)
+  ;; keyboard scroll one line at a time
+  (setq scroll-step 1)
+  ;; files must end with a newline
+  (setq require-final-newline t)
+  ;; minibuffer history keeps only one of each unique entry
+  (setq history-delete-duplicates t)
+  ;; show key-binding suggestions for 5 seconds
+  (setq suggest-key-bindings 5)
+  (set-fill-column 80)
+  (editorconfig-mode 1)
   (allow-menu-key)
   (configure-autocomplete)
   (configure-ido)
