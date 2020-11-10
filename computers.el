@@ -56,7 +56,7 @@
   (find-file "~/dev/work/troubleshooting/journal.md"))
 
 (defun setup-laptop-display ()
-  (eshell)
+  (switch-to-buffer "*scratch*")
   (add-todo-window)
   (add-journal-window)
   (other-window 1)
