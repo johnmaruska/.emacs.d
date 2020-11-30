@@ -54,6 +54,10 @@
   (load "~/.emacs.d/secrets/gr.el")
   (setup-mac-displays))
 
+(defun chris-zoom ()
+  (interactive)
+  (browse-url "https://us02web.zoom.us/j/5734523216?pwd=Y2JjN29pYkFwcVZKZUx4RnN6N0VmZz09"))
+
 ;;; Commentary:
 
 (provide 'init)
