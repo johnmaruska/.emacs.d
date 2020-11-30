@@ -112,6 +112,13 @@ Google Chrome has support issues with flymd. This is the recommended solution.
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
+
+  (org-babel-do-load-languages 'org-babel-load-languages '((scheme . t)))
+  ;; Syntax highlight in #+BEGIN_SRC blocks
+  (setq org-src-fontify-natively t)
+  ;; Don't prompt before running code in org
+  (setq org-confirm-babel-evaluate nil)
+
   (setq org-indent-indentation-per-level 2)
   (setq org-adapt-indentation nil)
   (setq org-hide-leading-stars 't))
