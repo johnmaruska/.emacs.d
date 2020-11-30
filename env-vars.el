@@ -26,11 +26,10 @@
               (t             (list default-path-list))))
   (when window-system
     ;; this matters for sub-shell process (e.g. launch bash)
-    (setenv "PATH" (mapconcat 'identity path-list ":")))
+    (setenv "PATH" (mapconcat 'identity path-list ":"))
+    (setenv "JAVA_HOME" "/usr/local/Cellar/openjdk/15.0.1"))
   (when (eq system-type 'darwin)
-    (setenv "PYTHON" "/usr/bin/python")
-    (setenv "JAVA_HOME"
-            "/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home"))
+    (setenv "PYTHON" "/usr/bin/python"))
   ;; this matters for eshell
   (setq exec-path (append exec-path path-list)))
 
