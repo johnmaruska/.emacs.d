@@ -25,7 +25,8 @@
 (defun configure-neotree ()
   "Configuration settings for `neotree` package."
   (global-set-key [f8] 'neotree-toggle)
-  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow)
+        neo-window-position 'left)
   (neotree-dir (expand-file-name "~/dev/"))
   (neotree-hide))
 
@@ -47,17 +48,30 @@
 (defun configure-dashboard ()
   "Configure the start-up dashboard package."
   (dashboard-setup-startup-hook)
-  (setq dashboard-startup-banner 'logo)
-  (setq dashboard-items '((recents . 30)
+  (setq dashboard-startup-banner 'logo
+        dashboard-items '((recents . 20)
                           ;; more options for org-mode
-                          (projects . 5)))
-  (setq dashboard-banner-logo-title "Welcome! Everything is fine.")
-  (setq dashboard-footer-messages '("Don't check the internet. Just start working."
+                          (projects . 10))
+        dashboard-banner-logo-title "Welcome! Everything is fine."
+        dashboard-footer-messages '("Don't check the internet. Just start working."
                                     "Thank you for keeping trying."
-                                    "Slow progress is still progress."))
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-set-navigator t))
+                                    "Slow progress is still progress.")
+        dashboard-set-heading-icons t
+        dashboard-set-file-icons t
+        dashboard-set-navigator t))
+
+;;; Projectile
+(require 'projectile)
+(defun configure-projectile ()
+  "Configure the projectile package."
+  (projectile-global-mode)
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (setq projectile-enable-caching t
+        projectile-switch-project-action 'neotree-projectile-action
+        projectile-use-git-grep t
+        projectile-project-root-files (quote ("project.clj" "package.json" ".git" ".projectile_root"))
+        projectile-project-root-files-bottom-up (quote (".projectile"))
+        projectile-file-exists-remote-cache-expire (* 10 60)))
 
 (defun default-displays ()
   "Configuration settings for what tools to display."
