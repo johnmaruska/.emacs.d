@@ -11,12 +11,8 @@
 ;;; Code:
 
 ;;; Background Appearance
-(defun dark-background ()
-  "Change the appearance of Emacs to use a dark background."
-  (interactive)
-  (load-theme 'sanityinc-tomorrow-eighties t))
 
-(defun dark-background-bright ()
+(defun dark-background ()
   "Change the appearance of Emacs to use a dark higher-contrast background."
   (interactive)
   (load-theme 'sanityinc-tomorrow-bright t))
@@ -33,7 +29,7 @@
   (set-face-attribute 'default nil
                       :height 131
                       :font "Consolas")
-  (dark-background-bright))
+  (dark-background))
 
 (defun convertible-appearance ()
   "Change the appearance of Emacs to preferred settings for convertible Windows."
@@ -51,7 +47,10 @@
                       :weight 'medium
                       :width 'ultra-expanded
                       :font "Andale Mono")
-  (dark-background-bright))
+  (dark-background))
+
+(defun default-default-appearance ()
+  (dark-background))
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun default-appearance ()
@@ -61,7 +60,7 @@
    ((gr-macbook?)  (macbook-appearance))
    ((vingtor?)     (vingtor-appearance))
    ((convertible?) (convertible-appearance))
-   (t              (dark-background))))
+   (t              (default-default-appearance))))
 
 (defun antman-uses-emacs ()
   "Make font tiny."
