@@ -29,7 +29,7 @@
 (defvar eshell-prompt-function
   (lambda ()
     (concat
-     (propertize (format-time-string "%-m/%d/%Y %a %-I:%M:%S %p " (current-time))
+     (propertize (format-time-string "%-I:%M:%S%p " (current-time))
                  'face `(:foreground "#aaaaff"))
      (propertize (abbreviate-file-name (eshell/pwd))
                  'face `(:foreground "#aaaa44"))
