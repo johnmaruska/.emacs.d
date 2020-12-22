@@ -31,7 +31,8 @@
 
 (defun convertible? ()
   "Is current machine Dell 2-in-1 Windows machine?"
-  (string= (system-name) "WINDOWS-EONKBPI"))
+  ;; need to name the PC
+  (string= (system-name) "nixos"))
 
 (defun vingtor? ()
   "Is current machine Vingtor desktop running Windows?"
@@ -39,7 +40,7 @@
 
 (defun current-machine ()
   "Return English name for machine instead of `system-name`."
-  (cond ((gr-macbook?)          "GR-MacBook")
+  (cond ((gr-macbook?)  "GR-MacBook")
         ((convertible?) "Convertible-Windows")
         ((vingtor?)     (system-name))))
 

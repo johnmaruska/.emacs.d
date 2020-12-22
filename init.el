@@ -38,17 +38,6 @@
 (require 'json)
 (require 'utils "~/.emacs.d/utils.el")
 
-;; TODO: find better spot
-(defun configure-sbcl ()
-  ;; look into installing slime/quicklisp-slime-helper
-  (load (expand-file-name "~/quicklisp/slime-helper.el"))
-  ;; Replace "sbcl" with the path to your implementation
-  (setq inferior-lisp-program "sbcl"))
-
-(require 'computers "~/.emacs.d/computers.el")
-(when (convertible?)
-  (configure-sbcl))
-
 (require 'computers "~/.emacs.d/computers.el")
 (when (gr-macbook?)
   (load "~/.emacs.d/secrets/gr.el")

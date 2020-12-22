@@ -35,8 +35,8 @@
   "Change the appearance of Emacs to preferred settings for convertible Windows."
   (interactive)
   (set-face-attribute 'default nil
-                      :height 110
-                      :font "Consolas")
+                      :height 130
+                      :font "Source Code Pro")
   (dark-background))
 
 (defun macbook-appearance ()
