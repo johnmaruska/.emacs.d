@@ -35,6 +35,7 @@
     flymd
     geiser
     groovy-mode
+    guru-mode
     ht
     inf-clojure
     json-mode

@@ -18,6 +18,7 @@
   (define-key clojurescript-mode-map (kbd "C-c M-i") #'cider-inspect)
   (define-key clojure-mode-map (kbd "C-c M-i") #'cider-inspect)
   (setq cider-repl-use-pretty-printing t)
+  (setq cljr-warn-on-eval nil)
   (setq cljr-magic-require-namespaces
       '(("io"   . "clojure.java.io")
         ("set"  . "clojure.set")
