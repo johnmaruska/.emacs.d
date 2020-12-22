@@ -15,7 +15,7 @@
                          ("melpa" . "http://melpa.org/packages/")))
 (defvar package-list)
 (setq package-list
-  '(ack-and-a-half
+  '(;; ag
     aggressive-indent
     all-the-icons
     all-the-icons-dired
