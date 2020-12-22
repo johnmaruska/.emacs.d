@@ -35,6 +35,12 @@
                  'face `(:foreground "#aaaa44"))
      (if (= (user-uid) 0) " # " " $ "))))
 
+(defun eshell/clear ()
+  "Clear the eshell buffer."
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
+
 (require 'json)
 (require 'utils "~/.emacs.d/utils.el")
 
