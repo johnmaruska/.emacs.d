@@ -66,6 +66,12 @@
   (eval-after-load 'flycheck
     '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
 
+(require 'guru-mode)
+(defun configure-guru ()
+  "Configures settings for Guru mode to help learn keybindings."
+  (add-hook 'prog-mode-hook 'guru-mode)
+  (setq guru-warn-only t))
+
 (defun configure-javascript ()
   "Configures necessary for interacting with JavaScript."
   (require 'rjsx-mode)
@@ -192,6 +198,7 @@ Google Chrome has support issues with flymd. This is the recommended solution.
   "Configures all custom modified minor modes."
   (attach-paredit-minor-mode)
   (configure-flycheck)
+  (configure-guru)
   (configure-text)
   (configure-whitespace-mode))
 
