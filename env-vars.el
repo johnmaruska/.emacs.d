@@ -36,7 +36,7 @@
               (t             (list default-path-list))))
   (when window-system
     ;; this matters for sub-shell process (e.g. launch bash)
-    (setenv "PATH" (mapconcat 'identity path-list (if (vingtor?) ";" ":"))))
+    (setenv "PATH" (mapconcat 'identity path-list (if (vingtor?) ";" ":")))
     (setenv "JAVA_HOME" "/usr/local/Cellar/openjdk/15.0.1"))
   (when (eq system-type 'darwin)
     (setenv "PYTHON" "/usr/bin/python"))
