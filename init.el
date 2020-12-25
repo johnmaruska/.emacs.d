@@ -53,6 +53,8 @@
 (when (gr-macbook?)
   (load "~/.emacs.d/secrets/gr.el")
   (setup-mac-displays))
+(when (vingtor?)
+  (load "~/.emacs.d/secrets/tokens.el"))
 
 ;;; Commentary:
 

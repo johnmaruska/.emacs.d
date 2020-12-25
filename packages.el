@@ -26,7 +26,6 @@
     clojure-mode
     clj-refactor
     color-theme-sanityinc-tomorrow
-    csharp-mode
     dashboard  ; emacs-dashboard
     emacs-xkcd
     flycheck
@@ -36,7 +35,6 @@
     geiser
     groovy-mode
     ht
-    inf-clojure
     json-mode
     markdown-mode
     magit-gitflow

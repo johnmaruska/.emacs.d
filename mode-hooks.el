@@ -26,7 +26,7 @@
         ("zip"  . "clojure.zip")
         ("time" . "clj-time.core")
         ("log"  . "clojure.tools.logging")
-        ("json" . "cheshire.core")))
+        ("json" . "clojure.data.json")))
   (add-hook 'cider-mode-hook #'eldoc-mode)
   (add-hook 'clojure-mode-hook
             (lambda ()
@@ -114,7 +114,14 @@ Google Chrome has support issues with flymd. This is the recommended solution.
   (global-set-key (kbd "C-c c") 'org-capture)
   (setq org-indent-indentation-per-level 2)
   (setq org-adapt-indentation nil)
-  (setq org-hide-leading-stars 't))
+  (setq org-hide-leading-stars 't)
+  ;;; literate programming
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((scheme . t)
+     (clojure . t)))
+  (setq org-src-fontify-natively t)
+  (setq org-confirm-babel-evaluate nil))
 
 (defun configure-prog-mode ()
   "Configures `prog-mode` major mode which informs most programming modes."
