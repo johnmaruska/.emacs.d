@@ -18,6 +18,7 @@
   (define-key clojurescript-mode-map (kbd "C-c M-i") #'cider-inspect)
   (define-key clojure-mode-map (kbd "C-c M-i") #'cider-inspect)
   (setq cider-repl-use-pretty-printing t)
+  (setq cljr-warn-on-eval nil)
   (setq cljr-magic-require-namespaces
       '(("io"   . "clojure.java.io")
         ("set"  . "clojure.set")
@@ -66,6 +67,12 @@
   (eval-after-load 'flycheck
     '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
 
+(require 'guru-mode)
+(defun configure-guru ()
+  "Configures settings for Guru mode to help learn keybindings."
+  (add-hook 'prog-mode-hook 'guru-mode)
+  (setq guru-warn-only t))
+
 (defun configure-javascript ()
   "Configures necessary for interacting with JavaScript."
   (require 'rjsx-mode)
@@ -112,6 +119,13 @@ Google Chrome has support issues with flymd. This is the recommended solution.
   (global-set-key (kbd "C-c l") 'org-store-link)
   (global-set-key (kbd "C-c a") 'org-agenda)
   (global-set-key (kbd "C-c c") 'org-capture)
+
+  (org-babel-do-load-languages 'org-babel-load-languages '((scheme . t)))
+  ;; Syntax highlight in #+BEGIN_SRC blocks
+  (setq org-src-fontify-natively t)
+  ;; Don't prompt before running code in org
+  (setq org-confirm-babel-evaluate nil)
+
   (setq org-indent-indentation-per-level 2)
   (setq org-adapt-indentation nil)
   (setq org-hide-leading-stars 't)
@@ -167,8 +181,7 @@ Google Chrome has support issues with flymd. This is the recommended solution.
 
 (defun attach-paredit-minor-mode ()
   "Attaches minor mode Paredit to all major modes which use it."
-  (mapc #'(lambda (mode-hook)
-            (add-hook mode-hook #'paredit-mode))
+  (mapc #'(lambda (mode-hook) (add-hook mode-hook #'paredit-mode))
         '(cider-repl-mode-hook
           clojure-mode-hook
           clojurescript-mode-hook
@@ -193,6 +206,7 @@ Google Chrome has support issues with flymd. This is the recommended solution.
   "Configures all custom modified minor modes."
   (attach-paredit-minor-mode)
   (configure-flycheck)
+  (configure-guru)
   (configure-text)
   (configure-whitespace-mode))
 

@@ -29,25 +29,20 @@
 (defvar eshell-prompt-function
   (lambda ()
     (concat
-     (propertize (format-time-string "%-m/%d/%Y %a %-I:%M:%S %p " (current-time))
+     (propertize (format-time-string "%-I:%M:%S%p " (current-time))
                  'face `(:foreground "#aaaaff"))
      (propertize (abbreviate-file-name (eshell/pwd))
                  'face `(:foreground "#aaaa44"))
      (if (= (user-uid) 0) " # " " $ "))))
 
+(defun eshell/clear ()
+  "Clear the eshell buffer."
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
+
 (require 'json)
 (require 'utils "~/.emacs.d/utils.el")
-
-;; TODO: find better spot
-(defun configure-sbcl ()
-  ;; look into installing slime/quicklisp-slime-helper
-  (load (expand-file-name "~/quicklisp/slime-helper.el"))
-  ;; Replace "sbcl" with the path to your implementation
-  (setq inferior-lisp-program "sbcl"))
-
-(require 'computers "~/.emacs.d/computers.el")
-(when (convertible?)
-  (configure-sbcl))
 
 (require 'computers "~/.emacs.d/computers.el")
 (when (gr-macbook?)
@@ -55,6 +50,10 @@
   (setup-mac-displays))
 (when (vingtor?)
   (load "~/.emacs.d/secrets/tokens.el"))
+
+(defun chris-zoom ()
+  (interactive)
+  (browse-url "https://us02web.zoom.us/j/5734523216?pwd=Y2JjN29pYkFwcVZKZUx4RnN6N0VmZz09"))
 
 ;;; Commentary:
 

@@ -2,11 +2,9 @@
 
 ### New Things
 - flycheck working with eastwood and yagni
-- projectile
 - multiple-cursors
 - rest-client
 - look into helm-cider
-- look into Spotify modes
 
 ### Tweaks
 - get eshell to color git diff without breaking magit

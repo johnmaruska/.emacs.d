@@ -15,7 +15,7 @@
                          ("melpa" . "http://melpa.org/packages/")))
 (defvar package-list)
 (setq package-list
-  '(ack-and-a-half
+  '(;; ag
     aggressive-indent
     all-the-icons
     all-the-icons-dired
@@ -27,13 +27,14 @@
     clj-refactor
     color-theme-sanityinc-tomorrow
     dashboard  ; emacs-dashboard
-    emacs-xkcd
+    editorconfig
     flycheck
     flycheck-clojure
     flycheck-pos-tip
     flymd
     geiser
     groovy-mode
+    guru-mode
     ht
     json-mode
     markdown-mode
