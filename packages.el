@@ -8,59 +8,55 @@
 
 ;;; Package handling
 (require 'package)
-(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa-stable" . "http://stable.melpa.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
+(setq package-archives
+      '(("ELPA" . "http://tromey.com/elpa/")
+        ("gnu" . "http://elpa.gnu.org/packages/")
+        ("melpa-stable" . "http://stable.melpa.org/packages/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")
+        ("melpa" . "http://melpa.org/packages/")))
+
 (defvar package-list)
 (setq package-list
-  '(;; ag
-    aggressive-indent
-    all-the-icons
-    all-the-icons-dired
-    auto-complete
-    auto-dim-other-buffers
-    beacon
-    cider
-    clojure-mode
-    clj-refactor
-    color-theme-sanityinc-tomorrow
-    csharp-mode
-    dashboard  ; emacs-dashboard
-    editorconfig
-    flycheck
-    flycheck-clojure
-    flycheck-pos-tip
-    flymd
-    geiser
-    groovy-mode
-    guru-mode
-    ht
-    inf-clojure
-    json-mode
-    markdown-mode
-    magit-gitflow
-    multi-term
-    multiple-cursors
-    neotree
-    nodejs-repl
-    page-break-lines
-    paredit
-    projectile
-    rainbow-delimiters
-    restclient
-    rjsx-mode
-    rust-mode
-    terraform-doc
-    terraform-mode
-    uuidgen
-    which-key
-    whitespace-cleanup-mode
-    wsd-mode
-    w3m
-    yafolding
-    yaml-mode))
+      '(;; ag
+        aggressive-indent
+        all-the-icons
+        all-the-icons-dired
+        auto-complete
+        auto-dim-other-buffers
+        beacon
+        cider
+        clojure-mode
+        clj-refactor
+        color-theme-sanityinc-tomorrow
+        dashboard  ; emacs-dashboard
+        editorconfig
+        geiser
+        guru-mode
+        ht
+        inf-clojure
+        json-mode
+        markdown-mode
+        magit-gitflow
+        multiple-cursors
+        neotree
+        page-break-lines
+        paredit
+        projectile
+        rainbow-delimiters
+        restclient
+        rjsx-mode
+        rust-mode
+        terraform-mode
+        use-package
+        uuidgen
+        which-key
+        whitespace-cleanup-mode
+        yafolding
+        yaml-mode))
+
+(defun install-missing (package)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 (require 'url-http)
 (defun install-all-packages ()
@@ -70,8 +66,7 @@
   (unless package-archive-contents
     (package-refresh-contents))
   (dolist (package package-list)
-    (unless (package-installed-p package)
-      (package-install package))))
+    (install-missing package)))
 
 (provide 'packages)
 ;;; packages.el ends here
