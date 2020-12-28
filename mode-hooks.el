@@ -107,7 +107,6 @@
 
 (use-package whitespace
   :config
->>>>>>> use-package
   (setq whitespace-style '(face empty tabs trailing))
   (global-whitespace-mode 1))
 
