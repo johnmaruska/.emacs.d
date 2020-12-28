@@ -54,10 +54,6 @@
         yafolding
         yaml-mode))
 
-(defun install-missing (package)
-  (unless (package-installed-p package)
-    (package-install package)))
-
 (require 'url-http)
 (defun install-all-packages ()
   "Attempts to `package-install` each package in `package-list`."
@@ -66,7 +62,8 @@
   (unless package-archive-contents
     (package-refresh-contents))
   (dolist (package package-list)
-    (install-missing package)))
+    (unless (package-installed-p package)
+      (package-install package))))
 
 (provide 'packages)
 ;;; packages.el ends here
