@@ -39,7 +39,7 @@
   :config (ido-mode t))
 
 (use-package neotree
-  :bind ("f8" . neotree-toggle)
+  :bind ("<f8>" . neotree-toggle)
   :init (setq neo-theme (if (display-graphic-p) 'icons 'arrow)
               neo-window-position 'left)
   :config
