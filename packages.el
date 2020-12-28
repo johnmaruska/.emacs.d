@@ -41,6 +41,7 @@
     magit-gitflow
     multi-term
     multiple-cursors
+    nix-mode
     neotree
     nodejs-repl
     page-break-lines

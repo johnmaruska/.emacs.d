@@ -78,7 +78,7 @@
   (setq inhibit-startup-screen t)  ; Don't display welcome screen
   (tool-bar-mode -1)      ; hide tool bar
   (scroll-bar-mode -1)    ; hide scroll bar
-  (menu-bar-mode 1)       ; show menu-bar. Doesn't affect Mac OS
+  (menu-bar-mode -1)      ; show menu-bar. Doesn't affect Mac OS
   (display-time-mode 1)   ; show clock in status bar
   (line-number-mode 1)    ; show line numbers
   (column-number-mode 1)  ; show column numbers
