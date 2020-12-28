@@ -8,6 +8,7 @@
 
 (require 'packages "~/.emacs.d/packages.el")
 (install-all-packages)
+(require 'use-package)
 
 (require 'neotree) ; hides a warning
 ;; the following functions might not be defined at runtime:

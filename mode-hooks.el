@@ -4,216 +4,138 @@
 
 ;;; Commentary:
 
-;; mostly these are pretty straightforward.  Every new language is gonna need
-;; to get a new entry when I start using it, and any commonly shared modes
-;; will need that new language added.
+;; use-package is neat
 
 ;;; Code:
 
-(require 'clojure-mode)
-(require 'clj-refactor)
-(defun configure-clojure ()
-  "Configures hooks for interacting with Clojure."
-  (define-key cider-repl-mode-map (kbd "C-c M-i") #'cider-inspect)
-  (define-key clojurescript-mode-map (kbd "C-c M-i") #'cider-inspect)
-  (define-key clojure-mode-map (kbd "C-c M-i") #'cider-inspect)
-  (setq cider-repl-use-pretty-printing t)
-  (setq cljr-warn-on-eval nil)
-  (setq cljr-magic-require-namespaces
-      '(("io"   . "clojure.java.io")
-        ("set"  . "clojure.set")
-        ("str"  . "clojure.string")
-        ("walk" . "clojure.walk")
-        ("zip"  . "clojure.zip")
-        ("time" . "clj-time.core")
-        ("log"  . "clojure.tools.logging")
-        ("json" . "clojure.data.json")))
-  (add-hook 'cider-mode-hook #'eldoc-mode)
-  (add-hook 'clojure-mode-hook
-            (lambda ()
-              ;; clojure refactor
-              (clj-refactor-mode 1)
-              (yas-minor-mode 1)
-              (cljr-add-keybindings-with-prefix "C-c C-m")
-              ;; auto indenting
-              (aggressive-indent-mode 1)
-              (define-clojure-indent
-                (defroutes 'defun)
-                (alet 1)
-                (GET 2)
-                (POST 2)
-                (PUT 2)
-                (DELETE 2)
-                (HEAD 2)
-                (ANY 2)
-                (OPTIONS 2)
-                (PATCH 2)
-                (rfn 2)
-                (let-routes 1)
-                (context 2)))))
+(use-package aggressive-indent
+  :hook (prog-mode . (lambda () (aggressive-indent-mode 1))))
 
-(defun configure-dired ()
-  "Configures dired settings."
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+(use-package all-the-icons
+  :hook (dired-mode . all-the-icons-dired-mode))
 
-(require 'flycheck)
-(require 'flycheck-pos-tip)
-(defun configure-flycheck ()
-  "Configures general flycheck settings - not language specific setup."
-  ;; (add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package cider-repl
+  :after  (clojure-mode paredit-mode)
+  :config (setq cider-repl-use-pretty-printing t)
+  :hook   (cider-repl-mode . paredit-mode)
+  :bind   (:map cider-repl-mode-map
+                ("C-c M-i" . cider-inspect)
+                :map clojurescript-mode-map
+                ("C-c M-i" . cider-inspect)
+                :map clojure-mode-map
+                ("C-c M-i" . cider-inspect)))
 
-  ;; flycheck-pos-tip prevents linting and type errors from clashing with
-  ;; cider's eldoc information
-  (eval-after-load 'flycheck
-    '(setq flycheck-display-errors-function #'flycheck-pos-tip-error-messages)))
+(use-package clojure-mode
+  :after (paredit)
+  :hook  ((clojure-mode . (lambda ()
+                            (clj-refactor-mode 1)))
+          (clojure-mode . eldoc-mode)
+          (clojure-mode . paredit-mode)
+          (clojurescript-mode . paredit-mode))
+  :config
+  (define-clojure-indent
+    (defroutes 'defun)
+    (alet 1)
+    (GET 2)
+    (POST 2)
+    (PUT 2)
+    (DELETE 2)
+    (HEAD 2)
+    (ANY 2)
+    (OPTIONS 2)
+    (PATCH 2)
+    (rfn 2)
+    (let-routes 1)
+    (context 2)))
 
-(require 'guru-mode)
-(defun configure-guru ()
-  "Configures settings for Guru mode to help learn keybindings."
-  (add-hook 'prog-mode-hook 'guru-mode)
-  (setq guru-warn-only t))
+(use-package clj-refactor
+  :hook (clojure-mode . (lambda () (clj-refactor-mode 1)))
+  :config
+  (setq cljr-warn-on-eval nil
+        cljr-magic-require-namespaces
+        '(("io"   . "clojure.java.io")
+          ("set"  . "clojure.set")
+          ("str"  . "clojure.string")
+          ("walk" . "clojure.walk")
+          ("zip"  . "clojure.zip")
+          ("time" . "clj-time.core")
+          ("log"  . "clojure.tools.logging")
+          ("json" . "cheshire.core")))
+  (cljr-add-keybindings-with-prefix "C-c C-m"))
 
-(defun configure-javascript ()
-  "Configures necessary for interacting with JavaScript."
-  (require 'rjsx-mode)
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-  (setq js-indent-level 2)
-  (add-hook 'js-mode-hook
-            (lambda ()  ; bind nodejs-repl commands
-              (define-key js-mode-map (kbd "C-x C-e") 'nodejs-repl-send-last-expression)
-              (define-key js-mode-map (kbd "C-c C-j") 'nodejs-repl-send-line)
-              (define-key js-mode-map (kbd "C-c C-r") 'nodejs-repl-send-region)
-              (define-key js-mode-map (kbd "C-c C-l") 'nodejs-repl-load-file)
-              (define-key js-mode-map (kbd "C-c C-z") 'nodejs-repl-switch-to-repl))))
+(use-package flymd
+  ;; use Firefox, not Chrome, for browser-open-function
+  ;; <https://github.com/mola-T/flymd/blob/master/browser.md#user-content-chrome-macos>
+  :init (setq flymd-browser-open-function
+              (lambda (url)
+                (let ((process-environment (browse-url-process-environment)))
+                  (apply 'start-process
+                         (concat "firefox " url)
+                         nil
+                         "/usr/bin/open"
+                         (list "-a" "firefox" url))))))
 
-(defun configure-magit ()
-  "Configures magit."
-  (require 'magit-gitflow)
-  (global-set-key (kbd "C-x g") 'magit-status)
-  (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
+(use-package guru-mode
+  :init (setq guru-warn-only t)
+  :hook (prog-mode . guru-mode))
 
-(defun my-flymd-browser-function (url)
-  "Use Mozilla Firefox for flymd instead of Google Chrome.
+(use-package magit-gitflow
+  :bind ("C-x g" . magit-status)
+  :hook (magit-mode . turn-on-magit-gitflow))
 
-Google Chrome has support issues with flymd. This is the recommended solution.
-<https://github.com/mola-T/flymd/blob/master/browser.md#user-content-chrome-macos>"
-  (let ((process-environment (browse-url-process-environment)))
-    (apply 'start-process
-           (concat "firefox " url)
-             nil
-             "/usr/bin/open"
-             (list "-a" "firefox" url))))
-
-(defun configure-markdown ()
-  "Configures necessary for interacting with Markdown."
-  (require 'markdown-mode)
-  (require 'flymd)
+(use-package markdown-mode
+  :config
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-  (add-hook 'markdown-mode #'auto-fill-mode)
-  (setq flymd-browser-open-function 'my-flymd-browser-function))
+  :hook (markdown-mode . auto-fill-mode))
 
-(defun configure-org-mode ()
-  "Configures necessary for interacting with `org-mode`."
-  (add-hook 'org-mode-hook #'turn-on-font-lock)
-  (global-set-key (kbd "C-c l") 'org-store-link)
-  (global-set-key (kbd "C-c a") 'org-agenda)
-  (global-set-key (kbd "C-c c") 'org-capture)
+(use-package org-mode
+  :hook (org-mode . turn-on-font-lock)
+  :config
+  (setq org-src-fontify-natively t
+        org-confirm-babel-evaluate nil
+        org-indent-indentation-per-level 2
+        org-adapt-indentation nil
+        org-hide-leading-stars 't)
+  (org-babel-do-load-languages 'org-babel-load-languages '((scheme . t))))
 
-  (org-babel-do-load-languages 'org-babel-load-languages '((scheme . t)))
-  ;; Syntax highlight in #+BEGIN_SRC blocks
-  (setq org-src-fontify-natively t)
-  ;; Don't prompt before running code in org
-  (setq org-confirm-babel-evaluate nil)
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 
-  (setq org-indent-indentation-per-level 2)
-  (setq org-adapt-indentation nil)
-  (setq org-hide-leading-stars 't)
-  ;;; literate programming
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((scheme . t)
-     (clojure . t)))
-  (setq org-src-fontify-natively t)
-  (setq org-confirm-babel-evaluate nil))
+(use-package rjsx-mode
+  :config (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
 
-(defun configure-prog-mode ()
-  "Configures `prog-mode` major mode which informs most programming modes."
-  (require 'yafolding)
-  (aggressive-indent-mode 1)
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  (setq yafolding-mode-map
-        (let ((map (make-sparse-keymap)))
-          (define-key map (kbd "<C-S-return>") #'yafolding-hide-parent-element)
-          (define-key map (kbd "<C-M-return>") #'yafolding-toggle-all)
-          (define-key map (kbd "<C-return>") #'yafolding-toggle-element)
-          map))
-  (add-hook 'prog-mode-hook 'yafolding-mode))
-
-(defun configure-rust ()
-  "Configures necessary for interacting with Rust."
-  (require 'rust-mode)
-  (add-hook 'rust-mode-hook 'flycheck-rust-setup))
-
-(defun configure-shell-script ()
-  "Configures necessary for interacting with Shell scripts."
-  (add-hook 'sh-mode-hook
-            (lambda ()
-              (defvar sh-basic-offset 2)
-              (defvar sh-indentation 2))))
-
-(defun configure-text ()
-  "Configures necessary for interacting with text."
-  (add-hook 'text-mode-hook #'auto-fill-mode))
-
-(require 'whitespace)
-(defun configure-whitespace-mode ()
-  "Configuration settings for global `whitespace-mode`."
+(use-package whitespace
+  :config
+>>>>>>> use-package
   (setq whitespace-style '(face empty tabs trailing))
   (global-whitespace-mode 1))
 
+(use-package yafolding
+  :hook (prog-mode . yafolding-mode)
+  :bind (:map yafolding-mode-map
+              ("C-S-RET" . yafolding-hide-parent-element)
+              ("C-M-RET" . yafolding-toggle-all)
+              ("C-RET" . yafolding-toggle-element)))
 
-(defun configure-yaml ()
-  "Configures necessary for interacting with YAML files."
-  (require 'yaml-mode)
-  (add-hook 'yaml-mode-hook 'linum-mode)
-  (add-hook 'yaml-mode-hook 'yafolding-mode))
+(use-package yaml-mode
+  :after (yafolding)
+  :hook  ((yaml-mode . linum-mode)
+          (yaml-mode . yafolding-mode)))
 
-(defun attach-paredit-minor-mode ()
-  "Attaches minor mode Paredit to all major modes which use it."
-  (mapc #'(lambda (mode-hook) (add-hook mode-hook #'paredit-mode))
-        '(cider-repl-mode-hook
-          clojure-mode-hook
-          clojurescript-mode-hook
-          emacs-lisp-mode-hook
-          eval-expression-minibuffer-setup-hook
-          lisp-mode-hook
-          lisp-interaction-mode-hook)))
+(use-package paredit
+  :hook ((emacs-lisp-mode . paredit-mode)
+         (eval-expression-minibuffer-setup . paredit-mode)
+         (lisp-mode . paredit-mode)
+         (lisp-interaction-mode . paredit-mode)))
 
-(defun configure-major-modes ()
-  "Configures all custom modified major modes."
-  (configure-prog-mode)
-  (configure-clojure)
-  (configure-javascript)
-  (configure-magit)
-  (configure-markdown)
-  (configure-org-mode)
-  (configure-rust)
-  (configure-shell-script)
-  (configure-yaml))
+(use-package sh-script
+  :config
+  (defvar sh-basic-offset 2)
+  (defvar sh-indentation 2))
 
-(defun configure-minor-modes ()
-  "Configures all custom modified minor modes."
-  (attach-paredit-minor-mode)
-  (configure-flycheck)
-  (configure-guru)
-  (configure-text)
-  (configure-whitespace-mode))
-
-(defun configure-all-modes ()
-  "Configures all custom modified modes."
-  (configure-major-modes)
-  (configure-minor-modes))
+(use-package text-mode
+  :hook (text-mode . auto-fill-mode))
 
 (provide 'mode-hooks)
 ;;; mode-hooks.el ends here

@@ -8,11 +8,13 @@
 
 ;;; Package handling
 (require 'package)
-(setq package-archives '(("ELPA" . "http://tromey.com/elpa/")
-                         ("gnu" . "http://elpa.gnu.org/packages/")
-                         ("melpa-stable" . "http://stable.melpa.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
+(setq package-archives
+      '(("ELPA" . "http://tromey.com/elpa/")
+        ("gnu" . "http://elpa.gnu.org/packages/")
+        ("melpa-stable" . "http://stable.melpa.org/packages/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")
+        ("melpa" . "http://melpa.org/packages/")))
+
 (defvar package-list)
 (setq package-list
   '(ag
@@ -36,6 +38,7 @@
     groovy-mode
     guru-mode
     ht
+    inf-clojure
     json-mode
     markdown-mode
     magit-gitflow
@@ -53,6 +56,7 @@
     rust-mode
     terraform-doc
     terraform-mode
+    use-package
     uuidgen
     which-key
     whitespace-cleanup-mode
