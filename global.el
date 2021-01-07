@@ -70,47 +70,41 @@
   (when (windows?)
     (global-set-key (kbd "<apps>") 'execute-extended-command)))
 
-(defun default-displays ()
-  "Configuration settings for what tools to display."
-  (setq inhibit-startup-screen t)  ; Don't display welcome screen
-  (tool-bar-mode -1)      ; hide tool bar
-  (scroll-bar-mode -1)    ; hide scroll bar
-  (menu-bar-mode -1)      ; show menu-bar. Doesn't affect Mac OS
-  (display-time-mode 1)   ; show clock in status bar
-  (line-number-mode 1)    ; show line numbers
-  (column-number-mode 1)  ; show column numbers
-  (blink-cursor-mode 1)   ; cursor should blink
-  (beacon-mode 1)         ; cursor lights beacon on windows change/scroll
-  (show-paren-mode 1)     ; highlight matching paren
-  (global-linum-mode 1)
-  (global-hl-line-mode 1)  ; highlight line with cursor
-  (minibuffer-electric-default-mode 1)  ; [DEFAULT-ARG] instead of (default DEFAULT-ARG)
-  ;; TODO: resize-mini-windows
-  )
-
-(defun default-behaviors ()
-  "Configuration settings for what behavior to assert."
-  (setq default-directory "~/")
-  (setq-default tab-width 4)
-  ;; don't mix tabs and spaces
-  (setq-default indent-tabs-mode nil)
-  ;; keyboard scroll one line at a time
-  (setq scroll-step 1)
-  ;; files must end with a newline
-  (setq require-final-newline t)
-  ;; minibuffer history keeps only one of each unique entry
-  (setq history-delete-duplicates t)
-  ;; show key-binding suggestions for 5 seconds
-  (setq suggest-key-bindings 5)
-  (set-fill-column 80)
-  (allow-menu-key))
+(defconst ON  1)  ; Can I make this syntax-highlight green? That'd be neat
+(defconst OFF 1)  ; same Q but red
 
 (defun default-ui-configuration ()
   "Set values for various Emacs UI configuration settings."
-  (interactive)
-  (default-displays)
-  (default-behaviors)
-  (toggle-frame-maximized))
+  (toggle-frame-maximized)     ; full-screen mode toggle. TODO: find enable not toggle
+  (setq
+   default-directory         "~/"
+   history-delete-duplicates t  ; minibuffer history keeps only one of each unique entry
+   inhibit-startup-screen    t  ; Don't display welcome screen
+   require-final-newline     t
+   scroll-step               1  ; keyboard scroll one line at a time
+   suggest-key-bindings      5  ; show key-binding suggestions for 5 seconds
+   )
+  (setq-default
+   indent-tabs-mode nil  ; don't mix tabs and spaces
+   tab-width        4
+   )
+
+  (allow-menu-key)
+  (beacon-mode            ON)  ; cursor lights beacon on windows change/scroll
+  (blink-cursor-mode      ON)  ; cursor should blink
+  (column-number-mode     ON)  ; show column numbers
+  (display-time-mode      ON)  ; show clock in status bar
+  (global-hl-line-mode    ON)  ; highlight line with cursor
+  (global-linum-mode      ON)
+  (line-number-mode       ON)  ; show line numbers
+  (menu-bar-mode          OFF) ; show menu-bar. Doesn't affect Mac OS
+  (scroll-bar-mode        OFF) ; hide scroll bar
+  (set-fill-column        80)
+  (show-paren-mode        ON)  ; highlight matching paren
+  (tool-bar-mode          OFF) ; hide tool bar
+  (minibuffer-electric-default-mode ON)  ; [DEFAULT-ARG] instead of (default DEFAULT-ARG)
+  ;; TODO: resize-mini-windows
+  )
 
 ;;; Commentary:
 
