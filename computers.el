@@ -65,8 +65,8 @@
 
 (defun setup-mac-displays ()
   (setup-main-display-frame)
-  (setup-windows)
-  (toggle-frame-fullscreen))
+  (toggle-frame-fullscreen)
+  (setup-windows))
 
 
 (provide 'computers)
