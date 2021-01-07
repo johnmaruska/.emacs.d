@@ -6,8 +6,20 @@
 
 ;;; Code:
 
-(require 'packages "~/.emacs.d/packages.el")
-(install-all-packages)
+(require 'package)
+(setq package-archives
+      '(("ELPA" . "http://tromey.com/elpa/")
+        ("gnu" . "http://elpa.gnu.org/packages/")
+        ("melpa-stable" . "http://stable.melpa.org/packages/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")
+        ("melpa" . "http://melpa.org/packages/")))
+
+(package-initialize)
+;; (setq url-http-attempt-keepalives nil)
+(unless package-archive-contents
+  (package-refresh-contents))
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 (require 'use-package)
 
 (require 'global "~/.emacs.d/global.el")

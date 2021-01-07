@@ -6,7 +6,10 @@
 
 ;;; Code:
 
+(use-package ag :ensure t)
+
 (use-package auto-complete
+  :ensure t
   :bind (:map ac-completing-map
               ("RET" . nil)
               ("\r" . nil)
@@ -14,11 +17,18 @@
   :config (put 'upcase-region 'disabled nil))
 
 (use-package auto-dim-other-buffers
+  :ensure t
   :hook (after-init . (lambda ()
                         (when (fboundp 'auto-dim-other-buffers-mode)
                           (auto-dim-other-buffers-mode t)))))
 
+;; cursor lights beacon on windows change/scroll)
+(use-package beacon
+  :ensure t
+  :config (beacon-mode 1))
+
 (use-package dashboard
+  :ensure t
   :init (setq dashboard-startup-banner 'logo
               dashboard-items '((recents . 20)
                                 ;; more options for org-mode
@@ -28,17 +38,25 @@
                                           "Thank you for keeping trying."
                                           "Slow progress is still progress.")
               dashboard-set-heading-icons t
-              dashboard-set-file-icons t
-              dashboard-set-navigator t)
+              dashboard-set-file-icons    t
+              dashboard-set-navigator     t)
   :config (dashboard-setup-startup-hook))
 
 (use-package editorconfig
+  :ensure t
   :config (editorconfig-mode 1))
 
+;; hash-tables. used in Guaranteed-Emacs
+(use-package ht :ensure t)
+
 (use-package ido
+  :ensure t
   :config (ido-mode t))
 
+(use-package multiple-cursors :ensure t)
+
 (use-package neotree
+  :ensure t
   :bind ([f8] . neotree-toggle)
   :init (setq neo-theme (if (display-graphic-p) 'icons 'arrow)
               neo-window-position 'left)
@@ -46,7 +64,13 @@
   (neotree-dir (expand-file-name "~/dev/"))
   (neotree-hide))
 
+;; display ^L linefeed character as a horizontal line
+(use-package page-break-lines
+  :ensure t
+  :config (global-page-break-lines-mode))
+
 (use-package projectile
+  :ensure t
   :after  (neotree)
   :bind   (:map projectile-mode-map ("C-c p" . projectile-command-map))
   :init   (setq projectile-enable-caching t
@@ -57,7 +81,10 @@
                 projectile-file-exists-remote-cache-expire (* 10 60))
   :config (projectile-global-mode))
 
+(use-package uuidgen :ensure t)
+
 (use-package which-key
+  :ensure t
   :init (setq which-key-show-early-on-C-h t
               which-key-popup-type 'side-window)
   :config
@@ -90,7 +117,6 @@
    )
 
   (allow-menu-key)
-  (beacon-mode            ON)  ; cursor lights beacon on windows change/scroll
   (blink-cursor-mode      ON)  ; cursor should blink
   (column-number-mode     ON)  ; show column numbers
   (display-time-mode      ON)  ; show clock in status bar

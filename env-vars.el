@@ -33,7 +33,7 @@
   (setq path-list
         (cond ((gr-macbook?) gr-path-list)
               ((vingtor?) vingtor-path-list)
-              (t             (list default-path-list))))
+              (t             default-path-list)))
   (when window-system
     ;; this matters for sub-shell process (e.g. launch bash)
     (setenv "PATH" (mapconcat 'identity path-list (if (vingtor?) ";" ":")))

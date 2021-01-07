@@ -9,6 +9,9 @@
 
 ;;; Background Appearance
 
+(use-package color-theme-sanityinc-tomorrow
+  :ensure t)
+
 (defun dark-background ()
   "Change the appearance of Emacs to use a dark higher-contrast background."
   (interactive)
@@ -25,10 +28,10 @@
   (interactive)
   (dark-background)
   (set-face-attribute 'default nil
-                      :height 135
-                      :weight 'medium
-                      :width 'ultra-expanded
-                      :font "JetBrains Mono"))
+                      :height  135
+                      :weight  'medium
+                      :width   'ultra-expanded
+                      :font    "JetBrains Mono"))
 
 (defun antman-uses-emacs ()
   "Make font tiny."
