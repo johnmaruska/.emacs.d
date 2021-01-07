@@ -70,8 +70,8 @@
   (when (windows?)
     (global-set-key (kbd "<apps>") 'execute-extended-command)))
 
-(defconst ON  1)  ; Can I make this syntax-highlight green? That'd be neat
-(defconst OFF 1)  ; same Q but red
+(defconst ON   1)  ; Can I make this syntax-highlight green? That'd be neat
+(defconst OFF -1)  ; same Q but red
 
 (defun default-ui-configuration ()
   "Set values for various Emacs UI configuration settings."
