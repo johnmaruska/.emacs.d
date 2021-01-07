@@ -10,9 +10,6 @@
 (install-all-packages)
 (require 'use-package)
 
-(require 'neotree) ; hides a warning
-;; the following functions might not be defined at runtime:
-;;   neo-buffer--unlock-width, neo-buffer--lock-width
 (require 'global "~/.emacs.d/global.el")
 (default-ui-configuration)
 
