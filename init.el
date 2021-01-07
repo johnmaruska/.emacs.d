@@ -23,7 +23,6 @@
 (set-default-envvars)
 
 (require 'mode-hooks "~/.emacs.d/mode-hooks.el")
-(configure-all-modes)
 
 (require 'eshell)
 (declare-function eshell/pwd "ext:eshell/pwd")

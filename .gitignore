@@ -6,6 +6,7 @@ transient/*
 session.*
 xkcd/*
 cider-repl.history
+games/*
 
 eshell/*
 eshell/.*
