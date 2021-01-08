@@ -26,8 +26,7 @@
 
 (defun gr-macbook? ()
   "Is current machine Guaranteed Rate Macbook Pro 15\" 2019?"
-  (or (string= (system-name) "GR-YR2TSLVCHmbp.local")
-      (string= (system-name) "GR-YR2TSLVCHmbp.attlocal.net")))
+  (string-prefix-p "GR-YR2TSLVCHmbp" (system-name)))
 
 (defun convertible? ()
   "Is current machine Dell 2-in-1 Windows machine?"
