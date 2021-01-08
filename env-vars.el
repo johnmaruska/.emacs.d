@@ -23,17 +23,16 @@
         "C:/Program Files/Racket"
         default-path-list))
 
-(defvar path-list)
+(defvar path-list
+  (cond ((gr-macbook?) gr-path-list)
+        ((vingtor?)    vingtor-path-list)
+        (t             (list default-path-list))))
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun set-default-envvars ()
   "Set envvars to include default settings."
   (interactive)
   (setenv "PAGER" "cat")
-  (setq path-list
-        (cond ((gr-macbook?) gr-path-list)
-              ((vingtor?) vingtor-path-list)
-              (t             default-path-list)))
   (when window-system
     ;; this matters for sub-shell process (e.g. launch bash)
     (setenv "PATH" (mapconcat 'identity path-list (if (vingtor?) ";" ":")))
