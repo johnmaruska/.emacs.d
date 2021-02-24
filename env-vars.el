@@ -18,9 +18,7 @@
         default-path-list))
 
 (defvar vingtor-path-list
-  (list "C:/Python38"
-        "C:/Python38/Scripts"
-        "C:/Program Files/Racket"
+  (list "C:/Program Files/LOVE"
         default-path-list))
 
 (defvar path-list
