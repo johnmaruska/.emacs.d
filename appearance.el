@@ -39,8 +39,6 @@
                       :width   'ultra-expanded
                       :font    "JetBrains Mono"))
 
-
-
 (defun antman-uses-emacs ()
   "Make font tiny."
   (interactive)

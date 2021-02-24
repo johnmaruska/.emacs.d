@@ -72,6 +72,9 @@
           ("json" . "cheshire.core")))
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
+(use-package dockerfile-mode
+  :ensure t)
+
 (use-package flymd
   :ensure t
   ;; use Firefox, not Chrome, for browser-open-function
