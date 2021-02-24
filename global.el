@@ -108,6 +108,7 @@
    history-delete-duplicates t  ; minibuffer history keeps only one of each unique entry
    inhibit-startup-screen    t  ; Don't display welcome screen
    require-final-newline     t
+   ring-bell-function        'ignore  ; mute the warning system sound
    scroll-step               1  ; keyboard scroll one line at a time
    suggest-key-bindings      5  ; show key-binding suggestions for 5 seconds
    )
