@@ -23,25 +23,33 @@
   ;; TODO: Look up a theme with a more beige background
   (load-theme 'sanityinc-tomorrow-day t))
 
+(require 'computers "~/.emacs.d/computers.el")
+(defun font-height ()
+  (cond
+   ((vingtor?) 120)
+   (t 135)))
+
 (defun default-appearance ()
   "Change the appearance of Emacs to preferred default settings."
   (interactive)
   (dark-background)
   (set-face-attribute 'default nil
-                      :height  135
+                      :height  (font-height)
                       :weight  'medium
                       :width   'ultra-expanded
                       :font    "JetBrains Mono"))
 
+
+
 (defun antman-uses-emacs ()
   "Make font tiny."
   (interactive)
-  (set-face-attribute 'default nil :height 90))
+  (set-face-attribute 'default nil :height (floor (* 0.66 (font-height)))))
 
 (defun bigger-font ()
   "Make font larger."
   (interactive)
-  (set-face-attribute 'default nil :height 160))
+  (set-face-attribute 'default nil :height (floor (* 1.2 (font-height)))))
 
 (provide 'appearance)
 ;;; appearance.el ends here
