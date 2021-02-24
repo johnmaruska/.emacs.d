@@ -20,6 +20,9 @@ I hope to approach a consistent setup across machines.
 
 Fonts:
 - [JetBrains Mono font](https://www.jetbrains.com/lp/mono/)
+- all-the-icons fonts
+  `M-x all-the-icons-install-fonts`
+  Windows needs to manually install after download)
 
 CLI tools:
 - ack and/or ag
