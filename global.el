@@ -105,6 +105,7 @@
   (toggle-frame-maximized)     ; full-screen mode toggle. TODO: find enable not toggle
   (setq
    default-directory         "~/"
+   display-time-default-load-average nil
    history-delete-duplicates t  ; minibuffer history keeps only one of each unique entry
    inhibit-startup-screen    t  ; Don't display welcome screen
    require-final-newline     t

@@ -13,11 +13,7 @@
   :hook (prog-mode . (lambda () (aggressive-indent-mode 1))))
 
 (use-package all-the-icons
-  :ensure t
-  :after (all-the-icons-dired)
-  :hook  (dired-mode . all-the-icons-dired-mode))
-
-(use-package all-the-icons-dired :ensure t)
+  :ensure t)
 
 (use-package cider :ensure t)
 
@@ -99,6 +95,10 @@
   :ensure t
   :bind ("C-x g" . magit-status)
   :hook (magit-mode . turn-on-magit-gitflow))
+
+(use-package major-mode-icons
+  :after  (all-the-icons)
+  :ensure t)
 
 (use-package markdown-mode
   :ensure t
