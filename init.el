@@ -54,8 +54,7 @@
 (require 'utils "~/.emacs.d/utils.el")
 
 (require 'computers "~/.emacs.d/computers.el")
-(when (gr-macbook?)
-  (load "~/.emacs.d/secrets/gr.el")
+(when (macbook?)
   (setup-mac-displays))
 (when (vingtor?)
   (load "~/.emacs.d/secrets/tokens.el"))

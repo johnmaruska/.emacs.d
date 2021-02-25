@@ -24,9 +24,9 @@
   "Iff this is windows-nt, basically raw Windows."
   (eq system-type 'windows-nt))
 
-(defun gr-macbook? ()
+(defun macbook? ()
   "Is current machine Guaranteed Rate Macbook Pro 15\" 2019?"
-  (string-prefix-p "GR-YR2TSLVCHmbp" (system-name)))
+  (string-prefix-p "3071-AL-05039" (system-name)))
 
 (defun convertible? ()
   "Is current machine Dell 2-in-1 Windows machine?"
@@ -39,9 +39,9 @@
 
 (defun current-machine ()
   "Return English name for machine instead of `system-name`."
-  (cond ((gr-macbook?)  "GR-MacBook")
-        ((convertible?) "Convertible-Windows")
-        ((vingtor?)     (system-name))))
+  (cond ((macbook?)     "macbook")
+        ((convertible?) "convertible")
+        ((vingtor?)     "vingtor")))
 
 ;;;;;;;; Mac-only UI
 
