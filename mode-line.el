@@ -34,14 +34,13 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Variables.html
 (setq-default mode-line-format
               '("%e"
-                mode-line-front-space
                 mode-line-frame-identification
                 (:eval (custom-modeline-modified)) " "
                 (:eval (major-mode-icons-show)) " "
                 mode-line-buffer-identification "%e(%l,%c) "
                 (:eval (custom-modeline-github-vc))
-                "   " mode-line-modes "   "
-                " %P "
+                " " mode-line-modes " "
+                "%P "
                 global-mode-string))
 
 (provide 'mode-line)

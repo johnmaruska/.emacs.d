@@ -8,6 +8,8 @@
 
 (use-package ag :ensure t)
 
+(use-package all-the-icons :ensure t)
+
 (use-package auto-complete
   :ensure t
   :bind (:map ac-completing-map
@@ -43,12 +45,41 @@
               dashboard-set-navigator     t)
   :config (dashboard-setup-startup-hook))
 
+(use-package delight :ensure t)
+
+(use-package emacs
+  :delight page-break-lines-mode
+  :delight eldoc-mode)
+
+(use-package flymd
+  :ensure t
+  ;; use Firefox, not Chrome, for browser-open-function
+  ;; <https://github.com/mola-T/flymd/blob/master/browser.md#user-content-chrome-macos>
+  :init (setq flymd-browser-open-function
+              (lambda (url)
+                (let ((process-environment (browse-url-process-environment)))
+                  (apply 'start-process
+                         (concat "firefox " url)
+                         nil
+                         "/usr/bin/open"
+                         (list "-a" "firefox" url))))))
+
 ;; hash-tables. used in Guaranteed-Emacs
 (use-package ht :ensure t)
 
 (use-package ido
   :ensure t
   :config (ido-mode t))
+
+(use-package magit-gitflow
+  :ensure t
+  :bind ("C-x g" . magit-status)
+  :hook (magit-mode . turn-on-magit-gitflow))
+
+(use-package major-mode-icons
+  :ensure t
+  :after  (all-the-icons)
+  :delight major-mode-icons-mode)
 
 (use-package multiple-cursors :ensure t)
 
@@ -77,6 +108,8 @@
                 projectile-project-root-files-bottom-up '(".projectile")
                 projectile-file-exists-remote-cache-expire (* 10 60))
   :config (projectile-global-mode))
+
+(use-package restclient :ensure t)
 
 (use-package uuidgen :ensure t)
 
