@@ -17,12 +17,13 @@
   (list "C:/Program Files/LOVE"
         default-path))
 
+(require 'computers "~/.emacs.d/computers.el")
 (defvar path-list
   (cond ((macbook?) macbook-path-list)
         ((vingtor?) vingtor-path-list)
         (t          (list default-path))))
 
-(require 'computers "~/.emacs.d/computers.el")
+
 (defun set-default-envvars ()
   "Set envvars to include default settings."
   (interactive)

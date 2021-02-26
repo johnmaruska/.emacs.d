@@ -27,6 +27,7 @@
 (defun font-height ()
   (cond
    ((vingtor?) 120)
+   ((macbook?) 115)
    (t 135)))
 
 (defun default-appearance ()

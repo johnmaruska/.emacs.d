@@ -22,14 +22,14 @@
   (package-install 'use-package))
 (require 'use-package)
 
+(require 'env-vars "~/.emacs.d/env-vars.el")
+(set-default-envvars)
+
 (require 'global "~/.emacs.d/global.el")
 (default-ui-configuration)
 
 (require 'appearance "~/.emacs.d/appearance.el")
 (default-appearance)
-
-(require 'env-vars "~/.emacs.d/env-vars.el")
-(set-default-envvars)
 
 (require 'mode-hooks "~/.emacs.d/mode-hooks.el")
 
