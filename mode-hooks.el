@@ -12,8 +12,10 @@
   :ensure t
   :hook (prog-mode . (lambda () (aggressive-indent-mode 1))))
 
-(use-package all-the-icons
-  :ensure t)
+(use-package all-the-icons :ensure t)
+
+(use-package autorevert
+  :delight auto-revert-mode)
 
 (use-package cider :ensure t)
 
@@ -68,8 +70,13 @@
           ("json" . "cheshire.core")))
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
-(use-package dockerfile-mode
-  :ensure t)
+(use-package delight :ensure t)
+
+(use-package emacs
+  :delight page-break-lines-mode
+  :delight eldoc-mode)
+
+(use-package dockerfile-mode :ensure t)
 
 (use-package flymd
   :ensure t
@@ -86,6 +93,7 @@
 
 (use-package guru-mode
   :ensure t
+  :delight guru-mode
   :init (setq guru-warn-only t)
   :hook (prog-mode . guru-mode))
 
@@ -97,8 +105,9 @@
   :hook (magit-mode . turn-on-magit-gitflow))
 
 (use-package major-mode-icons
+  :ensure t
   :after  (all-the-icons)
-  :ensure t)
+  :delight major-mode-icons-mode)
 
 (use-package markdown-mode
   :ensure t
@@ -121,6 +130,7 @@
 
 (use-package paredit
   :ensure t
+  :delight (paredit-mode " ()")
   :hook ((emacs-lisp-mode . paredit-mode)
          (eval-expression-minibuffer-setup . paredit-mode)
          (lisp-mode . paredit-mode)
@@ -147,12 +157,14 @@
   :hook (text-mode . auto-fill-mode))
 
 (use-package whitespace
+  :delight global-whitespace-mode
   :config
   (setq whitespace-style '(face empty tabs trailing))
   (global-whitespace-mode 1))
 
 (use-package whitespace-cleanup-mode
   :ensure t
+  :delight whitespace-cleanup-mode
   :hook ((prog-mode . whitespace-cleanup-mode)
          (text-mode . whitespace-cleanup-mode)))
 

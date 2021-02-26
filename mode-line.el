@@ -23,12 +23,6 @@
     (propertize (apply (cadr result) (cddr result))
                 'face `(:family ,(funcall (car result))))))
 
-(defun custom-modeline-mode-icon ()
-  (format " %s"
-          (propertize icon
-                      'help-echo (format "Major-mode: `%s`" major-mode)
-                      'face `(:height 1.2 :family ,(all-the-icons-icon-family-for-buffer)))))
-
 (defun custom-modeline-github-vc ()
   (let ((branch (mapconcat 'concat (cdr (split-string vc-mode "[:-]")) "-")))
     (concat
@@ -38,12 +32,16 @@
      (propertize (format "(%s)" branch)))))
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Variables.html
-(setq mode-line-format '("%e"
-                         mode-line-front-space
-                         mode-line-frame-identification
-                         (:eval (custom-modeline-modified)) " "
-                         (:eval (major-mode-icons-show)) " "
-                         mode-line-buffer-identification "%e(%l,%c) "
-                         (:eval (custom-modeline-github-vc))
-                         " %P %I "
-                         global-mode-string))
+(setq-default mode-line-format
+              '("%e"
+                mode-line-front-space
+                mode-line-frame-identification
+                (:eval (custom-modeline-modified)) " "
+                (:eval (major-mode-icons-show)) " "
+                mode-line-buffer-identification "%e(%l,%c) "
+                (:eval (custom-modeline-github-vc))
+                "   " mode-line-modes "   "
+                " %P "
+                global-mode-string))
+
+(provide 'mode-line)

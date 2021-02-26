@@ -25,6 +25,7 @@
 ;; cursor lights beacon on windows change/scroll)
 (use-package beacon
   :ensure t
+  :delight beacon-mode
   :config (beacon-mode 1))
 
 (use-package dashboard
@@ -41,10 +42,6 @@
               dashboard-set-file-icons    t
               dashboard-set-navigator     t)
   :config (dashboard-setup-startup-hook))
-
-(use-package editorconfig
-  :ensure t
-  :config (editorconfig-mode 1))
 
 ;; hash-tables. used in Guaranteed-Emacs
 (use-package ht :ensure t)
@@ -85,6 +82,7 @@
 
 (use-package which-key
   :ensure t
+  :delight which-key-mode
   :init (setq which-key-show-early-on-C-h t
               which-key-popup-type 'side-window)
   :config
