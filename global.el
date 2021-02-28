@@ -27,12 +27,15 @@
   :ensure t
   :config (beacon-mode 1))
 
+(require 'computers "~/.emacs.d/computers.el")
 (use-package dashboard
   :ensure t
   :init (setq dashboard-startup-banner 'logo
-              dashboard-items '((recents . 20)
-                                ;; more options for org-mode
-                                (projects . 10))
+              dashboard-items (cond
+                               ((convertible?)
+                                '((recents . 10) (projects . 3)))
+                               (t
+                                '((recents . 20) (projects . 10))))
               dashboard-banner-logo-title "Welcome! Everything is fine."
               dashboard-footer-messages '("Don't check the internet. Just start working."
                                           "Thank you for keeping trying."

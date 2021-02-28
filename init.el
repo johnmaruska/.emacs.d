@@ -57,7 +57,7 @@
 (when (gr-macbook?)
   (load "~/.emacs.d/secrets/gr.el")
   (setup-mac-displays))
-(when (vingtor?)
+(when (or (vingtor?) (convertible?))
   (load "~/.emacs.d/secrets/tokens.el"))
 
 (defun chris-zoom ()
