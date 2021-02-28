@@ -49,7 +49,8 @@
 
 (use-package emacs
   :delight page-break-lines-mode
-  :delight eldoc-mode)
+  :delight eldoc-mode
+  :delight auto-fill-function)
 
 (use-package flymd
   :ensure t

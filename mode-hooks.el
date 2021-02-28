@@ -7,22 +7,28 @@
 
 (use-package aggressive-indent
   :ensure t
-  :hook (prog-mode . (lambda () (aggressive-indent-mode 1))))
+  :hook   (prog-mode . (lambda () (aggressive-indent-mode 1))))
 
 (use-package autorevert
   :delight auto-revert-mode)
 
+(use-package guru-mode
+  :ensure  t
+  :delight guru-mode
+  :init    (setq guru-warn-only t)
+  :hook    (prog-mode . guru-mode))
+
 (use-package paredit
-  :ensure t
+  :ensure  t
   :delight (paredit-mode " ()")
-  :hook ((emacs-lisp-mode . paredit-mode)
-         (eval-expression-minibuffer-setup . paredit-mode)
-         (lisp-mode . paredit-mode)
-         (lisp-interaction-mode . paredit-mode)))
+  :hook    ((emacs-lisp-mode . paredit-mode)
+            (eval-expression-minibuffer-setup . paredit-mode)
+            (lisp-mode . paredit-mode)
+            (lisp-interaction-mode . paredit-mode)))
 
 (use-package rainbow-delimiters
   :ensure t
-  :hook (prog-mode . rainbow-delimiters-mode))
+  :hook   (prog-mode . rainbow-delimiters-mode))
 
 (use-package whitespace
   :delight global-whitespace-mode
@@ -31,18 +37,18 @@
   (global-whitespace-mode 1))
 
 (use-package whitespace-cleanup-mode
-  :ensure t
+  :ensure  t
   :delight whitespace-cleanup-mode
-  :hook ((prog-mode . whitespace-cleanup-mode)
-         (text-mode . whitespace-cleanup-mode)))
+  :hook    ((prog-mode . whitespace-cleanup-mode)
+            (text-mode . whitespace-cleanup-mode)))
 
 (use-package yafolding
   :ensure t
-  :hook (prog-mode . yafolding-mode)
-  :bind (:map yafolding-mode-map
-              ("C-S-RET" . yafolding-hide-parent-element)
-              ("C-M-RET" . yafolding-toggle-all)
-              ("C-RET" . yafolding-toggle-element)))
+  :hook   (prog-mode . yafolding-mode)
+  :bind   (:map yafolding-mode-map
+                ("C-S-RET" . yafolding-hide-parent-element)
+                ("C-M-RET" . yafolding-toggle-all)
+                ("C-RET" . yafolding-toggle-element)))
 
 ;;;; Specific modes
 
@@ -60,13 +66,14 @@
                 ("C-c M-i" . cider-inspect)))
 
 (use-package clojure-mode
-  :ensure t
-  :after  (paredit)
-  :hook   ((clojure-mode . (lambda ()
-                             (clj-refactor-mode 1)))
-           (clojure-mode . eldoc-mode)
-           (clojure-mode . paredit-mode)
-           (clojurescript-mode . paredit-mode))
+  :ensure  t
+  :delight clojure-mode
+  :after   (paredit)
+  :hook    ((clojure-mode . (lambda ()
+                              (clj-refactor-mode 1)))
+            (clojure-mode . eldoc-mode)
+            (clojure-mode . paredit-mode)
+            (clojurescript-mode . paredit-mode))
   :config
   (define-clojure-indent
     (defroutes 'defun)
@@ -85,7 +92,7 @@
 
 (use-package clj-refactor
   :ensure t
-  :hook (clojure-mode . (lambda () (clj-refactor-mode 1)))
+  :hook   (clojure-mode . (lambda () (clj-refactor-mode 1)))
   :config
   (setq cljr-warn-on-eval nil
         cljr-magic-require-namespaces
@@ -99,27 +106,32 @@
           ("json" . "cheshire.core")))
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
-(use-package dockerfile-mode :ensure t)
+(use-package dockerfile-mode
+  :ensure  t
+  :delight dockerfile-mode)
 
-(use-package guru-mode
-  :ensure t
-  :delight guru-mode
-  :init (setq guru-warn-only t)
-  :hook (prog-mode . guru-mode))
+(use-package elisp-mode
+  :delight emacs-lisp-mode)
 
-(use-package json-mode :ensure t)
+(use-package json-mode
+  :ensure  t
+  :delight json-mode)
 
 (use-package markdown-mode
-  :ensure t
+  :ensure  t
+  :delight markdown-mode
   :config
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
   :hook (markdown-mode . auto-fill-mode))
 
-(use-package nix-mode :ensure t)
+(use-package nix-mode
+  :ensure  t
+  :delight nix-mode)
 
 (use-package org-mode
   :hook (org-mode . turn-on-font-lock)
+  :delight org
   :config
   (setq org-src-fontify-natively t
         org-confirm-babel-evaluate nil
@@ -130,24 +142,30 @@
                                '((scheme . t))))
 
 (use-package rjsx-mode
-  :ensure t
-  :config (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
+  :ensure  t
+  :delight rjsx-mode
+  :config  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
 
 (use-package sh-script
+  :delight sh-mode
   :config
   (defvar sh-basic-offset 2)
   (defvar sh-indentation 2))
 
-(use-package terraform-mode :ensure t)
+(use-package terraform-mode
+  :ensure  t
+  :delight terraform-mode)
 
 (use-package text-mode
-  :hook (text-mode . auto-fill-mode))
+  :delight text-mode
+  :hook    (text-mode . auto-fill-mode))
 
 (use-package yaml-mode
-  :ensure t
-  :after (yafolding)
-  :hook  ((yaml-mode . linum-mode)
-          (yaml-mode . yafolding-mode)))
+  :ensure  t
+  :delight yaml-mode
+  :after   (yafolding)
+  :hook    ((yaml-mode . linum-mode)
+            (yaml-mode . yafolding-mode)))
 
 (provide 'mode-hooks)
 ;;; mode-hooks.el ends here

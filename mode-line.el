@@ -36,10 +36,10 @@
               '("%e"
                 mode-line-frame-identification
                 (:eval (custom-modeline-modified)) " "
-                (:eval (major-mode-icons-show)) " "
                 mode-line-buffer-identification "%e(%l,%c) "
-                (:eval (custom-modeline-github-vc))
-                " " mode-line-modes " "
+                (:eval (custom-modeline-github-vc)) " "
+                (:eval (major-mode-icons-show))
+                mode-line-modes " "
                 "%P "
                 global-mode-string))
 
