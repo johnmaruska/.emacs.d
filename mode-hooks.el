@@ -51,7 +51,6 @@
                 ("C-RET" . yafolding-toggle-element)))
 
 ;;;; Specific modes
->>>>>>> origin/modeline-customization
 
 (use-package cider :ensure t)
 
