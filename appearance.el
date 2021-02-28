@@ -27,6 +27,8 @@
 (defun font-height ()
   (cond
    ((convertible?) 130)
+   ((vingtor?) 120)
+   ((macbook?) 115)
    (t 135)))
 
 (defun default-appearance ()
@@ -42,12 +44,12 @@
 (defun antman-uses-emacs ()
   "Make font tiny."
   (interactive)
-  (set-face-attribute 'default nil :height 90))
+  (set-face-attribute 'default nil :height (floor (* 0.66 (font-height)))))
 
 (defun bigger-font ()
   "Make font larger."
   (interactive)
-  (set-face-attribute 'default nil :height 160))
+  (set-face-attribute 'default nil :height (floor (* 1.2 (font-height)))))
 
 (provide 'appearance)
 ;;; appearance.el ends here

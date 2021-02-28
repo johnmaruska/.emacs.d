@@ -11,8 +11,8 @@
       '(("ELPA" . "http://tromey.com/elpa/")
         ("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa-stable" . "http://stable.melpa.org/packages/")
-        ("marmalade" . "http://marmalade-repo.org/packages/")
-        ("melpa" . "http://melpa.org/packages/")))
+        ("melpa" . "http://melpa.org/packages/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 (package-initialize)
 ;; (setq url-http-attempt-keepalives nil)
@@ -22,14 +22,14 @@
   (package-install 'use-package))
 (require 'use-package)
 
+(require 'env-vars "~/.emacs.d/env-vars.el")
+(set-default-envvars)
+
 (require 'global "~/.emacs.d/global.el")
 (default-ui-configuration)
 
 (require 'appearance "~/.emacs.d/appearance.el")
 (default-appearance)
-
-(require 'env-vars "~/.emacs.d/env-vars.el")
-(set-default-envvars)
 
 (require 'mode-hooks "~/.emacs.d/mode-hooks.el")
 
@@ -54,8 +54,7 @@
 (require 'utils "~/.emacs.d/utils.el")
 
 (require 'computers "~/.emacs.d/computers.el")
-(when (gr-macbook?)
-  (load "~/.emacs.d/secrets/gr.el")
+(when (macbook?)
   (setup-mac-displays))
 (when (or (vingtor?) (convertible?))
   (load "~/.emacs.d/secrets/tokens.el"))

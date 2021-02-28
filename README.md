@@ -20,9 +20,10 @@ I hope to approach a consistent setup across machines.
 
 Fonts:
 - [JetBrains Mono font](https://www.jetbrains.com/lp/mono/)
+- all-the-icons fonts, `M-x all-the-icons-install-fonts`
 
 CLI tools:
-- ack and/or ag
+- ag
 - git
 
 Directories/Files:

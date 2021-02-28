@@ -12,12 +12,7 @@
   :ensure t
   :hook (prog-mode . (lambda () (aggressive-indent-mode 1))))
 
-(use-package all-the-icons
-  :ensure t
-  :after (all-the-icons-dired)
-  :hook  (dired-mode . all-the-icons-dired-mode))
-
-(use-package all-the-icons-dired :ensure t)
+(use-package all-the-icons :ensure t)
 
 (use-package cider :ensure t)
 
