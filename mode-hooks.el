@@ -26,9 +26,6 @@
             (lisp-mode . paredit-mode)
             (lisp-interaction-mode . paredit-mode)))
 
-<<<<<<< HEAD
-(use-package all-the-icons :ensure t)
-=======
 (use-package rainbow-delimiters
   :ensure t
   :hook   (prog-mode . rainbow-delimiters-mode))
