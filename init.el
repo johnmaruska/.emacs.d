@@ -32,6 +32,7 @@
 (default-appearance)
 
 (require 'mode-hooks "~/.emacs.d/mode-hooks.el")
+(require 'mode-line "~/.emacs.d/mode-line.el")
 
 (require 'eshell)
 (declare-function eshell/pwd "ext:eshell/pwd")
