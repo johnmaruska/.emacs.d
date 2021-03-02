@@ -8,6 +8,8 @@
 
 (use-package ag :ensure t)
 
+(use-package all-the-icons :ensure t)
+
 (use-package auto-complete
   :ensure t
   :bind (:map ac-completing-map
@@ -25,14 +27,18 @@
 ;; cursor lights beacon on windows change/scroll)
 (use-package beacon
   :ensure t
+  :delight beacon-mode
   :config (beacon-mode 1))
 
+(require 'computers "~/.emacs.d/computers.el")
 (use-package dashboard
   :ensure t
   :init (setq dashboard-startup-banner 'logo
-              dashboard-items '((recents . 20)
-                                ;; more options for org-mode
-                                (projects . 10))
+              dashboard-items (cond
+                               ((convertible?)
+                                '((recents . 10) (projects . 3)))
+                               (t
+                                '((recents . 20) (projects . 10))))
               dashboard-banner-logo-title "Welcome! Everything is fine."
               dashboard-footer-messages '("Don't check the internet. Just start working."
                                           "Thank you for keeping trying."
@@ -42,9 +48,25 @@
               dashboard-set-navigator     t)
   :config (dashboard-setup-startup-hook))
 
-(use-package editorconfig
+(use-package delight :ensure t)
+
+(use-package emacs
+  :delight page-break-lines-mode
+  :delight eldoc-mode
+  :delight auto-fill-function)
+
+(use-package flymd
   :ensure t
-  :config (editorconfig-mode 1))
+  ;; use Firefox, not Chrome, for browser-open-function
+  ;; <https://github.com/mola-T/flymd/blob/master/browser.md#user-content-chrome-macos>
+  :init (setq flymd-browser-open-function
+              (lambda (url)
+                (let ((process-environment (browse-url-process-environment)))
+                  (apply 'start-process
+                         (concat "firefox " url)
+                         nil
+                         "/usr/bin/open"
+                         (list "-a" "firefox" url))))))
 
 ;; hash-tables. used in Guaranteed-Emacs
 (use-package ht :ensure t)
@@ -52,6 +74,16 @@
 (use-package ido
   :ensure t
   :config (ido-mode t))
+
+(use-package magit-gitflow
+  :ensure t
+  :bind ("C-x g" . magit-status)
+  :hook (magit-mode . turn-on-magit-gitflow))
+
+(use-package major-mode-icons
+  :ensure t
+  :after  (all-the-icons)
+  :delight major-mode-icons-mode)
 
 (use-package multiple-cursors :ensure t)
 
@@ -81,10 +113,13 @@
                 projectile-file-exists-remote-cache-expire (* 10 60))
   :config (projectile-global-mode))
 
+(use-package restclient :ensure t)
+
 (use-package uuidgen :ensure t)
 
 (use-package which-key
   :ensure t
+  :delight which-key-mode
   :init (setq which-key-show-early-on-C-h t
               which-key-popup-type 'side-window)
   :config
@@ -105,6 +140,7 @@
   (toggle-frame-maximized)     ; full-screen mode toggle. TODO: find enable not toggle
   (setq
    default-directory         "~/"
+   display-time-default-load-average nil
    history-delete-duplicates t  ; minibuffer history keeps only one of each unique entry
    inhibit-startup-screen    t  ; Don't display welcome screen
    require-final-newline     t

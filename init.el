@@ -32,6 +32,7 @@
 (default-appearance)
 
 (require 'mode-hooks "~/.emacs.d/mode-hooks.el")
+(require 'mode-line "~/.emacs.d/mode-line.el")
 
 (require 'eshell)
 (declare-function eshell/pwd "ext:eshell/pwd")
@@ -56,7 +57,7 @@
 (require 'computers "~/.emacs.d/computers.el")
 (when (macbook?)
   (setup-mac-displays))
-(when (vingtor?)
+(when (or (vingtor?) (convertible?))
   (load "~/.emacs.d/secrets/tokens.el"))
 
 (defun chris-zoom ()

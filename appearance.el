@@ -26,6 +26,7 @@
 (require 'computers "~/.emacs.d/computers.el")
 (defun font-height ()
   (cond
+   ((convertible?) 130)
    ((vingtor?) 120)
    ((macbook?) 150)
    (t 135)))
