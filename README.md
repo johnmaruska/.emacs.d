@@ -1,5 +1,8 @@
 # .emacs.d
 
+### Fixes
+- Error during redisplay: (eval (custom-modeline-github-vc)) signaled (wrong-type-argument stringp nil)
+
 ### New Things
 - flycheck working with eastwood and yagni
 - multiple-cursors

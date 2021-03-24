@@ -7,7 +7,8 @@
 
 (use-package aggressive-indent
   :ensure t
-  :hook   (prog-mode . (lambda () (aggressive-indent-mode 1))))
+  :config
+  (global-aggressive-indent-mode 1))
 
 (use-package autorevert
   :delight auto-revert-mode)
@@ -44,7 +45,8 @@
 
 (use-package yafolding
   :ensure t
-  :hook   (prog-mode . yafolding-mode)
+  :hook   ((prog-mode . yafolding-mode)
+           (conf-mode . yafolding-mode))
   :bind   (:map yafolding-mode-map
                 ("C-S-RET" . yafolding-hide-parent-element)
                 ("C-M-RET" . yafolding-toggle-all)
@@ -113,6 +115,10 @@
 (use-package elisp-mode
   :delight emacs-lisp-mode)
 
+(use-package elpy
+  :ensure t
+  :init (elpy-enable))
+
 (use-package json-mode
   :ensure  t
   :delight json-mode)
@@ -120,10 +126,12 @@
 (use-package markdown-mode
   :ensure  t
   :delight markdown-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-  :hook (markdown-mode . auto-fill-mode))
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :hook (markdown-mode . auto-fill-mode)
+  :init (setq markdown-command "multimarkdown"))
 
 (use-package nix-mode
   :ensure  t
