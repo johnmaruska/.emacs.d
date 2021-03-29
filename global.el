@@ -51,9 +51,10 @@
 (use-package delight :ensure t)
 
 (use-package emacs
-  :delight page-break-lines-mode
+  :delight auto-fill-function
   :delight eldoc-mode
-  :delight auto-fill-function)
+  :delight eshell-mode
+  :delight page-break-lines-mode)
 
 (use-package flymd
   :ensure t

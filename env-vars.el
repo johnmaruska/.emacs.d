@@ -12,6 +12,7 @@
 (defvar macbook-path-list
   (list "/usr/local/bin"
         "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
+        "/Users/maruska/Library/Python/3.8/bin"
         default-path))
 
 (defvar vingtor-path-list
