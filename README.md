@@ -28,6 +28,7 @@ Fonts:
 CLI tools:
 - ag
 - git
+- virtualenv (or venv) required by elpy for Python IDE experience
 
 Directories/Files:
 - ~/dev

@@ -48,9 +48,9 @@
   :hook   ((prog-mode . yafolding-mode)
            (conf-mode . yafolding-mode))
   :bind   (:map yafolding-mode-map
-                ("C-S-RET" . yafolding-hide-parent-element)
-                ("C-M-RET" . yafolding-toggle-all)
-                ("C-RET" . yafolding-toggle-element)))
+                ("C-S-<tab>" . yafolding-hide-parent-element)
+                ("C-M-<tab>" . yafolding-toggle-all)
+                ("C-<tab>" . yafolding-toggle-element)))
 
 ;;;; Specific modes
 
@@ -117,7 +117,13 @@
 
 (use-package elpy
   :ensure t
-  :init (elpy-enable))
+  :init
+  (setq elpy-rpc-python-command "python3"
+        python-indent-guess-indent-offset-verbose nil
+        python-shell-completion-native-enable nil
+        python-shell-interpreter "python3")
+  :config
+  (elpy-enable))
 
 (use-package json-mode
   :ensure  t

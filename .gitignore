@@ -8,6 +8,7 @@ xkcd/*
 cider-repl.history
 games/*
 
+elpy/*
 eshell/*
 eshell/.*
 secrets/*
