@@ -110,7 +110,8 @@
 
 (use-package dockerfile-mode
   :ensure  t
-  :delight dockerfile-mode)
+  :delight dockerfile-mode
+  :hook    (dockerfile-mode . (lambda () (aggressive-indent-mode 0))))
 
 (use-package elisp-mode
   :delight emacs-lisp-mode)
@@ -184,10 +185,16 @@
   :delight text-mode
   :hook    (text-mode . auto-fill-mode))
 
+;; web templates e.g. jinja, jsx, mustache
+(use-package web-mode
+  :ensure t
+  :mode   (("\\.jinja\\'" . web-mode)))
+
 (use-package yaml-mode
   :ensure  t
   :delight yaml-mode
   :after   (yafolding)
+  :mode    (("\\.jinja\\.schema\\'" . yaml-mode))
   :hook    ((yaml-mode . linum-mode)
             (yaml-mode . yafolding-mode)))
 
