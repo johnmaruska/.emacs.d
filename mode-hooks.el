@@ -108,6 +108,11 @@
           ("json" . "cheshire.core")))
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
+(use-package csv-mode
+  :ensure t
+  :bind (:map csv-mode-map
+              ("C-c C-a" . csv-align-fields)))
+
 (use-package dockerfile-mode
   :ensure  t
   :delight dockerfile-mode
