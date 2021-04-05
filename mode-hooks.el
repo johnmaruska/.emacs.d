@@ -125,6 +125,12 @@
   :config
   (elpy-enable))
 
+(use-package geiser
+  :ensure t
+  :custom
+  (geiser-active-implementations '(mit))
+  (geiser-set-default-implementation 'mit))
+
 (use-package json-mode
   :ensure  t
   :delight json-mode)
@@ -159,6 +165,10 @@
   :ensure  t
   :delight rjsx-mode
   :config  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
+
+(use-package scheme
+  :delight scheme-mode
+  :hook    (scheme-mode . paredit-mode))
 
 (use-package sh-script
   :delight sh-mode
