@@ -27,7 +27,7 @@
 (defun font-height ()
   (cond
    ((convertible?) 130)
-   ((vingtor?) 120)
+   ((vingtor?) 105)
    ((macbook?) 150)
    (t 135)))
 
