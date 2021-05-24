@@ -90,6 +90,40 @@
   :after  (all-the-icons)
   :delight major-mode-icons-mode)
 
+(use-package multi-term
+  :ensure t
+  :init
+  (setq multi-term-program "bash")
+  (when window-system
+    (custom-set-variables
+     '(term-bind-key-alist '(("C-c C-e" . term-send-escape)))))
+  :config
+  (defun bash ()
+    (interactive)
+    (let ((multi-term-program "bash")
+          (multi-term-buffer-name "bash"))
+      (multi-term)))
+
+  (defun python ()
+    (interactive)
+    (let ((multi-term-program "python")
+          (multi-term-buffer-name "python"))
+      (multi-term)))
+
+  (defun ssh (ssh-to)
+    (interactive "sSSH to: ")
+    (let ((multi-term-program "ssh")
+          (multi-term-buffer-name ssh-to)
+          (multi-term-program-switches ssh-to))
+      (multi-term)))
+
+  (defun su ()
+    (interactive)
+    (let ((multi-term-program "su")
+          (multi-term-buffer-name "su")
+          (multi-term-program-switches "--login"))
+      (multi-term))))
+
 (use-package multiple-cursors :ensure t)
 
 (use-package neotree
