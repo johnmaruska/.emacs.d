@@ -6,12 +6,11 @@
 
 ;;; Code:
 
-(use-package ag :ensure t)
+(use-package ag)
 
-(use-package all-the-icons :ensure t)
+(use-package all-the-icons)
 
 (use-package auto-complete
-  :ensure t
   :bind (:map ac-completing-map
               ("RET" . nil)
               ("\r" . nil)
@@ -19,20 +18,17 @@
   :config (put 'upcase-region 'disabled nil))
 
 (use-package auto-dim-other-buffers
-  :ensure t
   :hook (after-init . (lambda ()
                         (when (fboundp 'auto-dim-other-buffers-mode)
                           (auto-dim-other-buffers-mode t)))))
 
 ;; cursor lights beacon on windows change/scroll)
 (use-package beacon
-  :ensure t
   :delight beacon-mode
   :config (beacon-mode 1))
 
 (require 'computers "~/.emacs.d/computers.el")
 (use-package dashboard
-  :ensure t
   :init (setq dashboard-startup-banner 'logo
               dashboard-items (cond
                                ((convertible?)
@@ -48,7 +44,7 @@
               dashboard-set-navigator     t)
   :config (dashboard-setup-startup-hook))
 
-(use-package delight :ensure t)
+(use-package delight)
 
 (use-package emacs
   :delight
@@ -59,7 +55,6 @@
   (page-break-lines-mode))
 
 (use-package flymd
-  :ensure t
   ;; use Firefox, not Chrome, for browser-open-function
   ;; <https://github.com/mola-T/flymd/blob/master/browser.md#user-content-chrome-macos>
   :init (setq flymd-browser-open-function
@@ -71,27 +66,20 @@
                          "/usr/bin/open"
                          (list "-a" "firefox" url))))))
 
-;; hash-tables. used in Guaranteed-Emacs
-(use-package ht :ensure t)
-
 (use-package ido
-  :ensure t
   :config (ido-mode t))
 
 (use-package magit-gitflow
-  :ensure t
   :delight magit-mode
   :delight magit-status-mode
   :bind ("C-x g" . magit-status)
   :hook (magit-mode . turn-on-magit-gitflow))
 
 (use-package major-mode-icons
-  :ensure t
-  :after  (all-the-icons)
+  :after (all-the-icons)
   :delight major-mode-icons-mode)
 
 (use-package multi-term
-  :ensure t
   :init
   (setq multi-term-program "bash")
   (when window-system
@@ -124,10 +112,9 @@
           (multi-term-program-switches "--login"))
       (multi-term))))
 
-(use-package multiple-cursors :ensure t)
+(use-package multiple-cursors)
 
 (use-package neotree
-  :ensure t
   :bind ([f8] . neotree-toggle)
   :init (setq neo-theme (if (display-graphic-p) 'icons 'arrow)
               neo-window-position 'left)
@@ -137,11 +124,9 @@
 
 ;; display ^L linefeed character as a horizontal line
 (use-package page-break-lines
-  :ensure t
   :config (global-page-break-lines-mode))
 
 (use-package projectile
-  :ensure t
   :after  (neotree)
   :delight '(:eval (concat " " (projectile-project-name)))
   :bind   (:map projectile-mode-map ("C-c p" . projectile-command-map))
@@ -153,12 +138,11 @@
                 projectile-file-exists-remote-cache-expire (* 10 60))
   :config (projectile-global-mode))
 
-(use-package restclient :ensure t)
+(use-package restclient)
 
-(use-package uuidgen :ensure t)
+(use-package uuidgen)
 
 (use-package which-key
-  :ensure t
   :delight which-key-mode
   :init (setq which-key-show-early-on-C-h t
               which-key-popup-type 'side-window)
