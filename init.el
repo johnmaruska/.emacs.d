@@ -21,8 +21,6 @@
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 (require 'use-package)
-(setq use-package-always-defer t
-      use-package-always-ensure t)
 
 (require 'env-vars "~/.emacs.d/env-vars.el")
 (set-default-envvars)
