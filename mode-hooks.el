@@ -7,11 +7,9 @@
 
 (use-package aggressive-indent
   :ensure t
-  :config
-  (global-aggressive-indent-mode 1))
+  :config (global-aggressive-indent-mode 1))
 
-(use-package autorevert
-  :delight auto-revert-mode)
+(use-package autorevert :delight auto-revert-mode)
 
 (use-package guru-mode
   :ensure  t
@@ -76,21 +74,20 @@
             (clojure-mode . eldoc-mode)
             (clojure-mode . paredit-mode)
             (clojurescript-mode . paredit-mode))
-  :config
-  (define-clojure-indent
-    (defroutes 'defun)
-    (alet 1)
-    (GET 2)
-    (POST 2)
-    (PUT 2)
-    (DELETE 2)
-    (HEAD 2)
-    (ANY 2)
-    (OPTIONS 2)
-    (PATCH 2)
-    (rfn 2)
-    (let-routes 1)
-    (context 2)))
+  :config (define-clojure-indent
+            (defroutes 'defun)
+            (alet 1)
+            (GET 2)
+            (POST 2)
+            (PUT 2)
+            (DELETE 2)
+            (HEAD 2)
+            (ANY 2)
+            (OPTIONS 2)
+            (PATCH 2)
+            (rfn 2)
+            (let-routes 1)
+            (context 2)))
 
 (use-package clj-refactor
   :ensure t
@@ -113,13 +110,16 @@
   :bind (:map csv-mode-map
               ("C-c C-a" . csv-align-fields)))
 
+(use-package cwl-mode
+  :delight cwl-mode
+  :hook    (cwl-mode . turn-off-auto-fill))
+
 (use-package dockerfile-mode
   :ensure  t
   :delight dockerfile-mode
   :hook    (dockerfile-mode . (lambda () (aggressive-indent-mode 0))))
 
-(use-package elisp-mode
-  :delight emacs-lisp-mode)
+(use-package elisp-mode :delight emacs-lisp-mode)
 
 (use-package elpy
   :ensure t

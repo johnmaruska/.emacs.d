@@ -12,10 +12,10 @@
 
 (use-package auto-complete
   :ensure t
-  :bind (:map ac-completing-map
-              ("RET" . nil)
-              ("\r" . nil)
-              ("\t" . ac-complete))
+  :bind   (:map ac-completing-map
+                ("RET" . nil)
+                ("\r" . nil)
+                ("\t" . ac-complete))
   :config (put 'upcase-region 'disabled nil))
 
 (use-package auto-dim-other-buffers
@@ -28,7 +28,7 @@
 (use-package beacon
   :ensure t
   :delight beacon-mode
-  :config (beacon-mode 1))
+  :config  (beacon-mode 1))
 
 (require 'computers "~/.emacs.d/computers.el")
 (use-package dashboard
@@ -70,9 +70,6 @@
                          nil
                          "/usr/bin/open"
                          (list "-a" "firefox" url))))))
-
-;; hash-tables. used in Guaranteed-Emacs
-(use-package ht :ensure t)
 
 (use-package ido
   :ensure t
@@ -190,8 +187,7 @@
    )
   (setq-default
    indent-tabs-mode nil  ; don't mix tabs and spaces
-   tab-width        4
-   )
+   tab-width        4)
 
   (allow-menu-key)
   (blink-cursor-mode      ON)  ; cursor should blink
