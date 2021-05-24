@@ -51,10 +51,12 @@
 (use-package delight :ensure t)
 
 (use-package emacs
-  :delight auto-fill-function
-  :delight eldoc-mode
-  :delight eshell-mode
-  :delight page-break-lines-mode)
+  :delight
+  (auto-fill-function)
+  (eldoc-mode)
+  (eshell-mode)
+  (lisp-interaction-mode)
+  (page-break-lines-mode))
 
 (use-package flymd
   :ensure t
@@ -78,6 +80,8 @@
 
 (use-package magit-gitflow
   :ensure t
+  :delight magit-mode
+  :delight magit-status-mode
   :bind ("C-x g" . magit-status)
   :hook (magit-mode . turn-on-magit-gitflow))
 
@@ -105,6 +109,7 @@
 (use-package projectile
   :ensure t
   :after  (neotree)
+  :delight '(:eval (concat " " (projectile-project-name)))
   :bind   (:map projectile-mode-map ("C-c p" . projectile-command-map))
   :init   (setq projectile-enable-caching t
                 projectile-switch-project-action 'neotree-projectile-action

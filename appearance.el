@@ -21,7 +21,7 @@
   "Change the appearance of Emacs to use a light background."
   (interactive)
   ;; TODO: Look up a theme with a more beige background
-  (load-theme 'sanityinc-tomorrow-day t))
+  (load-theme 'whiteboard t))
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun font-height ()
@@ -41,15 +41,28 @@
                       :width   'ultra-expanded
                       :font    "JetBrains Mono"))
 
+(defun set-font-multiplier (multiplier)
+  (set-face-attribute 'default nil :height (floor (* multiplier (font-height)))))
+
 (defun antman-uses-emacs ()
   "Make font tiny."
   (interactive)
-  (set-face-attribute 'default nil :height (floor (* 0.66 (font-height)))))
+  (set-font-multiplier 0.66))
+
+(defun smaller-font ()
+  "Make font smaller."
+  (interactive)
+  (set-font-multiplier 0.8))
+
+(defun default-font-size ()
+  "Restore default font size."
+  (interactive)
+  (set-font-multiplier 1.0))
 
 (defun bigger-font ()
   "Make font larger."
   (interactive)
-  (set-face-attribute 'default nil :height (floor (* 1.2 (font-height)))))
+  (set-font-multiplier 1.2))
 
 (provide 'appearance)
 ;;; appearance.el ends here
