@@ -147,7 +147,7 @@
 (use-package lua-mode
   :ensure t
   :delight lua-mode
-  :hook    (dockerfile-mode . (lambda () (aggressive-indent-mode 0))))
+  :hook    (lua-mode . (lambda () (aggressive-indent-mode 0))))
 
 (use-package markdown-mode
   :ensure  t
