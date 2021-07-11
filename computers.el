@@ -31,7 +31,7 @@
 (defun convertible? ()
   "Is current machine Dell 2-in-1 Windows machine?"
   ;; need to name the PC
-  (string= (system-name) "nixos"))
+  (string= (system-name) "pop-os"))
 
 (defun vingtor? ()
   "Is current machine Vingtor desktop running Windows?"
