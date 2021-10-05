@@ -17,16 +17,16 @@
   (interactive)
   (load-theme 'sanityinc-tomorrow-bright t))
 
+(use-package color-theme-sanityinc-solarized)
 (defun light-background ()
   "Change the appearance of Emacs to use a light background."
   (interactive)
-  ;; TODO: Look up a theme with a more beige background
-  (load-theme 'sanityinc-tomorrow-day t))
+  (load-theme 'sanityinc-solarized-light t))
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun font-height ()
   (cond
-   ((convertible?) 130)
+   ((convertible?) 140)
    ((vingtor?) 105)
    ((macbook?) 150)
    (t 135)))
