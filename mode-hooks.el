@@ -52,6 +52,9 @@
 
 ;;;; Specific modes
 
+(use-package cc-mode
+  :hook ((c-common-mode . (lambda () (aggressive-indent-mode 0)))))
+
 (use-package cider :ensure t)
 
 (use-package cider-repl
@@ -140,6 +143,11 @@
 (use-package json-mode
   :ensure  t
   :delight json-mode)
+
+(use-package lua-mode
+  :ensure t
+  :delight lua-mode
+  :hook    (lua-mode . (lambda () (aggressive-indent-mode 0))))
 
 (use-package markdown-mode
   :ensure  t
