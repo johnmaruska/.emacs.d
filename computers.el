@@ -48,7 +48,7 @@
 (defun setup-windows ()
   (split-window-right -75)  ; create side-bar
   (other-window 1)  ; switch to sidebar
-  (find-file "~/washu/notes/start.org")  ; put journal in sidebar
+  (find-file "~/washu/notes/journal.org")  ; put journal in sidebar
   ;; (split-window-below 25)  ; vertical split sidebar
   ;; (other-window 1)  ; switch to lower window in sidebar
   ;; (find-file "~/dev/work/troubleshooting/TODO.org")

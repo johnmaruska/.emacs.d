@@ -5,13 +5,11 @@
 ;; on top of this.
 
 ;;; Code:
-
 (require 'package)
 (setq package-archives
       '(("ELPA" . "http://tromey.com/elpa/")
         ("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa-stable" . "http://stable.melpa.org/packages/")
-        ("marmalade" . "http://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.org/packages/")))
 
 (package-initialize)
@@ -58,8 +56,9 @@
 (when (macbook?)
   (setup-mac-displays)
   (load "~/washu/settings.el"))
-(when (or (vingtor?) (convertible?))
-  (load "~/.emacs.d/secrets/tokens.el"))
+
+(if (file-exists-p "~/.emacs.d/secrets/tokens.el")
+    (load "~/.emacs.d/secrets/tokens.el"))
 
 (defun chris-zoom ()
   (interactive)

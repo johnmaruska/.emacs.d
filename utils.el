@@ -28,6 +28,15 @@
                              (buffer-name)
                              t)))
 
+(defun html-format ()
+  (interactive)
+  (sgml-pretty-print (mark) (point)))
+
+(defun base64-decode-region-tobuff ()
+  (interactive)
+  (with-output-to-temp-buffer "*<base64> decoded*"
+    (when (use-region-p)
+      (print (base64-decode-string (buffer-substring (region-beginning) (region-end)))))))
 ;;; Commentary:
 
 (provide 'utils)

@@ -129,7 +129,7 @@
   :init (setq neo-theme (if (display-graphic-p) 'icons 'arrow)
               neo-window-position 'left)
   :config
-  (neotree-dir (expand-file-name "~/dev/"))
+  (neotree-dir (expand-file-name "~/"))
   (neotree-hide))
 
 ;; display ^L linefeed character as a horizontal line
@@ -153,6 +153,9 @@
 (use-package restclient :ensure t)
 
 (use-package uuidgen :ensure t)
+
+(when (windows?)
+  (use-package vterm :ensure t))
 
 (use-package which-key
   :ensure t

@@ -13,6 +13,9 @@ eshell/*
 eshell/.*
 secrets/*
 server/*
+.cache/*
+.dap-breakpoints
+.lsp-session-v1
 url/cookies
 .mc-lists.el
 

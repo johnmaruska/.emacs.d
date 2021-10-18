@@ -9,19 +9,20 @@
 
 ;;; Background Appearance
 
-(use-package color-theme-sanityinc-tomorrow
-  :ensure t)
+(use-package color-theme-sanityinc-tomorrow :ensure t)
+(use-package color-theme-sanityinc-solarized :ensure t)
 
 (defun dark-background ()
   "Change the appearance of Emacs to use a dark higher-contrast background."
   (interactive)
-  (load-theme 'sanityinc-tomorrow-bright t))
+  (load-theme 'sanityinc-tomorrow-bright t)
+  (auto-dim-other-buffers-mode t))
 
 (defun light-background ()
   "Change the appearance of Emacs to use a light background."
   (interactive)
-  ;; TODO: Look up a theme with a more beige background
-  (load-theme 'whiteboard t))
+  (load-theme 'sanityinc-solarized-light t)
+  (auto-dim-other-buffers-mode 0))
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun font-height ()
@@ -42,7 +43,8 @@
                       :font    "JetBrains Mono"))
 
 (defun set-font-multiplier (multiplier)
-  (set-face-attribute 'default nil :height (floor (* multiplier (font-height)))))
+  (set-face-attribute 'default nil
+                      :height (floor (* multiplier (font-height)))))
 
 (defun antman-uses-emacs ()
   "Make font tiny."
@@ -54,6 +56,10 @@
   (interactive)
   (set-font-multiplier 0.8))
 
+(defun slightly-smaller-font ()
+  (interactive)
+  (set-font-multiplier 0.9))
+
 (defun default-font-size ()
   "Restore default font size."
   (interactive)
@@ -62,7 +68,7 @@
 (defun bigger-font ()
   "Make font larger."
   (interactive)
-  (set-font-multiplier 1.2))
+  (set-font-multiplier 1.5))
 
 (provide 'appearance)
 ;;; appearance.el ends here

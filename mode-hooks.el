@@ -165,7 +165,12 @@
         org-adapt-indentation nil
         org-hide-leading-stars 't)
   (org-babel-do-load-languages 'org-babel-load-languages
-                               '((scheme . t))))
+                               '((scheme . t)
+                                 (shell  . t))))
+
+(use-package epresent
+  :ensure t
+  :hook (epresent-mode . (lambda () (linum-mode 0))))
 
 (use-package rjsx-mode
   :ensure  t
@@ -190,6 +195,10 @@
   :delight text-mode
   :hook    (text-mode . auto-fill-mode))
 
+(use-package wdl-mode
+  :ensure t
+  :hook   (wdl-mode . (lambda () (aggressive-indent-mode 0))))
+
 ;; web templates e.g. jinja, jsx, mustache
 (use-package web-mode
   :ensure t
@@ -201,7 +210,8 @@
   :after   (yafolding)
   :mode    (("\\.jinja\\.schema\\'" . yaml-mode))
   :hook    ((yaml-mode . linum-mode)
-            (yaml-mode . yafolding-mode)))
+            (yaml-mode . yafolding-mode)
+            (yaml-mode . turn-off-auto-fill)))
 
 (provide 'mode-hooks)
 ;;; mode-hooks.el ends here
