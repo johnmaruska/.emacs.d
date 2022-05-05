@@ -11,11 +11,12 @@
 
 (defvar macbook-path-list)
 (setq macbook-path-list
-      (list  "/Users/maruska/.plenv/shims"
-             "/Users/maruska/.plenv/bin"
+      (list  "/opt/homebrew/bin"
              "/usr/local/bin"
-             "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin"
-             "/Users/maruska/Library/Python/3.8/bin"
+             "~/.jenv/shims"
+             "~/.serverless/bin"
+             "~/Library/Python/3.9/bin"
+             "/opt/homebrew/Cellar/jenv/0.5.4/libexec/libexec"
              default-path))
 
 (defvar vingtor-path-list
@@ -37,9 +38,7 @@
   (setenv "PAGER" "cat")
   (when window-system
     ;; this matters for sub-shell process (e.g. launch bash)
-    (setenv "PATH" (mapconcat 'identity path-list (if (vingtor?) ";" ":")))
-    (setenv "JAVA_HOME" "/Users/maruska/.jenv/versions/11")
-    (setenv "PERL5LIB" "/Users/maruska/washu/genome/lib/perl:/Users/maruska/washu/genome/lib/Genome"))
+    (setenv "PATH" (mapconcat 'identity path-list (if (vingtor?) ";" ":"))))
   ;; this matters for eshell
   (setq exec-path (append path-list ORIGINAL_EXEC_PATH)))
 

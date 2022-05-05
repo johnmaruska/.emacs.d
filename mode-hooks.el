@@ -144,6 +144,10 @@
   :ensure  t
   :delight json-mode)
 
+(use-package kotlin-mode
+  :ensure t
+  :diminish kotlin-mode)
+
 (use-package lua-mode
   :ensure t
   :delight lua-mode

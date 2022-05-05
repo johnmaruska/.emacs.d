@@ -10,7 +10,7 @@
   (save-excursion
     (shell-command-on-region (mark)
                              (point)
-                             "python -m json.tool"
+                             "python3 -m json.tool"
                              (buffer-name)
                              t)))
 

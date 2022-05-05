@@ -33,6 +33,7 @@
          (propertize (format "(%s)" branch))))))
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Variables.html
+(require 'major-mode-icons)
 (setq-default mode-line-format
               '("%e"
                 mode-line-frame-identification

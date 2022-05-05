@@ -85,7 +85,11 @@
 (use-package major-mode-icons
   :ensure t
   :after  (all-the-icons)
-  :delight major-mode-icons-mode)
+  :delight major-mode-icons-mode
+  :config (major-mode-icons-mode 1))
+
+(use-package map
+  :ensure t)
 
 (use-package multi-term
   :ensure t

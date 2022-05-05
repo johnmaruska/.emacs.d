@@ -54,8 +54,8 @@
 
 (require 'computers "~/.emacs.d/computers.el")
 (when (macbook?)
-  (setup-mac-displays)
-  (load "~/washu/settings.el"))
+  (slightly-smaller-font)
+  (setup-mac-displays))
 
 (if (file-exists-p "~/.emacs.d/secrets/tokens.el")
     (load "~/.emacs.d/secrets/tokens.el"))

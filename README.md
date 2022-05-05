@@ -3,20 +3,12 @@
 ### Fixes
 - Windows cannot load elpy or geiser, tar not Found
 
-### New Things
-- flycheck working with eastwood and yagni
-- multiple-cursors
-- rest-client
-- look into helm-cider
-
-### Tweaks
-- get eshell to color git diff without breaking magit
-  (`git config --global color.ui always` breaks it)
-- info-bar at top instead of bottom of frame?
+### Look into these packages
+- helm-cider
+- helpful  github.com/Wilfred/helpful
 
 
 ## Requirements
-
 Different machines may have different requirements buried beneath some
 conditionals. I'm just going to list these without specifying because
 I hope to approach a consistent setup across machines.

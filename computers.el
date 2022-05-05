@@ -25,8 +25,8 @@
   (eq system-type 'windows-nt))
 
 (defun macbook? ()
-  "Is current machine Guaranteed Rate Macbook Pro 15\" 2019?"
-  (string-prefix-p "3071-AL-05039" (system-name)))
+  "Is current machine work macbook?"
+  (string-prefix-p "Johns-MBP.lan" (system-name)))
 
 (defun convertible? ()
   "Is current machine Dell 2-in-1 Windows machine?"
@@ -45,16 +45,6 @@
 
 ;;;;;;;; Mac-only UI
 
-(defun setup-windows ()
-  (split-window-right -75)  ; create side-bar
-  (other-window 1)  ; switch to sidebar
-  (find-file "~/washu/notes/journal.org")  ; put journal in sidebar
-  ;; (split-window-below 25)  ; vertical split sidebar
-  ;; (other-window 1)  ; switch to lower window in sidebar
-  ;; (find-file "~/dev/work/troubleshooting/TODO.org")
-  (other-window 1)
-  (switch-to-buffer "*dashboard*"))
-
 (defun setup-main-display-frame ()
   (let ((f (make-frame)))
     (set-frame-height   f 1080 nil 't)
@@ -64,8 +54,7 @@
 
 (defun setup-mac-displays ()
   (setup-main-display-frame)
-  (toggle-frame-fullscreen)
-  (setup-windows))
+  (toggle-frame-fullscreen))
 
 
 (provide 'computers)
