@@ -71,6 +71,9 @@
                          "/usr/bin/open"
                          (list "-a" "firefox" url))))))
 
+(use-package ibuffer
+  :bind ("C-x C-b" . ibuffer))
+
 (use-package ido
   :ensure t
   :config (ido-mode t))
