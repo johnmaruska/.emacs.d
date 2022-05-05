@@ -16,13 +16,23 @@
   "Change the appearance of Emacs to use a dark higher-contrast background."
   (interactive)
   (load-theme 'sanityinc-tomorrow-bright t)
-  (auto-dim-other-buffers-mode t))
+  (auto-dim-other-buffers-mode t)
+  ;;; These values are _basically_ sanityinc-tomorrow-bright, but made
+  ;;; brighter for higher contrast
+  (set-face-foreground 'font-lock-comment-face "#c090d0")
+  (set-face-foreground 'font-lock-doc-face "#e0b0f0")
+  (set-face-foreground 'font-lock-function-name-face "#f5a060")
+  (set-face-foreground 'font-lock-keyword-face "#d8e858")  ; macros
+  (set-face-foreground 'font-lock-constant-face "#a0d0f0")  ; includes clojure keywords
+  (set-face-foreground 'font-lock-type-face "#a0d0f0")  ; namespaces, incl namespaced keywords
+  (set-face-foreground 'font-lock-string-face "#80d0c0"))
 
 (defun light-background ()
   "Change the appearance of Emacs to use a light background."
   (interactive)
   (load-theme 'sanityinc-solarized-light t)
-  (auto-dim-other-buffers-mode 0))
+  (set-face-foreground 'font-lock-comment-face "black")
+  (auto-dim-other-buffers-mode nil))
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun font-height ()
