@@ -199,6 +199,15 @@
   (defvar sh-basic-offset 2)
   (defvar sh-indentation 2))
 
+(use-package sqlformat
+  :ensure t
+  :hook (sql-mode . sqlformat-on-save)
+  :bind (:map sql-mode-map
+              ("C-c C-f" . 'sqlformat))
+  :config
+  (setq sqlformat-command 'sqlformat)
+  (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat))
+
 (use-package terraform-mode
   :ensure  t
   :delight terraform-mode)
