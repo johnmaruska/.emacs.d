@@ -28,3 +28,6 @@ projectile-bookmarks.eld
 
 tramp
 projectile.cache
+
+eln-cache/*
+forge-database.sqlite

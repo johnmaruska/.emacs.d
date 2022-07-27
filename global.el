@@ -91,6 +91,10 @@
   :bind ("C-x g" . magit-status)
   :hook (magit-mode . turn-on-magit-gitflow))
 
+(use-package forge
+  :ensure t
+  :after magit)
+
 (use-package major-mode-icons
   :ensure t
   :after  (all-the-icons)
