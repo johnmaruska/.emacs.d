@@ -213,7 +213,9 @@
   (tool-bar-mode          OFF) ; hide tool bar
   (minibuffer-electric-default-mode ON)  ; [DEFAULT-ARG] instead of (default DEFAULT-ARG)
   ;; TODO: resize-mini-windows
-  )
+
+  ;; switch window reverse order
+  (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))))
 
 ;;; Commentary:
 
