@@ -26,7 +26,8 @@
 
 (defun macbook? ()
   "Is current machine work macbook?"
-  (string-prefix-p "Johns-MBP.lan" (system-name)))
+  ;; I only have one Mac so any MacOS means macbook
+  (darwin?))
 
 (defun convertible? ()
   "Is current machine Dell 2-in-1 Windows machine?"
