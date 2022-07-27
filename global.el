@@ -154,7 +154,8 @@
                 projectile-use-git-grep t
                 projectile-project-root-files '(".git")
                 projectile-project-root-files-bottom-up '(".projectile")
-                projectile-file-exists-remote-cache-expire (* 10 60))
+                projectile-file-exists-remote-cache-expire (* 10 60)
+                projectile-create-missing-test-files t)
   :config (projectile-global-mode))
 
 (use-package restclient :ensure t)
