@@ -58,6 +58,12 @@
   (lisp-interaction-mode)
   (page-break-lines-mode))
 
+
+(use-package files
+  :init
+  (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
+        delete-old-versions t))
+
 (use-package flymd
   :ensure t
   ;; use Firefox, not Chrome, for browser-open-function
