@@ -25,7 +25,10 @@
   :hook    ((emacs-lisp-mode . paredit-mode)
             (eval-expression-minibuffer-setup . paredit-mode)
             (lisp-mode . paredit-mode)
-            (lisp-interaction-mode . paredit-mode)))
+            (lisp-interaction-mode . paredit-mode))
+  :bind (:map paredit-mode-map
+              ("C-S-f" . forward-sexp)
+              ("C-S-b" . backward-sexp)))
 
 (use-package rainbow-delimiters
   :ensure t
