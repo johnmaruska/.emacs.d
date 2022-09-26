@@ -59,10 +59,16 @@
   (page-break-lines-mode))
 
 
+(use-package filelock
+  :init
+  (setq create-lockfiles nil))
+
 (use-package files
   :init
-  (setq backup-directory-alist '(("." . "~/.emacs.d/backup"))
-        delete-old-versions t))
+  (setq
+   backup-directory-alist `((".*" . ,temporary-file-directory))
+   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+   delete-old-versions t))
 
 (use-package flymd
   :ensure t
