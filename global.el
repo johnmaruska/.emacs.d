@@ -83,6 +83,13 @@
                          "/usr/bin/open"
                          (list "-a" "firefox" url))))))
 
+(use-package hl-todo
+  :ensure t
+  :config
+  (setq hl-todo-keyword-faces
+        '(("TODO"   . "#ccc252")
+          ("FIXME"  . "#ccc252"))))
+
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer))
 
