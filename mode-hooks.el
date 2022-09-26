@@ -60,7 +60,12 @@
 (use-package cc-mode
   :hook ((c-common-mode . (lambda () (aggressive-indent-mode 0)))))
 
-(use-package cider :ensure t)
+(use-package cider
+  :after  (aggressive-indent-mode)
+  :ensure t
+  :init   (setq nrepl-use-ssh-fallback-for-remote-hosts t)
+  :config
+  (add-to-list 'aggressive-indent-excluded-modes 'cider-repl-mode))
 
 (use-package cider-repl
   :after  (clojure-mode paredit-mode)
