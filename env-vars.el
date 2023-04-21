@@ -20,7 +20,7 @@
              default-path))
 
 (defvar vingtor-path-list
-  (list "C:/Program Files/LOVE"
+  (list "~/bin"
         default-path))
 
 (require 'computers "~/.emacs.d/computers.el")

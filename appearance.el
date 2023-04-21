@@ -38,9 +38,8 @@
 (defun font-height ()
   (cond
    ((convertible?) 130)
-   ((vingtor?) 120)
-   ((macbook?) 150)
-   (t 135)))
+   ((vingtor?) 105)
+   (t 120)))
 
 (defun default-appearance ()
   "Change the appearance of Emacs to preferred default settings."

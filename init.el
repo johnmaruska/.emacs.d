@@ -5,12 +5,14 @@
 ;; on top of this.
 
 ;;; Code:
+
 (require 'package)
 (setq package-archives
       '(("ELPA" . "http://tromey.com/elpa/")
         ("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa-stable" . "http://stable.melpa.org/packages/")
-        ("melpa" . "http://melpa.org/packages/")))
+        ("melpa" . "http://melpa.org/packages/")
+        ("marmalade" . "http://marmalade-repo.org/packages/")))
 
 (package-initialize)
 ;; (setq url-http-attempt-keepalives nil)
@@ -54,20 +56,13 @@
 
 (require 'computers "~/.emacs.d/computers.el")
 (when (macbook?)
-  (slightly-smaller-font)
   (setup-mac-displays))
-
-(when (windows?)
-  ;; Windows open links to directories in dired
-  (setq w32-browse-url-browser-function 'w32-browse-url-xdg-open))
-
-(if (file-exists-p "~/.emacs.d/secrets/tokens.el")
-    (load "~/.emacs.d/secrets/tokens.el"))
+(when (file-exists-p "~/.emacs.d/secrets/tokens.el")
+  (load "~/.emacs.d/secrets/tokens.el"))
 
 (defun chris-zoom ()
   (interactive)
   (browse-url "https://us02web.zoom.us/j/5734523216?pwd=Y2JjN29pYkFwcVZKZUx4RnN6N0VmZz09"))
-
 
 ;;; Commentary:
 
@@ -79,8 +74,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(wdl-mode sqlformat epresent kotlin-mode color-theme-sanityinc-solarized vterm multi-term forge hl-todo yaml-mode yafolding whitespace-cleanup-mode which-key web-mode uuidgen use-package terraform-mode rjsx-mode restclient rainbow-delimiters projectile page-break-lines nix-mode neotree markdown-mode major-mode-icons magit-gitflow lua-mode json-mode ht guru-mode graphviz-dot-mode geiser flymd elpy dockerfile-mode delight dashboard csv-mode color-theme-sanityinc-tomorrow clj-refactor beacon auto-dim-other-buffers auto-complete aggressive-indent ag))
- '(term-bind-key-alist '(("C-c C-e" . term-send-escape))))
+   '(graphviz-dot-mode yaml-mode yafolding whitespace-cleanup-mode which-key web-mode uuidgen use-package terraform-mode rjsx-mode restclient rainbow-delimiters projectile page-break-lines nix-mode neotree markdown-mode major-mode-icons magit-gitflow lua-mode json-mode ht guru-mode geiser flymd elpy dockerfile-mode delight dashboard csv-mode color-theme-sanityinc-tomorrow clj-refactor beacon auto-dim-other-buffers auto-complete aggressive-indent ag)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

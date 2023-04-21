@@ -132,7 +132,12 @@
   :delight dockerfile-mode
   :hook    (dockerfile-mode . (lambda () (aggressive-indent-mode 0))))
 
-(use-package elisp-mode :delight emacs-lisp-mode)
+(use-package graphviz-dot-mode
+  :ensure t
+  :config (setq graphviz-dot-indent-width 4))
+
+(use-package elisp-mode
+  :delight emacs-lisp-mode)
 
 (use-package elpy
   :ensure t
