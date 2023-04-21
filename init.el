@@ -57,6 +57,10 @@
   (slightly-smaller-font)
   (setup-mac-displays))
 
+(when (windows?)
+  ;; Windows open links to directories in dired
+  (setq w32-browse-url-browser-function 'w32-browse-url-xdg-open))
+
 (if (file-exists-p "~/.emacs.d/secrets/tokens.el")
     (load "~/.emacs.d/secrets/tokens.el"))
 
@@ -64,7 +68,22 @@
   (interactive)
   (browse-url "https://us02web.zoom.us/j/5734523216?pwd=Y2JjN29pYkFwcVZKZUx4RnN6N0VmZz09"))
 
+
 ;;; Commentary:
 
 (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(wdl-mode sqlformat epresent kotlin-mode color-theme-sanityinc-solarized vterm multi-term forge hl-todo yaml-mode yafolding whitespace-cleanup-mode which-key web-mode uuidgen use-package terraform-mode rjsx-mode restclient rainbow-delimiters projectile page-break-lines nix-mode neotree markdown-mode major-mode-icons magit-gitflow lua-mode json-mode ht guru-mode graphviz-dot-mode geiser flymd elpy dockerfile-mode delight dashboard csv-mode color-theme-sanityinc-tomorrow clj-refactor beacon auto-dim-other-buffers auto-complete aggressive-indent ag))
+ '(term-bind-key-alist '(("C-c C-e" . term-send-escape))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
