@@ -191,7 +191,7 @@
 
 (use-package epresent
   :ensure t
-  :hook (epresent-mode . (lambda () (linum-mode 0))))
+  :hook (epresent-mode . (lambda () (display-line-numbers-mode 1))))
 
 (use-package rjsx-mode
   :ensure  t
@@ -235,8 +235,7 @@
   :delight yaml-mode
   :after   (yafolding)
   :mode    (("\\.jinja\\.schema\\'" . yaml-mode))
-  :hook    ((yaml-mode . linum-mode)
-            (yaml-mode . yafolding-mode)
+  :hook    ((yaml-mode . yafolding-mode)
             (yaml-mode . turn-off-auto-fill)))
 
 (provide 'mode-hooks)

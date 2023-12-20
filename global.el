@@ -282,7 +282,7 @@
   (column-number-mode     ON)  ; show column numbers
   (display-time-mode      ON)  ; show clock in status bar
   (global-hl-line-mode    ON)  ; highlight line with cursor
-  (global-linum-mode      ON)
+  (global-display-line-numbers-mode ON)
   (line-number-mode       ON)  ; show line numbers
   (menu-bar-mode          OFF) ; show menu-bar. Doesn't affect Mac OS
   (scroll-bar-mode        OFF) ; hide scroll bar
