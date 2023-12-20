@@ -53,20 +53,19 @@
 
 ;;;; Specific modes
 
-(use-package cc-mode
-  :hook ((c-common-mode . (lambda () (aggressive-indent-mode 0)))))
-
 (use-package cider
-  :after  (aggressive-indent-mode)
+  :after  (aggressive-indent)
   :ensure t
-  :init   (setq nrepl-use-ssh-fallback-for-remote-hosts t)
+  :init   (setq nrepl-use-ssh-fallback-for-remote-hosts t
+                cider-save-file-on-load t
+                nrepl-log-messages t)
   :config
   (add-to-list 'aggressive-indent-excluded-modes 'cider-repl-mode))
 
 (use-package cider-repl
   :after  (clojure-mode paredit-mode)
   :config (setq cider-repl-use-pretty-printing t)
-  :hook   (cider-repl-mode . paredit-mode)
+  :hook   (cider-repl-mode . (lambda () (paredit-mode 1)))
   :bind   (:map cider-repl-mode-map
                 ("C-c M-i" . cider-inspect)
                 :map clojurescript-mode-map
@@ -119,10 +118,6 @@
   :ensure t
   :bind (:map csv-mode-map
               ("C-c C-a" . csv-align-fields)))
-
-(use-package cwl-mode
-  :delight cwl-mode
-  :hook    (cwl-mode . turn-off-auto-fill))
 
 (use-package dockerfile-mode
   :ensure  t
@@ -177,6 +172,10 @@
   :ensure  t
   :delight nix-mode)
 
+(use-package nushell-mode
+  :ensure t
+  :delight nushell-mode)
+
 (use-package org-mode
   :hook (org-mode . turn-on-font-lock)
   :delight org
@@ -225,8 +224,6 @@
 (use-package text-mode
   :delight text-mode
   :hook    (text-mode . auto-fill-mode))
-
-(use-package wdl-node :ensure t)
 
 ;; web templates e.g. jinja, jsx, mustache
 (use-package web-mode
