@@ -6,7 +6,10 @@
 
 ;;; Code:
 
-(use-package ag :ensure t)
+(use-package ag :ensure t
+  :custom
+  (ag-reuse-window 't)
+  (ag-reuse-buffers 't))
 
 (use-package all-the-icons :ensure t)
 
