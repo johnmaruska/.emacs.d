@@ -200,6 +200,18 @@
   (neotree-dir (expand-file-name "~/"))
   (neotree-hide))
 
+;;; Try out treemacs to replace neotree
+(use-package treemacs :ensure t)
+(use-package treemacs-projectile
+  :after (treemacs projectile) :ensure t)
+(use-package treemacs-all-the-icons
+  :after (treemacs all-the-icons) :ensure t)
+(use-package treemacs-icons-dired
+  :ensure t
+  :hook (dired-mode . treemacs-icons-dired-enable-once))
+(use-package treemacs-magit
+  :after (treemacs magit) :ensure t)
+
 ;; display ^L linefeed character as a horizontal line
 (use-package page-break-lines
   :ensure t
