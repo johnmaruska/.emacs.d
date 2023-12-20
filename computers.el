@@ -54,8 +54,9 @@
   (delete-other-frames))
 
 (defun setup-mac-displays ()
-  (setup-main-display-frame)
-  (toggle-frame-fullscreen))
+  ;; (setup-main-display-frame)
+  ;; (toggle-frame-fullscreen)
+  )
 
 
 (provide 'computers)
