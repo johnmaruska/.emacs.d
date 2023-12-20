@@ -53,6 +53,10 @@
 
 (use-package delight :ensure t)
 
+(use-package direnv
+  :ensure t
+  :config (direnv-mode))
+
 (use-package emacs
   :delight
   (auto-fill-function)
