@@ -1,23 +1,25 @@
 ;;; package -- Summary:
 
-;; set environment variables like PATH and JAVA_HOME as required, which will
-;; vary between systems.
+;; set environment variables like PATH as required, which will vary
+;; between systems.
 
 ;;; Commentary:
 
 ;;; Code:
-
 (defvar default-path (getenv "PATH"))
 
 (defvar macbook-path-list)
 (setq macbook-path-list
-      (list  "/opt/homebrew/bin"
-             "/usr/local/bin"
-             "~/.jenv/shims"
-             "~/.serverless/bin"
-             "~/Library/Python/3.9/bin"
-             "/opt/homebrew/Cellar/jenv/0.5.4/libexec/libexec"
-             default-path))
+      (list
+       "/nix/var/nix/profiles/default/bin/"  ; nix-blank commands
+       "/Users/johnmaruska/.nix-profile/bin/"  ; installed by nix-env
+       "/Users/johnmaruska/.sdkman/candidates/java/current/bin"
+       "/opt/homebrew/bin"
+       "/usr/local/bin"
+       "~/.serverless/bin"
+       "/opt/homebrew/Cellar/nvm/0.39.5"  ;
+       "~/Library/Python/3.9/bin"
+       default-path))
 
 (defvar vingtor-path-list
   (list "~/bin"
@@ -38,10 +40,12 @@
   (setenv "PAGER" "cat")
   (when window-system
     ;; this matters for sub-shell process (e.g. launch bash)
+
     (setenv "PATH" (mapconcat 'identity path-list (if (vingtor?) ";" ":"))))
   ;; this matters for eshell
   (setq exec-path (append path-list ORIGINAL_EXEC_PATH)))
 
+(setenv "M1" "TRUE")
 
 (provide 'env-vars)
 ;;; env-vars.el ends here
