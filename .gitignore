@@ -31,3 +31,9 @@ projectile.cache
 
 eln-cache/*
 forge-database.sqlite
+
+forge-database-*
+persist/*
+request/*
+tree-sitter/*
+abbrev_defs
