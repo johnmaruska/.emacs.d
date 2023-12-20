@@ -5,11 +5,7 @@
 
 ;;; Generic modes
 
-(use-package aggressive-indent
-  :ensure t
-  :config
-  (global-aggressive-indent-mode 1)
-  (add-to-list 'aggressive-indent-excluded-modes 'json-mode))
+(use-package aggressive-indent :ensure t)
 
 (use-package autorevert :delight auto-revert-mode)
 
@@ -81,11 +77,12 @@
 (use-package clojure-mode
   :ensure  t
   :delight clojure-mode
-  :after   (paredit)
+  :after   (paredit aggressive-indent)
   :hook    ((clojure-mode . (lambda ()
                               (clj-refactor-mode 1)))
             (clojure-mode . eldoc-mode)
             (clojure-mode . paredit-mode)
+            (clojure-mode . (lambda () (aggressive-indent-mode 1)))
             (clojurescript-mode . paredit-mode))
   :config (define-clojure-indent
             (defroutes 'defun)
@@ -129,8 +126,7 @@
 
 (use-package dockerfile-mode
   :ensure  t
-  :delight dockerfile-mode
-  :hook    (dockerfile-mode . (lambda () (aggressive-indent-mode 0))))
+  :delight dockerfile-mode)
 
 (use-package graphviz-dot-mode
   :ensure t
@@ -165,8 +161,7 @@
 
 (use-package lua-mode
   :ensure t
-  :delight lua-mode
-  :hook    (lua-mode . (lambda () (aggressive-indent-mode 0))))
+  :delight lua-mode)
 
 (use-package markdown-mode
   :ensure  t
@@ -231,9 +226,7 @@
   :delight text-mode
   :hook    (text-mode . auto-fill-mode))
 
-(use-package wdl-mode
-  :ensure t
-  :hook   (wdl-mode . (lambda () (aggressive-indent-mode 0))))
+(use-package wdl-node :ensure t)
 
 ;; web templates e.g. jinja, jsx, mustache
 (use-package web-mode
