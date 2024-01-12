@@ -68,16 +68,3 @@
 
 (provide 'init)
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(graphviz-dot-mode yaml-mode yafolding whitespace-cleanup-mode which-key web-mode uuidgen use-package terraform-mode rjsx-mode restclient rainbow-delimiters projectile page-break-lines nix-mode neotree markdown-mode major-mode-icons magit-gitflow lua-mode json-mode ht guru-mode geiser flymd elpy dockerfile-mode delight dashboard csv-mode color-theme-sanityinc-tomorrow clj-refactor beacon auto-dim-other-buffers auto-complete aggressive-indent ag)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )

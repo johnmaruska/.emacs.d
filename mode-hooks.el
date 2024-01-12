@@ -238,5 +238,64 @@
   :hook    ((yaml-mode . yafolding-mode)
             (yaml-mode . turn-off-auto-fill)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; Elixir
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package exercism :ensure t)
+
+(use-package elixir-mode
+  :ensure t
+  :delight elixir-mode
+  :diminish elixir-mode)
+
+;;; https://alchemist.readthedocs.io/en/latest/
+;;; Alchemist is a pile of tools for working with Elixir as an IDE
+(use-package alchemist
+  :ensure t
+  :init
+  (setq alchemist-hooks-test-on-save t
+        alchemist-hooks-compile-on-save t)
+  ;; :config
+  ;; (add-to-list 'auto-mode-alist '(("\\.ex\\'" . alchemist-mode)
+  ;;                                ("\\.exs\\'" . alchemist-test-mode)))
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; JavaScript Modes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package js2-mode
+  :ensure t
+  :hook (js2-mode . js2-refactor-mode)
+  :init
+  (setq js2-basic-offset 2
+        js2-bounce-indent-p t))
+
+(use-package js2-refactor
+  :ensure t)
+
+(use-package typescript-mode
+  :ensure t
+  :delight typescript-mode
+  :custom
+  (typescript-indent-level 2))
+
+(use-package tide
+  :ensure t
+  :after (company)
+  :hook ((typescript-mode-hook . (lambda ()
+                                   (tide-setup)
+                                   (flycheck-mode +1)
+                                   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+                                   (eldoc-mode +1)
+                                   (tide-hl-identifier-mode +1)
+                                   (company-mode +1)))))
+
+(use-package jtsx
+  :ensure t
+  :mode (("\\.tsx\\'" . jtsx-tsx-mode)
+         ("\\.jsx\\'" . jtsx-jsx-mode)))
+
 (provide 'mode-hooks)
 ;;; mode-hooks.el ends here

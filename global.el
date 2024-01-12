@@ -20,6 +20,9 @@
                 ("\r" . nil)
                 ("\t" . ac-complete))
   :config (put 'upcase-region 'disabled nil))
+(use-package company
+  :ensure t
+  :config (setq company-tooltip-align-annotations t))
 
 (use-package auto-dim-other-buffers
   :ensure t
@@ -262,7 +265,6 @@
 
 (defun default-ui-configuration ()
   "Set values for various Emacs UI configuration settings."
-  (toggle-frame-maximized)     ; full-screen mode toggle. TODO: find enable not toggle
   (setq
    default-directory         "~/"
    display-time-default-load-average nil
@@ -283,7 +285,6 @@
   (display-time-mode      ON)  ; show clock in status bar
   (global-hl-line-mode    ON)  ; highlight line with cursor
   (global-display-line-numbers-mode ON)
-  (line-number-mode       ON)  ; show line numbers
   (menu-bar-mode          OFF) ; show menu-bar. Doesn't affect Mac OS
   (scroll-bar-mode        OFF) ; hide scroll bar
   (set-fill-column        80)
