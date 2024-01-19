@@ -36,6 +36,15 @@
   :delight beacon-mode
   :config  (beacon-mode 1))
 
+(use-package company
+  :ensure t
+  :init
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
+  (setq company-tooltip-align-annotations t
+        company-tooltip-limit 5
+        company-tooltip-flip-when-above t))
+
 (require 'computers "~/.emacs.d/computers.el")
 (use-package dashboard
   :ensure t
@@ -66,12 +75,9 @@
   (eldoc-mode)
   (eshell-mode)
   (lisp-interaction-mode)
-  (page-break-lines-mode))
-
-
-(use-package filelock
-  :init
-  (setq create-lockfiles nil))
+  (page-break-lines-mode)
+  :config
+  (global-eldoc-mode))
 
 (use-package files
   :init
@@ -82,52 +88,10 @@
    auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
    delete-old-versions t))
 
-;;; "filename too long" error when saving backups for test files. fix
-;;; by hashing filename for the autosave and backup files.
-;;; Original thread
-;;;     https://www.reddit.com/r/emacs/comments/t07e7e/file_name_too_long_error/
-;;; Main solution used
-;;;     https://www.reddit.com/r/emacs/comments/t07e7e/comment/hy88bum/
-;;; Improved with sha1-the-tail
-;;;     https://www.reddit.com/r/emacs/comments/t07e7e/comment/iii9tyk/
-
-(defun sha1-the-tail (filename)
-  "Hash part of the filename but keep initial 58 chars to make it distinguishable."
-  (let ((shortened (string-limit filename 100)))
-    (if (equal shortened filename)
-        filename
-      (let ((first-58-chars (string-limit shortened 58))
-            (later-part-to-hash (substring filename 58)))
-        (concat first-58-chars "-" (sha1 later-part-to-hash))))))
-
-(defun doom-make-hashed-auto-save-file-name-a (fn)
-  "Compress the auto-save file name so paths don't get too long."
-  (let ((buffer-file-name
-         (if (or (null buffer-file-name)
-                 (find-file-name-handler buffer-file-name 'make-auto-save-file-name))
-             buffer-file-name
-           (sha1-the-tail buffer-file-name))))
-    (funcall fn)))
-(advice-add #'make-auto-save-file-name :around #'doom-make-hashed-auto-save-file-name-a)
-
-(defun doom-make-hashed-backup-file-name-a (fn file)
-  "A few places use the backup file name so paths don't get too long."
-  (let ((alist backup-directory-alist)
-        backup-directory)
-    (while alist
-      (let ((elt (car alist)))
-        (if (string-match (car elt) file)
-            (setq backup-directory (cdr elt) alist nil)
-          (setq alist (cdr alist)))))
-    (let ((file (funcall fn file)))
-      (if (or (null backup-directory)
-              (not (file-name-absolute-p backup-directory)))
-          file
-        (expand-file-name (sha1-the-tail (file-name-nondirectory file))
-                          (file-name-directory file))))))
-(advice-add #'make-backup-file-name-1 :around #'doom-make-hashed-backup-file-name-a)
-
-;;;;
+(use-package flycheck
+  :ensure t
+  :custom
+  (global-flycheck-mode +1))
 
 (use-package flymd
   :ensure t
@@ -144,6 +108,8 @@
 
 (use-package hl-todo
   :ensure t
+  :custom
+  (global-hl-todo-mode +1)
   :config
   (setq hl-todo-keyword-faces
         '(("TODO"   . "#ccc252")

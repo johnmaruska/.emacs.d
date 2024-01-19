@@ -39,7 +39,7 @@
   (cond
    ((convertible?) 130)
    ((vingtor?) 105)
-   (t 120)))
+   (t 135)))
 
 (defun default-appearance ()
   "Change the appearance of Emacs to preferred default settings."

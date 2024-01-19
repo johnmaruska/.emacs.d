@@ -284,13 +284,10 @@
 (use-package tide
   :ensure t
   :after (company)
-  :hook ((typescript-mode-hook . (lambda ()
-                                   (tide-setup)
-                                   (flycheck-mode +1)
-                                   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-                                   (eldoc-mode +1)
-                                   (tide-hl-identifier-mode +1)
-                                   (company-mode +1)))))
+  :hook  ((typescript-mode-hook . (lambda ()
+                                    (tide-setup)
+                                    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+                                    (tide-hl-identifier-mode +1)))))
 
 (use-package jtsx
   :ensure t
