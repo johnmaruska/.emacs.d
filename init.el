@@ -8,11 +8,10 @@
 
 (require 'package)
 (setq package-archives
-      '(("ELPA" . "http://tromey.com/elpa/")
-        ("gnu" . "http://elpa.gnu.org/packages/")
+      '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa-stable" . "http://stable.melpa.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
-        ("marmalade" . "http://marmalade-repo.org/packages/")))
+        ("ELPA" . "http://tromey.com/elpa/")))
 
 (setq create-lockfiles nil)
 
@@ -77,20 +76,15 @@
  ;; If there is more than one, they won't work right.
  '(flycheck-check-syntax-automatically
    '(save idle-change idle-buffer-switch new-line mode-enabled))
- '(global-hl-todo-mode t)
- '(package-selected-packages
-   '(ag aggressive-indent alchemist auto-complete auto-dim-other-buffers
-        beacon clj-refactor color-theme-sanityinc-solarized
-        color-theme-sanityinc-tomorrow csv-mode dashboard delight
-        direnv dockerfile-mode elpy epresent exercism flymd forge
-        geiser graphviz-dot-mode guru-mode hl-todo js2-refactor
-        json-mode jtsx kotlin-mode lsp-mode lua-mode magit-gitflow
-        major-mode-icons neotree nix-mode nushell-mode
-        page-break-lines rainbow-delimiters restclient rjsx-mode
-        sqlformat stylus-mode terraform-mode tide
-        treemacs-all-the-icons treemacs-icons-dired treemacs-magit
-        treemacs-projectile typescript-mode uuidgen web-mode which-key
-        whitespace-cleanup-mode yafolding yaml-mode)))
+ '(js-chain-indent nil)
+ '(package-selected-packages nil)
+ '(safe-local-variable-values
+   '((eval progn
+           (add-to-list 'exec-path
+                        (concat
+                         (locate-dominating-file default-directory
+                                                 ".dir-locals.el")
+                         "node_modules/.bin/"))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

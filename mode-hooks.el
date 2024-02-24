@@ -2,26 +2,28 @@
 
 ;; management for major and minor mode hooks and settings
 
+;;; Commentary:
+
+;;; Code:
 
 ;;; Generic modes
 
-(use-package aggressive-indent :ensure t)
+(use-package aggressive-indent
+  :ensure t :delight)
 
 (use-package autorevert :delight auto-revert-mode)
 
 (use-package guru-mode
-  :ensure  t
-  :delight guru-mode
-  :init    (setq guru-warn-only t)
-  :hook    (prog-mode . guru-mode))
+  :ensure t :delight guru-mode
+  :custom (guru-warn-only t)
+  :hook   (prog-mode . guru-mode))
 
 (use-package paredit
-  :ensure  t
-  :delight (paredit-mode " ()")
-  :hook    ((emacs-lisp-mode . paredit-mode)
-            (eval-expression-minibuffer-setup . paredit-mode)
-            (lisp-mode . paredit-mode)
-            (lisp-interaction-mode . paredit-mode))
+  :ensure t :delight
+  :hook   ((emacs-lisp-mode . paredit-mode)
+           (eval-expression-minibuffer-setup . paredit-mode)
+           (lisp-mode . paredit-mode)
+           (lisp-interaction-mode . paredit-mode))
   :bind (:map paredit-mode-map
               ("C-S-f" . forward-sexp)
               ("C-S-b" . backward-sexp)))
@@ -31,19 +33,18 @@
   :hook   (prog-mode . rainbow-delimiters-mode))
 
 (use-package whitespace
-  :delight global-whitespace-mode
+  :delight
   :config
   (setq whitespace-style '(face empty tabs trailing))
   (global-whitespace-mode 1))
 
 (use-package whitespace-cleanup-mode
-  :ensure  t
-  :delight whitespace-cleanup-mode
-  :hook    ((prog-mode . whitespace-cleanup-mode)
-            (text-mode . whitespace-cleanup-mode)))
+  :ensure t :delight whitespace-cleanup-mode
+  :hook   ((prog-mode . whitespace-cleanup-mode)
+           (text-mode . whitespace-cleanup-mode)))
 
 (use-package yafolding
-  :ensure t
+  :ensure t :delight
   :hook   ((prog-mode . yafolding-mode)
            (conf-mode . yafolding-mode))
   :bind   (:map yafolding-mode-map
@@ -55,7 +56,7 @@
 
 (use-package cider
   :after  (aggressive-indent)
-  :ensure t
+  :ensure t :delight
   :init   (setq nrepl-use-ssh-fallback-for-remote-hosts t
                 cider-save-file-on-load t
                 nrepl-log-messages t)
@@ -64,6 +65,7 @@
 
 (use-package cider-repl
   :after  (clojure-mode paredit-mode)
+  :delight
   :config (setq cider-repl-use-pretty-printing t)
   :hook   (cider-repl-mode . (lambda () (paredit-mode 1)))
   :bind   (:map cider-repl-mode-map
@@ -74,15 +76,14 @@
                 ("C-c M-i" . cider-inspect)))
 
 (use-package clojure-mode
-  :ensure  t
-  :delight clojure-mode
-  :after   (paredit aggressive-indent)
-  :hook    ((clojure-mode . (lambda ()
-                              (clj-refactor-mode 1)))
-            (clojure-mode . eldoc-mode)
-            (clojure-mode . paredit-mode)
-            (clojure-mode . (lambda () (aggressive-indent-mode 1)))
-            (clojurescript-mode . paredit-mode))
+  :ensure t :delight clojure-mode
+  :after  (paredit aggressive-indent)
+  :hook   ((clojure-mode . (lambda ()
+                             (clj-refactor-mode 1)))
+           (clojure-mode . eldoc-mode)
+           (clojure-mode . paredit-mode)
+           (clojure-mode . (lambda () (aggressive-indent-mode 1)))
+           (clojurescript-mode . paredit-mode))
   :config (define-clojure-indent
             (defroutes 'defun)
             (alet 1)
@@ -99,7 +100,7 @@
             (context 2)))
 
 (use-package clj-refactor
-  :ensure t
+  :ensure t :delight
   :hook   (clojure-mode . (lambda () (clj-refactor-mode 1)))
   :config
   (setq cljr-warn-on-eval nil
@@ -168,35 +169,23 @@
   :hook (markdown-mode . auto-fill-mode)
   :init (setq markdown-command "multimarkdown"))
 
-(use-package nix-mode
-  :ensure  t
-  :delight nix-mode)
-
-(use-package nushell-mode
-  :ensure t
-  :delight nushell-mode)
-
 (use-package org-mode
   :hook (org-mode . turn-on-font-lock)
   :delight org
+  :custom
+  (org-src-fontify-natively t "Apply font to code blocks")
+  (org-confirm-babel-evaluate nil)
+  (org-adapt-indentation nil)
+  (org-hide-leading-stars t)
   :config
-  (setq org-src-fontify-natively t
-        org-confirm-babel-evaluate nil
-        org-indent-indentation-per-level 2
-        org-adapt-indentation nil
-        org-hide-leading-stars 't)
+  (setq org-indent-indentation-per-level 2)
   (org-babel-do-load-languages 'org-babel-load-languages
                                '((scheme . t)
                                  (shell  . t))))
 
-(use-package epresent
+(use-package php-mode
   :ensure t
-  :hook (epresent-mode . (lambda () (display-line-numbers-mode 1))))
-
-(use-package rjsx-mode
-  :ensure  t
-  :delight rjsx-mode
-  :config  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode)))
+  :delight)
 
 (use-package scheme
   :delight scheme-mode
@@ -218,8 +207,7 @@
   (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat))
 
 (use-package terraform-mode
-  :ensure  t
-  :delight terraform-mode)
+  :ensure t  :delight terraform-mode)
 
 (use-package text-mode
   :delight text-mode
@@ -256,43 +244,71 @@
   :init
   (setq alchemist-hooks-test-on-save t
         alchemist-hooks-compile-on-save t)
-  ;; :config
-  ;; (add-to-list 'auto-mode-alist '(("\\.ex\\'" . alchemist-mode)
-  ;;                                ("\\.exs\\'" . alchemist-test-mode)))
-  )
+  :mode (("\\.ex\\'" . alchemist-mode)
+         ("\\.exs\\'" . alchemist-test-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; JavaScript Modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(use-package js2-mode
+
+(use-package prettier
   :ensure t
+  :hook  ((rjsx-mode . prettier-mode)
+          (jtsx-tsx-mode . prettier-mode)
+          (jtsx-jsx-mode . prettier-mode)
+          (typescript-mode . prettier-mode))
+  ;; M-x customize-group prettier
+  )
+
+(use-package js2-mode
+  :ensure t :delight js2-mode
   :hook (js2-mode . js2-refactor-mode)
   :init
-  (setq js2-basic-offset 2
-        js2-bounce-indent-p t))
+  (setq js-switch-indent-offset 2
+        js2-basic-offset 2
+        js2-bounce-indent-p t)
+  :custom
+  (js-indent-level 2))
+
+(use-package rjsx-mode
+  :ensure t
+  :delight rjsx-mode
+  :mode (("\\.js\\'" . rjsx-mode)))
 
 (use-package js2-refactor
-  :ensure t)
+  :ensure t :delight)
 
 (use-package typescript-mode
   :ensure t
   :delight typescript-mode
+  :mode (("\\.ts\\'" . typescript-mode))
   :custom
   (typescript-indent-level 2))
-
-(use-package tide
-  :ensure t
-  :after (company)
-  :hook  ((typescript-mode-hook . (lambda ()
-                                    (tide-setup)
-                                    (setq flycheck-check-syntax-automatically '(save mode-enabled))
-                                    (tide-hl-identifier-mode +1)))))
 
 (use-package jtsx
   :ensure t
   :mode (("\\.tsx\\'" . jtsx-tsx-mode)
          ("\\.jsx\\'" . jtsx-jsx-mode)))
+
+(defun setup-tide-mode ()
+  (interactive)
+  (message "Fired function.")
+  (tide-setup))
+
+(use-package tide
+  :ensure t
+  :hook  ((tsx-ts-mode . setup-tide-mode)
+          (jtsx-tsx-mode . setup-tide-mode)
+          (typescript-mode . setup-tide-mode)
+          (typescript-ts-mode . setup-tide-mode))
+  :init
+  (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
+  (add-hook 'jtsx-tsx-mode-hook #'setup-tide-mode)
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+  :config
+  (flycheck-add-mode 'typescript-tide 'jtsx-tsx-mode)
+  (flycheck-add-mode 'typescript-tide 'rjsx-mode))
 
 (provide 'mode-hooks)
 ;;; mode-hooks.el ends here

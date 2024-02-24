@@ -1,4 +1,4 @@
-;;; package -- Summary:
+;; package -- Summary:
 
 ;; Settings and configuration which I consider 'global' meaning these settings
 ;; are either core Emacs functionality, or additional functionality which is
@@ -6,23 +6,14 @@
 
 ;;; Code:
 
-(use-package ag :ensure t
+(use-package ag
+  :ensure t
   :custom
   (ag-reuse-window 't)
   (ag-reuse-buffers 't))
 
-(use-package all-the-icons :ensure t)
-
-(use-package auto-complete
-  :ensure t
-  :bind   (:map ac-completing-map
-                ("RET" . nil)
-                ("\r" . nil)
-                ("\t" . ac-complete))
-  :config (put 'upcase-region 'disabled nil))
-(use-package company
-  :ensure t
-  :config (setq company-tooltip-align-annotations t))
+(use-package all-the-icons
+  :ensure t)
 
 (use-package auto-dim-other-buffers
   :ensure t
@@ -32,12 +23,11 @@
 
 ;; cursor lights beacon on windows change/scroll)
 (use-package beacon
-  :ensure t
-  :delight beacon-mode
+  :ensure t :delight
   :config  (beacon-mode 1))
 
 (use-package company
-  :ensure t
+  :ensure t :delight
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
@@ -63,7 +53,8 @@
               dashboard-set-navigator     t)
   :config (dashboard-setup-startup-hook))
 
-(use-package delight :ensure t)
+(use-package delight
+  :ensure t)
 
 (use-package direnv
   :ensure t
@@ -89,7 +80,7 @@
    delete-old-versions t))
 
 (use-package flycheck
-  :ensure t
+  :ensure t :delight
   :custom
   (global-flycheck-mode +1))
 
@@ -107,13 +98,19 @@
                          (list "-a" "firefox" url))))))
 
 (use-package hl-todo
-  :ensure t
+  :ensure t :delight
   :custom
   (global-hl-todo-mode +1)
   :config
   (setq hl-todo-keyword-faces
-        '(("TODO"   . "#ccc252")
-          ("FIXME"  . "#ccc252"))))
+        '(
+          ("NOTE"   . "#FFFFFF")
+          ;; yellow
+          ("TODO"   . "#EED202")
+          ;; orange
+          ("WARN"   .  "#FF7900")
+          ;; red
+          ("ERROR"  . "#DD1D20"))))
 
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer))
@@ -122,22 +119,12 @@
   :ensure t
   :config (ido-mode t))
 
-(use-package magit-gitflow
-  :ensure t
-  :delight magit-mode
-  :delight magit-status-mode
-  :bind ("C-x g" . magit-status)
-  :hook (magit-mode . turn-on-magit-gitflow))
-
-(use-package forge
-  :ensure t
-  :after magit)
-
 (use-package major-mode-icons
   :ensure t
   :after  (all-the-icons)
   :delight major-mode-icons-mode
-  :config (major-mode-icons-mode 1))
+  :custom
+  (major-mode-icons-mode +1))
 
 (use-package map :ensure t)
 
@@ -153,6 +140,7 @@
           (go "https://github.com/tree-sitter/tree-sitter-go")
           (html "https://github.com/tree-sitter/tree-sitter-html")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+          (lua "https://github.com/tjdevries/tree-sitter-lua")
           (json "https://github.com/tree-sitter/tree-sitter-json")
           (make "https://github.com/alemuller/tree-sitter-make")
           (markdown "https://github.com/ikatyang/tree-sitter-markdown")
@@ -164,49 +152,45 @@
           ;; add more for more languages
           )))
 
-(use-package neotree
-  :ensure t
-  :bind ([f8] . neotree-toggle)
-  :init (setq neo-theme (if (display-graphic-p) 'icons 'arrow)
-              neo-window-position 'left)
-  :config
-  (neotree-dir (expand-file-name "~/"))
-  (neotree-hide))
-
 ;;; Try out treemacs to replace neotree
-(use-package treemacs :ensure t)
+(use-package treemacs
+  :ensure t
+  :bind ([f8] . treemacs)
+  :custom (treemacs-position 'right))
 (use-package treemacs-projectile
-  :after (treemacs projectile) :ensure t)
+  :after (treemacs projectile)
+  :ensure t)
 (use-package treemacs-all-the-icons
-  :after (treemacs all-the-icons) :ensure t)
+  :after (treemacs all-the-icons)
+  :ensure t)
 (use-package treemacs-icons-dired
   :ensure t
   :hook (dired-mode . treemacs-icons-dired-enable-once))
 (use-package treemacs-magit
-  :after (treemacs magit) :ensure t)
+  :after (treemacs magit)
+  :ensure t)
 
 ;; display ^L linefeed character as a horizontal line
 (use-package page-break-lines
-  :ensure t
+  :ensure t :delight
   :config (global-page-break-lines-mode))
 
 (use-package projectile
   :ensure t
-  :after  (neotree)
-  :delight '(:eval (concat " " (projectile-project-name)))
-  :bind   (:map projectile-mode-map ("C-c p" . projectile-command-map))
+  :bind   (:map projectile-mode-map ("C-c C-p" . projectile-command-map))
   :init   (setq projectile-enable-caching t
-                projectile-switch-project-action 'neotree-projectile-action
                 projectile-use-git-grep t
                 projectile-project-root-files '(".git")
                 projectile-project-root-files-bottom-up '(".projectile")
                 projectile-file-exists-remote-cache-expire (* 10 60)
                 projectile-create-missing-test-files t)
-  :config (projectile-global-mode))
+  :config (projectile-mode))
 
-(use-package restclient :ensure t)
+(use-package restclient
+  :ensure t)
 
-(use-package uuidgen :ensure t)
+(use-package uuidgen
+  :ensure t)
 
 (when (windows?)
   (use-package vterm :ensure t))
