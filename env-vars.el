@@ -23,6 +23,7 @@
 
 (defvar vingtor-path-list
   (list "~/bin"
+        "C:\\Users\\jackm"
         default-path))
 
 (require 'computers "~/.emacs.d/computers.el")
