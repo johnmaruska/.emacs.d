@@ -21,6 +21,7 @@ CLI tools:
 - ag
 - git
 - virtualenv (or venv) required by elpy for Python IDE experience
+- direnv
 
 Directories/Files:
 - ~/dev

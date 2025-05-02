@@ -130,27 +130,23 @@
 
 (use-package multiple-cursors :ensure t)
 
-(use-package treesit
-  :init
-  (setq treesit-language-source-alist
-        '((bash "https://github.com/tree-sitter/tree-sitter-bash")
-          (cmake "https://github.com/uyha/tree-sitter-cmake")
-          (css "https://github.com/tree-sitter/tree-sitter-css")
-          (elisp "https://github.com/Wilfred/tree-sitter-elisp")
-          (go "https://github.com/tree-sitter/tree-sitter-go")
-          (html "https://github.com/tree-sitter/tree-sitter-html")
-          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-          (lua "https://github.com/tjdevries/tree-sitter-lua")
-          (json "https://github.com/tree-sitter/tree-sitter-json")
-          (make "https://github.com/alemuller/tree-sitter-make")
-          (markdown "https://github.com/ikatyang/tree-sitter-markdown")
-          (python "https://github.com/tree-sitter/tree-sitter-python")
-          (toml "https://github.com/tree-sitter/tree-sitter-toml")
-          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
-          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-          (yaml "https://github.com/ikatyang/tree-sitter-yaml")
-          ;; add more for more languages
-          )))
+(use-package tree-sitter
+  :ensure t
+  :config (global-tree-sitter-mode)
+  :hook (tree-sitter-mode . tree-sitter-hl-mode))
+
+
+(use-package tree-sitter-langs
+  :ensure t
+  :after (tree-sitter)
+  :config
+  ;;;; Move grammars to directory that tree-sitter can see them.
+  (let* ((files (directory-files (tree-sitter-langs--bin-dir)
+                                 nil "\\.dylib$")))
+    (dolist (grammar-file files)
+      (copy-file (concat (tree-sitter-langs--bin-dir) grammar-file) (concat (expand-file-name user-emacs-directory) "tree-sitter/" "libtree-sitter-" grammar-file) t)
+      (message "%s grammar files copied" (length files)))))
+
 
 ;;; Try out treemacs to replace neotree
 (use-package treemacs

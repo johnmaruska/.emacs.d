@@ -251,15 +251,21 @@
 ;;;; JavaScript Modes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-(use-package prettier
+(use-package nvm
   :ensure t
-  :hook  ((rjsx-mode . prettier-mode)
-          (jtsx-tsx-mode . prettier-mode)
-          (jtsx-jsx-mode . prettier-mode)
-          (typescript-mode . prettier-mode))
-  ;; M-x customize-group prettier
-  )
+  :config
+  ;; Optionally set a default node version
+  (nvm-use "18"))
+
+;;;;; TODO conditionally use prettier only if it's installed
+;; (use-package prettier
+;;   :ensure t
+;;   :hook  ((rjsx-mode . prettier-mode)
+;;           (jtsx-tsx-mode . prettier-mode)
+;;           (jtsx-jsx-mode . prettier-mode)
+;;           (typescript-mode . prettier-mode))
+;;   ;; M-x customize-group prettier
+;;   )
 
 (use-package js2-mode
   :ensure t :delight js2-mode
@@ -293,7 +299,6 @@
 
 (defun setup-tide-mode ()
   (interactive)
-  (message "Fired function.")
   (tide-setup))
 
 (use-package tide

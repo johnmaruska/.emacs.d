@@ -14,6 +14,7 @@
         ("ELPA" . "http://tromey.com/elpa/")))
 
 (setq create-lockfiles nil)
+(setq package-check-signature nil)
 
 (package-initialize)
 ;; (setq url-http-attempt-keepalives nil)
@@ -77,6 +78,7 @@
  '(flycheck-check-syntax-automatically
    '(save idle-change idle-buffer-switch new-line mode-enabled))
  '(js-chain-indent nil)
+ '(package-check-signature nil)
  '(package-selected-packages nil)
  '(safe-local-variable-values
    '((eval progn
