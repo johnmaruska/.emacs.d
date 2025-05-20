@@ -70,6 +70,10 @@
   (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
   ;; cut-to-system
   (global-set-key (kbd "s-x") 'clipboard-kill-region)
+
+  (global-set-key (kbd "s-a") 'mark-whole-buffer)
+  (global-set-key (kbd "<home>") 'beginning-of-buffer)
+  (global-set-key (kbd "<end>") 'end-of-buffer)
   
   (setq
    ;; Change modifier keys to fit muscle memory from previous installs.
@@ -100,7 +104,8 @@
    '((eval progn
            (add-to-list 'exec-path
                         (concat
-                         (locate-dominating-file default-directory ".dir-locals.el")
+                         (locate-dominating-file default-directory
+                                                 ".dir-locals.el")
                          "node_modules/.bin/"))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

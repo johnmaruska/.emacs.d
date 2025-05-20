@@ -226,26 +226,6 @@
   :hook    ((yaml-mode . yafolding-mode)
             (yaml-mode . turn-off-auto-fill)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;; Elixir
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(use-package exercism :ensure t)
-
-(use-package elixir-mode
-  :ensure t
-  :delight elixir-mode
-  :diminish elixir-mode)
-
-;;; https://alchemist.readthedocs.io/en/latest/
-;;; Alchemist is a pile of tools for working with Elixir as an IDE
-(use-package alchemist
-  :ensure t
-  :init
-  (setq alchemist-hooks-test-on-save t
-        alchemist-hooks-compile-on-save t)
-  :mode (("\\.ex\\'" . alchemist-mode)
-         ("\\.exs\\'" . alchemist-test-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; JavaScript Modes
@@ -267,53 +247,20 @@
 ;;   ;; M-x customize-group prettier
 ;;   )
 
-(use-package js2-mode
-  :ensure t :delight js2-mode
-  :hook (js2-mode . js2-refactor-mode)
-  :init
-  (setq js-switch-indent-offset 2
-        js2-basic-offset 2
-        js2-bounce-indent-p t)
-  :custom
-  (js-indent-level 2))
-
-(use-package rjsx-mode
-  :ensure t
-  :delight rjsx-mode
-  :mode (("\\.js\\'" . rjsx-mode)))
-
-(use-package js2-refactor
-  :ensure t :delight)
-
 (use-package typescript-mode
   :ensure t
+  :after (flycheck)
   :delight typescript-mode
-  :mode (("\\.ts\\'" . typescript-mode))
   :custom
   (typescript-indent-level 2))
 
-(use-package jtsx
-  :ensure t
-  :mode (("\\.tsx\\'" . jtsx-tsx-mode)
-         ("\\.jsx\\'" . jtsx-jsx-mode)))
-
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup))
-
 (use-package tide
   :ensure t
-  :hook  ((tsx-ts-mode . setup-tide-mode)
-          (jtsx-tsx-mode . setup-tide-mode)
-          (typescript-mode . setup-tide-mode)
-          (typescript-ts-mode . setup-tide-mode))
-  :init
-  (add-hook 'typescript-ts-mode-hook #'setup-tide-mode)
-  (add-hook 'jtsx-tsx-mode-hook #'setup-tide-mode)
-  (add-hook 'typescript-mode-hook #'setup-tide-mode)
-  :config
-  (flycheck-add-mode 'typescript-tide 'jtsx-tsx-mode)
-  (flycheck-add-mode 'typescript-tide 'rjsx-mode))
+  :mode (("\\.tsx\\'" . tsx-ts-mode)
+         ("\\.ts\\'" . typescript-ts-mode))
+  :hook  ((typescript-mode . tide-setup)
+          (typescript-ts-mode . tide-setup)
+          (tsx-ts-mode . tide-setup)))
 
 (provide 'mode-hooks)
 ;;; mode-hooks.el ends here
