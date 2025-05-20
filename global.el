@@ -240,7 +240,11 @@
   ;; TODO: resize-mini-windows
 
   ;; switch window reverse order
-  (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))))
+  (global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1)))
+  ;; Allow MacOS to use Cmd-Q
+  (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
+
+  )
 
 ;;; Commentary:
 

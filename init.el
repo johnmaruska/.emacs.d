@@ -16,6 +16,7 @@
 (setq create-lockfiles nil)
 (setq package-check-signature nil)
 
+
 (package-initialize)
 ;; (setq url-http-attempt-keepalives nil)
 (unless package-archive-contents
@@ -58,13 +59,28 @@
 
 (require 'computers "~/.emacs.d/computers.el")
 (when (macbook?)
-  (setup-mac-displays))
+  (setup-mac-displays)
+  ;; Allow Cmd-Q to close the program like anything else.
+  (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
+
+  (setq select-enable-clipboard t)
+  ;; paste-from-system
+  (global-set-key (kbd "s-v") 'clipboard-yank)
+  ;; copy-to-system
+  (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
+  ;; cut-to-system
+  (global-set-key (kbd "s-x") 'clipboard-kill-region)
+  
+  (setq
+   ;; Change modifier keys to fit muscle memory from previous installs.
+   mac-command-modifier 'super
+   mac-control-modifier 'control
+   mac-option-modifier  'meta
+   mac-right-option-modifier 'control)
+  )
+
 (when (file-exists-p "~/.emacs.d/secrets/tokens.el")
   (load "~/.emacs.d/secrets/tokens.el"))
-
-(defun chris-zoom ()
-  (interactive)
-  (browse-url "https://us02web.zoom.us/j/5734523216?pwd=Y2JjN29pYkFwcVZKZUx4RnN6N0VmZz09"))
 
 ;;; Commentary:
 
@@ -84,8 +100,7 @@
    '((eval progn
            (add-to-list 'exec-path
                         (concat
-                         (locate-dominating-file default-directory
-                                                 ".dir-locals.el")
+                         (locate-dominating-file default-directory ".dir-locals.el")
                          "node_modules/.bin/"))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
