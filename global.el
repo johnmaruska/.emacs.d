@@ -200,6 +200,16 @@
   (which-key-mode)
   (which-key-setup-side-window-bottom))
 
+(use-package yasnippet
+  :init (setq yas-snippet-dirs '("~/.emacs.d/snippets"  ;; Personal snippets
+                                 "~/.emacs.d/elpa/yasnippet-snippets-1.0/snippets/"  ;; Official snippets
+                                 ))
+  :config
+  (yas-global-mode))
+
+(use-package yasnippet-snippets
+  :ensure t)
+
 (require 'computers "~/.emacs.d/computers.el")
 (defun allow-menu-key ()
   "Allow use of the menu button for \\[execute-extended-command]."
