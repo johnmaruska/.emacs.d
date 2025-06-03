@@ -48,6 +48,10 @@
 (when (string= "MacOS" MY--operating-system)
   (setenv "M1" "TRUE"))
 
+;; Load secrets into environment variables
+(when (file-exists-p "~/.emacs.d/secrets/tokens.el")
+  (load "~/.emacs.d/secrets/tokens.el"))
+
 ;;;;;;;;;;;;;;;;
 ;;
 ;;    PATH variable
@@ -343,6 +347,32 @@ Intended for screen-sharing and pair programming."
 
 (default-appearance)
 (dark-background)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;
+;;    Eshell
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'eshell)
+(declare-function eshell/pwd "ext:eshell/pwd")
+(defvar eshell-prompt-function
+  (lambda ()
+    (concat
+     (propertize (format-time-string "%-I:%M:%S%p " (current-time))
+                 'face `(:foreground "#aaaaff"))
+     (propertize (abbreviate-file-name (eshell/pwd))
+                 'face `(:foreground "#aaaa44"))
+     (if (= (user-uid) 0) " # " " $ "))))
+
+(defun eshell/clear ()
+  "Clear the eshell buffer."
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -936,36 +966,10 @@ Intended for screen-sharing and pair programming."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;
-;;                    
+;;                    End of File
 ;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(require 'mode-line "~/.emacs.d/mode-line.el")
-
-(require 'eshell)
-(declare-function eshell/pwd "ext:eshell/pwd")
-(defvar eshell-prompt-function
-  (lambda ()
-    (concat
-     (propertize (format-time-string "%-I:%M:%S%p " (current-time))
-                 'face `(:foreground "#aaaaff"))
-     (propertize (abbreviate-file-name (eshell/pwd))
-                 'face `(:foreground "#aaaa44"))
-     (if (= (user-uid) 0) " # " " $ "))))
-
-(defun eshell/clear ()
-  "Clear the eshell buffer."
-  (let ((inhibit-read-only t))
-    (erase-buffer)
-    (eshell-send-input)))
-
-(require 'json)
-
-(when (file-exists-p "~/.emacs.d/secrets/tokens.el")
-  (load "~/.emacs.d/secrets/tokens.el"))
-
-
 
 ;;; Commentary:
 
