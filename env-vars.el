@@ -26,7 +26,6 @@
         "C:\\Users\\jackm"
         default-path))
 
-(require 'computers "~/.emacs.d/computers.el")
 (defvar path-list)
 (setq path-list
       (cond ((string= "macbook" MY--current-machine) macbook-path-list)
