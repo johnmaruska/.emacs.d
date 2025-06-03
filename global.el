@@ -40,7 +40,7 @@
   :ensure t
   :init (setq dashboard-startup-banner 'logo
               dashboard-items (cond
-                               ((convertible?)
+                               ((string= "convertible" MY--current-machine)
                                 '((recents . 10) (projects . 3)))
                                (t
                                 '((recents . 20) (projects . 10))))
@@ -50,7 +50,7 @@
                                           "Slow progress is still progress.")
               dashboard-set-heading-icons t
               dashboard-set-file-icons    t
-              dashboard-set-navigator     t)
+              dashboard-startupify-list   t)
   :config (dashboard-setup-startup-hook))
 
 (use-package delight
@@ -188,7 +188,7 @@
 (use-package uuidgen
   :ensure t)
 
-(when (windows?)
+(when (string= "Windows" MY--operating-system)
   (use-package vterm :ensure t))
 
 (use-package which-key

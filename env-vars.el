@@ -29,11 +29,11 @@
 (require 'computers "~/.emacs.d/computers.el")
 (defvar path-list)
 (setq path-list
-      (cond ((macbook?) macbook-path-list)
-            ((vingtor?) vingtor-path-list)
-            (t          (list default-path))))
+      (cond ((string= "macbook" MY--current-machine) macbook-path-list)
+            ((string= "vingtor" MY--current-machine) vingtor-path-list)
+            (t                                   (list default-path))))
 
-(defvar ORIGINAL_EXEC_PATH exec-path)
+(defvar MY--ORIGINAL_EXEC_PATH exec-path)
 
 (defun set-default-envvars ()
   "Set envvars to include default settings."
@@ -41,10 +41,12 @@
   (setenv "PAGER" "cat")
   (when window-system
     ;; this matters for sub-shell process (e.g. launch bash)
-
-    (setenv "PATH" (mapconcat 'identity path-list (if (vingtor?) ";" ":"))))
+    (setenv "PATH"
+            (mapconcat 'identity
+                       path-list
+                       (if (string= "vingtor" MY--current-machine) ";" ":"))))
   ;; this matters for eshell
-  (setq exec-path (append path-list ORIGINAL_EXEC_PATH)))
+  (setq exec-path (append path-list MY--ORIGINAL_EXEC_PATH)))
 
 (setenv "M1" "TRUE")
 

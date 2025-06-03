@@ -36,9 +36,10 @@
 
 (require 'computers "~/.emacs.d/computers.el")
 (defun font-height ()
+  "Value to use for font-height, varies with machine."
   (cond
-   ((convertible?) 130)
-   ((vingtor?) 105)
+   ((string= "convertible" MY--current-machine) 130)
+   ((string= "vingtor" MY--current-machine) 105)
    (t 135)))
 
 (defun default-appearance ()
@@ -52,6 +53,7 @@
                       :font    "JetBrains Mono"))
 
 (defun set-font-multiplier (multiplier)
+  "Adjust font height from current setting by MULTIPLIER."
   (set-face-attribute 'default nil
                       :height (floor (* multiplier (font-height)))))
 
@@ -66,6 +68,8 @@
   (set-font-multiplier 0.8))
 
 (defun slightly-smaller-font ()
+  "Set font size to a slight-smaller size.
+Intended for changing monitors with competing resolutions."
   (interactive)
   (set-font-multiplier 0.9))
 
@@ -75,7 +79,8 @@
   (set-font-multiplier 1.0))
 
 (defun bigger-font ()
-  "Make font larger."
+  "Make font larger.
+Intended for screen-sharing and pair programming."
   (interactive)
   (set-font-multiplier 1.5))
 
