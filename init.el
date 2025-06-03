@@ -702,7 +702,6 @@ Intended for screen-sharing and pair programming."
     (eshell-send-input)))
 
 (require 'json)
-(require 'utils "~/.emacs.d/utils.el")
 
 (when (file-exists-p "~/.emacs.d/secrets/tokens.el")
   (load "~/.emacs.d/secrets/tokens.el"))
