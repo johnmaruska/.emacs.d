@@ -36,36 +36,6 @@
         ((string= (system-name) "VINGTOR")
          "vingtor")))
 
-;;;;;;;;;;;;;;;;
-;;
-;;    MacBook Hotkeys
-;;
-;;;;;;;;;;;;;;;;
-
-(when (string= "macbook" MY--current-machine)
-  ;; Allow Cmd-Q to close the program like anything else.
-  (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
-
-  (setq select-enable-clipboard t)
-  ;; paste-from-system
-  (global-set-key (kbd "s-v") 'clipboard-yank)
-  ;; copy-to-system
-  (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
-  ;; cut-to-system
-  (global-set-key (kbd "s-x") 'clipboard-kill-region)
-
-  (global-set-key (kbd "s-a") 'mark-whole-buffer)
-  (global-set-key (kbd "<home>") 'beginning-of-buffer)
-  (global-set-key (kbd "<end>") 'end-of-buffer)
-
-  (setq
-   ;; Change modifier keys to fit muscle memory from previous installs.
-   mac-command-modifier 'super
-   mac-control-modifier 'control
-   mac-option-modifier  'meta
-   mac-right-option-modifier 'control)
-  )
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;
@@ -136,7 +106,6 @@
 (setq create-lockfiles nil)
 (setq package-check-signature nil)
 
-
 (package-initialize)
 ;; (setq url-http-attempt-keepalives nil)
 (unless package-archive-contents
@@ -152,6 +121,123 @@
 ;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq
+ default-directory         "~/"
+ display-time-default-load-average nil
+ ;; minibuffer history keeps only one of each unique entry
+ history-delete-duplicates t
+ ;; Don't display welcome screen
+ inhibit-startup-screen    t
+ require-final-newline     t
+ ;; mute the warning system sound
+ ring-bell-function        'ignore
+ ;; keyboard scroll one line at a time
+ scroll-step               1
+ ;; show key-binding suggestions for 5 seconds
+ suggest-key-bindings      5
+ )
+(setq-default
+ indent-tabs-mode nil  ; don't mix tabs and spaces
+ tab-width        4)
+
+;; cursor should blink
+(blink-cursor-mode      t)
+;; show column numbers
+(column-number-mode     t)
+;; show clock in status bar
+(display-time-mode      t)
+;; highlight line with cursor
+(global-hl-line-mode    t)
+(global-display-line-numbers-mode t)
+;; show menu-bar. Doesn't affect Mac OS
+(menu-bar-mode          (if (string= "Windows" MY--operating-system)
+                            -1 +1))
+;; hide scroll bar
+(scroll-bar-mode        -1)
+(set-fill-column        80)
+;; highlight matching paren
+(show-paren-mode        t)
+;; hide tool bar
+(tool-bar-mode          -1)
+;; [DEFAULT-ARG] instead of (default DEFAULT-ARG)
+(minibuffer-electric-default-mode t)
+
+
+(use-package auto-dim-other-buffers
+  :ensure t
+  :hook (after-init . (lambda ()
+                        (when (fboundp 'auto-dim-other-buffers-mode)
+                          (auto-dim-other-buffers-mode t)))))
+
+;; cursor lights beacon on windows change/scroll)
+(use-package beacon
+  :ensure t :delight
+  :config  (beacon-mode 1))
+
+;;;;;;;;
+;;
+;; Text completion backend
+;;
+;;;;;;;;
+(use-package company
+  :ensure t :delight
+  :init
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
+  (setq company-tooltip-align-annotations t
+        company-tooltip-limit 5
+        company-tooltip-flip-when-above t))
+
+;; Hide mode labels where configured
+(use-package delight :ensure t)
+
+(use-package emacs
+  :delight
+  (auto-fill-function)
+  (eldoc-mode)
+  (eshell-mode)
+  (lisp-interaction-mode)
+  (page-break-lines-mode))
+
+(use-package files
+  :config
+  (setq
+   auto-save-default nil
+   backup-inhibited  t
+   backup-directory-alist `((".*" . ,temporary-file-directory))
+   auto-save-file-name-transforms `((".*" ,temporary-file-directory t))
+   delete-old-versions t))
+
+(use-package ibuffer  ;; Interactive buffer management pane
+  :bind ("C-x C-b" . ibuffer))
+
+(use-package ido  ;; interactive buffer management actions
+  :ensure t
+  :config (ido-mode t))
+
+(use-package multiple-cursors :ensure t)
+
+;; display ^L linefeed character as a horizontal line
+(use-package page-break-lines
+  :ensure t :delight
+  :config (global-page-break-lines-mode))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    Icons
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package all-the-icons
+  :ensure t)
+
+(use-package major-mode-icons
+  :ensure t
+  :after  (all-the-icons)
+  :delight major-mode-icons-mode
+  :custom
+  (major-mode-icons-mode t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -169,8 +255,8 @@
     (interactive)
     (load-theme 'sanityinc-tomorrow-bright t)
     (auto-dim-other-buffers-mode t)
-    ;;; These values are _basically_sanityinc-tomorrow-bright, but made
-    ;;; brighter for higher contrast
+;;; These values are _basically_sanityinc-tomorrow-bright, but made
+;;; brighter for higher contrast
     (set-face-foreground 'font-lock-comment-face "#c090d0")
     (set-face-foreground 'font-lock-doc-face "#e0b0f0")
     (set-face-foreground 'font-lock-function-name-face "#f5a060")
@@ -261,16 +347,287 @@ Intended for screen-sharing and pair programming."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;
-;;                    
+;;                    Capabilities
 ;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'env-vars "~/.emacs.d/env-vars.el")
-(set-default-envvars)
+(use-package restclient :ensure t)
+(use-package uuidgen :ensure t)
+(when (string= "Windows" MY--operating-system)
+  (use-package vterm :ensure t))
 
-(require 'global "~/.emacs.d/global.el")
-(default-ui-configuration)
+;;;;;;;;
+;;
+;;   Text Search
+;;
+;;;;;;;;
+(use-package ag
+  :ensure t
+  :custom
+  (ag-reuse-window 't)
+  (ag-reuse-buffers 't))
+
+;;;;;;;;
+;;
+;;  Display a welcome dashboard instead of the scratch buffer
+;;
+;;;;;;;;
+(use-package dashboard
+  :ensure t
+  :init (setq  dashboard-startup-banner 'logo
+               dashboard-items
+               (cond
+                ((string= "convertible" MY--current-machine)
+                 '((recents . 10) (projects . 3)))
+                (t
+                 '((recents . 20) (projects . 10))))
+              dashboard-banner-logo-title "Welcome! Everything is fine."
+              dashboard-footer-messages
+              '("Don't check the internet. Just start working."
+                "Thank you for keeping trying."
+                "Slow progress is still progress.")
+              dashboard-set-heading-icons t
+              dashboard-set-file-icons    t
+              ;; dashboard-startupify-list   t
+              )
+  :config (dashboard-setup-startup-hook))
+
+;;;;;;;;
+;;
+;;    Directory-based environment settings
+;;
+;;;;;;;;
+(use-package direnv
+  :ensure t
+  :config (direnv-mode))
+
+(use-package eldoc
+  :config
+  (global-eldoc-mode))
+
+;;;;;;;;
+;;
+;;  Popup warnings
+;;
+;;;;;;;;
+(use-package flycheck
+  :ensure t :delight
+  :custom
+  (global-flycheck-mode +1))
+
+;;;;;;;;
+;;
+;;  TO-DO Highlighting
+;;
+;;;;;;;;
+(use-package hl-todo
+  :ensure t :delight
+  :custom
+  (global-hl-todo-mode +1)
+  :config
+  (setq hl-todo-keyword-faces
+        '(
+          ;; Default settings
+          ("HOLD"   . "#d0bf8f")
+          ("NEXT"   . "#dca3a3")
+          ("THEM"   . "#dc8cc3")
+          ("PROG"   . "#7cb8bb")
+          ("OKAY"   . "#7cb8bb")
+          ("DONT"   . "#5f7f5f")
+          ("FAIL"   . "#8c5353")
+          ("DONE"   . "#afd8af")
+          ("MAYBE"  . "#d0bf8f")
+          ("KLUDGE" . "#d0bf8f")
+          ("HACK"   . "#d0bf8f")
+          ("TEMP"   . "#d0bf8f")
+          ("FIXME"  . "#cc9393")
+          ("XXXX*"  . "#cc9393")
+          ;; My custom settings
+          ("NOTE"   . "#FFFFFF")
+          ("TODO"   . "#EED202")
+          ("WARN"   . "#FF7900")
+          ("ERROR"  . "#DD1D20"))))
+
+;;;;;;;;
+;;
+;;  Project Management
+;;
+;;;;;;;;
+(use-package projectile
+  :ensure t
+  :bind   (:map projectile-mode-map ("C-c C-p" . projectile-command-map))
+  :init   (setq projectile-enable-caching t
+                projectile-use-git-grep t
+                projectile-project-root-files '(".git")
+                projectile-project-root-files-bottom-up '(".projectile")
+                projectile-file-exists-remote-cache-expire (* 10 60)
+                projectile-create-missing-test-files t)
+  :config (projectile-mode))
+
+;;;;;;;;
+;;
+;; Tree-based file navigation
+;;
+;;;;;;;;
+(use-package treemacs
+  :ensure t
+  :bind ([f8] . treemacs)
+  :custom (treemacs-position 'right))
+(use-package treemacs-projectile
+  :after (treemacs projectile)
+  :ensure t)
+(use-package treemacs-all-the-icons
+  :after (treemacs all-the-icons)
+  :ensure t)
+(use-package treemacs-icons-dired
+  :ensure t
+  :hook (dired-mode . treemacs-icons-dired-enable-once))
+(use-package treemacs-magit
+  :after (treemacs magit)
+  :ensure t)
+
+;;;;;;;;
+;;
+;;  Parse-tree based syntax highlighting
+;;
+;;;;;;;;
+(use-package tree-sitter
+  :ensure t
+  :config (global-tree-sitter-mode)
+  :hook (tree-sitter-mode . tree-sitter-hl-mode))
+
+;;
+;; Pre-defined language grammars for tree-sitter
+;;
+(use-package tree-sitter-langs
+  :ensure t
+  :after (tree-sitter)
+  :config
+  ;;;; Move grammars to directory that tree-sitter can see them.
+  (let* ((files (directory-files (tree-sitter-langs--bin-dir)
+                                 nil "\\.dylib$")))
+    (dolist (grammar-file files)
+      (copy-file (concat (tree-sitter-langs--bin-dir) grammar-file)
+                 (concat (expand-file-name user-emacs-directory)
+                         "tree-sitter/" "libtree-sitter-" grammar-file)
+                 t)
+      (message "%s grammar files copied" (length files)))))
+
+;;;;;;;;
+;;
+;;  Pop-up display shows hotkeys for prefix
+;;
+;;;;;;;;
+(use-package which-key
+  :ensure t
+  :delight which-key-mode
+  :init (setq which-key-show-early-on-C-h t
+              which-key-popup-type 'side-window)
+  :config
+  (which-key-mode)
+  (which-key-setup-side-window-bottom))
+
+;;;;;;;;
+;;
+;;  Snippets
+;;
+;;;;;;;;
+(use-package yasnippet
+  :init (setq yas-snippet-dirs
+              '(;; Personal snippets
+                "~/.emacs.d/snippets"
+                ;; Official snippets
+                "~/.emacs.d/elpa/yasnippet-snippets-1.0/snippets/"))
+  :config
+  (yas-global-mode))
+
+(use-package yasnippet-snippets
+  :ensure t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;
+;;                    Hotkeys and Keybindings
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Allow use of the menu button for \\[execute-extended-command]. aka M-x
+(global-set-key (kbd "<apps>") 'execute-extended-command)
+
+;; Allow changing windows in reverse order
+(defun other-window-reverse ()
+  "Switch focused window in reverse order from default."
+  (other-window -1))
+
+(global-set-key (kbd "C-x O") 'other-window-reverse)
+
+;;;;;;;;;;;;;;;;
+;;
+;;    MacBook Hotkeys
+;;
+;;;;;;;;;;;;;;;;
+
+(when (string= "macbook" MY--current-machine)
+  ;; Allow Cmd-Q to close the program like anything else.
+  (global-set-key (kbd "s-q") 'save-buffers-kill-terminal)
+
+  (setq select-enable-clipboard t)
+  ;; paste-from-system
+  (global-set-key (kbd "s-v") 'clipboard-yank)
+  ;; copy-to-system
+  (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
+  ;; cut-to-system
+  (global-set-key (kbd "s-x") 'clipboard-kill-region)
+
+  (global-set-key (kbd "s-a") 'mark-whole-buffer)
+  (global-set-key (kbd "<home>") 'beginning-of-buffer)
+  (global-set-key (kbd "<end>") 'end-of-buffer)
+
+  (setq
+   ;; Change modifier keys to fit muscle memory from previous installs.
+   mac-command-modifier 'super
+   mac-control-modifier 'control
+   mac-option-modifier  'meta
+   )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;
+;;                      Language Modes
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;
+;;
+;;    Markdown
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package flymd
+  :ensure t
+  ;; use Firefox, not Chrome, for browser-open-function
+  ;; <https://github.com/mola-T/flymd/blob/master/browser.md#user-content-chrome-macos>
+  :init (setq flymd-browser-open-function
+              (lambda (url)
+                (let ((process-environment (browse-url-process-environment)))
+                  (apply 'start-process
+                         (concat "firefox " url)
+                         nil
+                         "/usr/bin/open"
+                         (list "-a" "firefox" url))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;
+;;                    
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'mode-hooks "~/.emacs.d/mode-hooks.el")
 (require 'mode-line "~/.emacs.d/mode-line.el")
