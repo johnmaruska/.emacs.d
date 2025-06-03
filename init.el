@@ -302,12 +302,6 @@
                       :width   'ultra-expanded
                       :font    "JetBrains Mono"))
 
-(defun default-appearance ()
-  "Change the appearance of Emacs to preferred default settings."
-  (interactive)
-  (default-font)
-  (dark-background))
-
 (defun set-font-multiplier (multiplier)
   "Adjust font height from current setting by MULTIPLIER."
   (set-face-attribute 'default nil
@@ -340,6 +334,12 @@ Intended for screen-sharing and pair programming."
   (interactive)
   (set-font-multiplier 1.5))
 
+
+(defun default-appearance ()
+  "Change the appearance of Emacs to preferred default settings."
+  (interactive)
+  (default-font)
+  (dark-background))
 
 (default-appearance)
 (dark-background)
@@ -601,6 +601,42 @@ Intended for screen-sharing and pair programming."
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;;;;;;;;;;;;;;;
+;;
+;;    HTML
+;;
+;;;;;;;;;;;;;;;;
+
+(defun html-format ()
+  "Machine-format text to human-readable form assuming HTML syntax."
+  (interactive)
+  (sgml-pretty-print (mark) (point)))
+
+(defun base64-decode-region-tobuff ()
+  (interactive)
+  (with-output-to-temp-buffer "*<base64> decoded*"
+    (when (use-region-p)
+      (print (base64-decode-string (buffer-substring (region-beginning) (region-end)))))))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    JSON
+;;
+;;;;;;;;;;;;;;;;
+
+(defun json-format ()
+  "Format JSON block to adhere to readable format."
+  (interactive)
+  (save-excursion
+    (shell-command-on-region (mark)
+                             (point)
+                             "python3 -m json.tool"
+                             (buffer-name)
+                             t)))
+
+(defun json-parse ()
+  (interactive)
+  (json-read-from-string (buffer-substring (mark) (point))))
 
 ;;;;;;;;;;;;;;;;
 ;;
@@ -620,6 +656,22 @@ Intended for screen-sharing and pair programming."
                          nil
                          "/usr/bin/open"
                          (list "-a" "firefox" url))))))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    XML
+;;
+;;;;;;;;;;;;;;;;
+
+(defun xml-format ()
+  "Format XML block to a readable format."
+  (interactive)
+  (save-excursion
+    (shell-command-on-region (mark)
+                             (point)
+                             "xmllint --format --encode utf-8 -"
+                             (buffer-name)
+                             t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
