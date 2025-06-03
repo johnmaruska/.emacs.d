@@ -418,6 +418,16 @@ Intended for screen-sharing and pair programming."
 
 ;;;;;;;;
 ;;
+;;  Warn against using non-Emacsy keybindings
+;;
+;;;;;;;;
+(use-package guru-mode
+  :ensure t :delight
+  :custom (guru-warn-only t)
+  :hook   (prog-mode . guru-mode))
+
+;;;;;;;;
+;;
 ;;  TO-DO Highlighting
 ;;
 ;;;;;;;;
@@ -601,6 +611,140 @@ Intended for screen-sharing and pair programming."
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package aggressive-indent
+  :ensure t :delight)
+
+(use-package autorevert :delight auto-revert-mode)
+
+(use-package paredit
+  :ensure t :delight
+  :hook   ((emacs-lisp-mode . paredit-mode)
+           (eval-expression-minibuffer-setup . paredit-mode)
+           (lisp-mode . paredit-mode)
+           (lisp-interaction-mode . paredit-mode))
+  :bind (:map paredit-mode-map
+              ("C-S-f" . forward-sexp)
+              ("C-S-b" . backward-sexp)))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook   (prog-mode . rainbow-delimiters-mode))
+
+(use-package whitespace
+  :delight
+  :config
+  (setq whitespace-style '(face empty tabs trailing))
+  (global-whitespace-mode 1))
+
+(use-package whitespace-cleanup-mode
+  :ensure t :delight whitespace-cleanup-mode
+  :hook   ((prog-mode . whitespace-cleanup-mode)
+           (text-mode . whitespace-cleanup-mode)))
+
+(use-package yafolding
+  :ensure t :delight
+  :hook   ((prog-mode . yafolding-mode)
+           (conf-mode . yafolding-mode))
+  :bind   (:map yafolding-mode-map
+                ("C-S-<tab>" . yafolding-hide-parent-element)
+                ("C-M-<tab>" . yafolding-toggle-all)
+                ("C-<tab>" . yafolding-toggle-element)))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    Miscellaneous, low frequency
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package csv-mode :ensure t
+  :bind (:map csv-mode-map ("C-c C-a" . csv-align-fields)))
+(use-package dockerfile-mode :ensure  t :delight dockerfile-mode)
+(use-package elisp-mode :delight emacs-lisp-mode)
+(use-package graphviz-dot-mode :ensure t
+  :custom (graphviz-dot-indent-width 4))
+(use-package kotlin-mode :ensure t :diminish kotlin-mode)
+(use-package lua-mode :ensure t :delight lua-mode)
+(use-package php-mode :ensure t :delight)
+(use-package scheme :delight scheme-mode
+  :hook (scheme-mode . paredit-mode))
+(use-package terraform-mode :ensure t  :delight terraform-mode)
+(use-package text-mode :delight text-mode
+  :hook (text-mode . auto-fill-mode))
+(use-package web-mode :ensure t
+  :mode (("\\.jinja\\'" . web-mode)))
+
+(use-package geiser :ensure t
+  :custom
+  (geiser-active-implementations '(mit))
+  (geiser-set-default-implementation 'mit))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    Clojure
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package cider
+  :after  (aggressive-indent)
+  :ensure t :delight
+  :init   (setq nrepl-use-ssh-fallback-for-remote-hosts t
+                cider-save-file-on-load t
+                nrepl-log-messages t)
+  :config
+  (add-to-list 'aggressive-indent-excluded-modes 'cider-repl-mode))
+
+(use-package cider-repl
+  :after  (clojure-mode paredit-mode)
+  :delight
+  :config (setq cider-repl-use-pretty-printing t)
+  :hook   (cider-repl-mode . (lambda () (paredit-mode 1)))
+  :bind   (:map cider-repl-mode-map
+                ("C-c M-i" . cider-inspect)
+                :map clojurescript-mode-map
+                ("C-c M-i" . cider-inspect)
+                :map clojure-mode-map
+                ("C-c M-i" . cider-inspect)))
+
+(use-package clojure-mode
+  :ensure t :delight clojure-mode
+  :after  (paredit aggressive-indent)
+  :hook   ((clojure-mode . (lambda ()
+                             (clj-refactor-mode 1)))
+           (clojure-mode . eldoc-mode)
+           (clojure-mode . paredit-mode)
+           (clojure-mode . (lambda () (aggressive-indent-mode 1)))
+           (clojurescript-mode . paredit-mode))
+  :config (define-clojure-indent
+            (defroutes 'defun)
+            (alet 1)
+            (GET 2)
+            (POST 2)
+            (PUT 2)
+            (DELETE 2)
+            (HEAD 2)
+            (ANY 2)
+            (OPTIONS 2)
+            (PATCH 2)
+            (rfn 2)
+            (let-routes 1)
+            (context 2)))
+
+(use-package clj-refactor
+  :ensure t :delight
+  :hook   (clojure-mode . (lambda () (clj-refactor-mode 1)))
+  :config
+  (setq cljr-warn-on-eval nil
+        cljr-magic-require-namespaces
+        '(("io"   . "clojure.java.io")
+          ("set"  . "clojure.set")
+          ("str"  . "clojure.string")
+          ("walk" . "clojure.walk")
+          ("zip"  . "clojure.zip")
+          ("time" . "clj-time.core")
+          ("log"  . "clojure.tools.logging")
+          ("json" . "cheshire.core")))
+  (cljr-add-keybindings-with-prefix "C-c C-m"))
+
 ;;;;;;;;;;;;;;;;
 ;;
 ;;    HTML
@@ -618,11 +762,42 @@ Intended for screen-sharing and pair programming."
     (when (use-region-p)
       (print (base64-decode-string (buffer-substring (region-beginning) (region-end)))))))
 
+
+;;;;;;;;;;;;;;;;
+;;
+;;    JavaScript
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package nvm
+  :ensure t
+  :config
+  ;; Optionally set a default node version
+  (nvm-use "18"))
+
+(use-package typescript-mode
+  :ensure t
+  :after (flycheck)
+  :delight typescript-mode
+  :custom
+  (typescript-indent-level 2))
+
+(use-package tide
+  :ensure t
+  :mode (("\\.tsx\\'" . tsx-ts-mode)
+         ("\\.ts\\'" . typescript-ts-mode))
+  :hook  ((typescript-mode . tide-setup)
+          (typescript-ts-mode . tide-setup)
+          (tsx-ts-mode . tide-setup)))
+
+
 ;;;;;;;;;;;;;;;;
 ;;
 ;;    JSON
 ;;
 ;;;;;;;;;;;;;;;;
+
+(use-package json-mode :ensure t :delight)
 
 (defun json-format ()
   "Format JSON block to adhere to readable format."
@@ -644,6 +819,16 @@ Intended for screen-sharing and pair programming."
 ;;
 ;;;;;;;;;;;;;;;;
 
+(use-package markdown-mode
+  :ensure  t
+  :delight markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :hook (markdown-mode . auto-fill-mode)
+  :init (setq markdown-command "multimarkdown"))
+
 (use-package flymd
   :ensure t
   ;; use Firefox, not Chrome, for browser-open-function
@@ -656,6 +841,67 @@ Intended for screen-sharing and pair programming."
                          nil
                          "/usr/bin/open"
                          (list "-a" "firefox" url))))))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    Org-Mode
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package org-mode
+  :hook (org-mode . turn-on-font-lock)
+  :delight org
+  :custom
+  (org-src-fontify-natively t "Apply font to code blocks")
+  (org-confirm-babel-evaluate nil)
+  (org-adapt-indentation nil)
+  (org-hide-leading-stars t)
+  :config
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               '((scheme . t)
+                                 (shell  . t))))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    Python
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package elpy
+  :ensure t
+  :init
+  (setq elpy-rpc-python-command "python3"
+        python-indent-guess-indent-offset-verbose nil
+        python-shell-completion-native-enable nil
+        python-shell-interpreter "python3")
+  :config
+  (elpy-enable))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    Shell
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package sh-script :delight sh-mode
+  :custom
+  (sh-basic-offset 2)
+  (sh-indentation 2))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    SQL
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package sqlformat
+  :ensure t
+  :hook (sql-mode . sqlformat-on-save)
+  :bind (:map sql-mode-map
+              ("C-c C-f" . 'sqlformat))
+  :config
+  (setq sqlformat-command 'sqlformat)
+  (define-key sql-mode-map (kbd "C-c C-f") 'sqlformat))
 
 ;;;;;;;;;;;;;;;;
 ;;
@@ -673,6 +919,20 @@ Intended for screen-sharing and pair programming."
                              (buffer-name)
                              t)))
 
+;;;;;;;;;;;;;;;;
+;;
+;;    YAML
+;;
+;;;;;;;;;;;;;;;;
+
+(use-package yaml-mode
+  :ensure  t
+  :delight yaml-mode
+  :after   (yafolding)
+  :mode    (("\\.jinja\\.schema\\'" . yaml-mode))
+  :hook    ((yaml-mode . yafolding-mode)
+            (yaml-mode . turn-off-auto-fill)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;
@@ -681,7 +941,6 @@ Intended for screen-sharing and pair programming."
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'mode-hooks "~/.emacs.d/mode-hooks.el")
 (require 'mode-line "~/.emacs.d/mode-line.el")
 
 (require 'eshell)
