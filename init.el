@@ -66,6 +66,58 @@
    mac-right-option-modifier 'control)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;;
+;;    Environment Variables
+;;
+;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setenv "PAGER" "cat")
+(when (string= "MacOS" MY--operating-system)
+  (setenv "M1" "TRUE"))
+
+;;;;;;;;;;;;;;;;
+;;
+;;    PATH variable
+;;
+;;;;;;;;;;;;;;;;
+
+(defvar default-path (getenv "PATH"))
+
+(defvar macbook-path-list
+  (list
+   "/nix/var/nix/profiles/default/bin/"  ; nix-blank commands
+   "/Users/johnmaruska/.nix-profile/bin/"  ; installed by nix-env
+   "/Users/johnmaruska/.sdkman/candidates/java/current/bin"
+   "/opt/homebrew/bin"
+   "/usr/local/bin"
+   "~/.serverless/bin"
+   "/opt/homebrew/Cellar/nvm/0.39.5"
+   "~/Library/Python/3.9/bin"
+   default-path))
+
+(defvar vingtor-path-list
+  (list "~/bin"
+        "C:\\Users\\jackm"
+        default-path))
+
+(defvar path-list
+  (cond ((string= "macbook" MY--current-machine) macbook-path-list)
+        ((string= "vingtor" MY--current-machine) vingtor-path-list)
+        (t                                   (list default-path))))
+(defvar MY--ORIGINAL_EXEC_PATH exec-path)
+
+(when window-system
+  ;; this matters for sub-shell process (e.g. launch bash)
+  (setenv "PATH"
+          (mapconcat 'identity
+                     path-list
+                     (if (string= "vingtor" MY--current-machine) ";" ":"))))
+;; this matters for eshell
+(setq exec-path (append path-list MY--ORIGINAL_EXEC_PATH))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;
